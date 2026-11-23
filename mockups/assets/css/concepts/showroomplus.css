@@ -149,3 +149,4 @@ main { display: grid; gap: 12px; padding-top: 12px; }
 .p-steps li { align-content: start; }
 /* prices and sums in the headline face (Atkinson's slashed zero is great for reading, odd in prices) */
 .p-sum td, .p-cmp__price, .p-tiers h3 span, .p-ribbon { font-family: var(--h); }
+.p-more__note .p-l { white-space: nowrap; }

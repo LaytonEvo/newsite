@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Showroom+ v2: design sheet</title>
+<link rel="stylesheet" href="assets/css/concepts/showroomplus2.css">
+<style>
+.sh{all:initial;display:block;background:#fff;color:#161616;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:40px clamp(16px,4vw,56px) 64px}
+.sh *{box-sizing:border-box}
+.sh h1{font:700 34px/1.1 system-ui;margin:0 0 6px}.sh h2{font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;margin:40px 0 14px;padding-top:16px;border-top:2px solid #161616}
+.sh p{margin:0 0 10px;max-width:72ch}.sh .lead{font-size:18px;max-width:80ch}
+.sh .meta{color:#555;margin-bottom:20px}
+.sh .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.sh .sw div{border:1px solid #ccc}.sh .sw b{display:flex;align-items:flex-end;height:84px;padding:8px 10px;font:600 13px system-ui}
+.sh .sw p{padding:8px 10px;margin:0;font-size:13px;line-height:1.4}
+.sh table{border-collapse:collapse;width:100%;max-width:1100px}.sh td,.sh th{text-align:left;vertical-align:top;padding:8px 12px 8px 0;border-bottom:1px solid #ddd}
+.sh .specimen{padding:24px;border:1px solid #ccc;margin-top:8px;overflow:hidden}
+.sh .cols{display:grid;gap:24px}@media(min-width:900px){.sh .cols{grid-template-columns:1fr 1fr 1fr}}
+.sh ul{margin:0;padding-left:18px}.sh li{margin:4px 0}
+.sh a{color:inherit}
+</style></head>
+<body><div class="sh">
+<p><a href="index.html">All concepts</a> · <a href="showroomplus2.html">View homepage</a> · <a href="showroomplus2-390.html">390px</a> · <a href="showroomplus2-1440.html">1440px</a></p>
+<h1>Showroom+ v2</h1>
+<p class="meta">Concept 9 · Direction: Showroom+ rebalanced: national, with Motocaddy, custom clubs and the members’ area as the three pillars</p>
+<p class="lead">Owner feedback: fitting was over-weighted for a business that sells across the UK from one bay in Ringwood, and next year’s big pushes are the custom club builder and the members’ area. So v2 keeps Showroom+’s calm, light, one-idea-per-screen structure but changes what the ideas are. The hero names Motocaddy and ‘clubs built for you’ and says ‘delivering across the UK’, not Ringwood. A full dark section sells the online builder with its real steps and live model counts (33 drivers, 21 fairways, 22 hybrids and utility irons, 47 irons), an example build with real spec options, and three routes for anyone unsure of their specs. The members’ section becomes a preview of the members’ area itself, using the perks published on the current members page. Fitting moves to a compact ‘Near Ringwood? Get fitted for free’ band, positioned as one of the ways to get your specs for the builder.</p>
+<h2>Structural changes from the brief’s section order</h2><p>Hero (three links: Motocaddy, build your clubs, join) → Motocaddy compare row → custom club builder (dark, the big push) → members’ area preview with the worked saving and both tiers → Wilson / Srixon / Mizuno / used grid (build custom first) → near-Ringwood fitting band → rest of the shop → footer with a Members column.</p>
+
+<h2>Palette</h2>
+<div class="sw"><div><b style="background:#0e4d35;color:#fff">Evolution green · #0E4D35</b><p>EG mark, buttons, footer, step numbers.<br><small>9.9:1 on white · 1.9:1 on #111</small></p></div><div><b style="background:#0b6b47;color:#fff">Link green · #0B6B47</b><p>Text links (6.6:1 on white).<br><small>6.5:1 on white · 2.9:1 on #111</small></p></div><div><b style="background:#f3f5f4;color:#111">Mist · #F3F5F4</b><p>Light tiles.<br><small>1.1:1 on white · 17.2:1 on #111</small></p></div><div><b style="background:#16201b;color:#fff">Ink · #16201B</b><p>Text; the builder section and one grid cell.<br><small>16.7:1 on white · 1.1:1 on #111</small></p></div><div><b style="background:#56605b;color:#fff">Slate · #56605B</b><p>Secondary text.<br><small>6.5:1 on white · 2.9:1 on #111</small></p></div><div><b style="background:#a7e3c3;color:#111">Fern · #A7E3C3</b><p>Links and chips on dark (builder, footer).<br><small>1.5:1 on white · 13.0:1 on #111</small></p></div></div>
+
+<h2>Typefaces</h2>
+<table><tr><th>Headlines and prices</th><td><span style="font:700 30px/1 'Schibsted';font-size:28px">Schibsted Grotesk (variable)</span></td><td>Google Fonts, SIL OFL.</td></tr><tr><th>Body and UI</th><td><span style="font:400 24px/1.2 'Atkinson';font-size:28px">Atkinson Hyperlegible (400/700)</span></td><td>Google Fonts, SIL OFL. Very clear for older trolley buyers.</td></tr></table>
+
+<h2>Key components (rendered from the concept’s own CSS)</h2>
+<p><strong>Builder entry.</strong> Club-type cards with live model counts, an example build with real spec options as chips, and a ‘Start building’ button.</p><div class="specimen" style="background:#16201b"><div class="p" style="background:#16201b;padding:16px"><div class="p-build__grid">
+    <ul class="p-types" aria-label="Start with a club type"><li><a href="/pages/build-your-clubs">
+      <span class="p-types__n">33<small> models</small></span><strong>Drivers</strong><span>Distance and forgiveness off the tee</span><img src="assets/img/cutouts/mizuno-jpx-one-driver-400.webp" alt="" width="400" height="400" loading="lazy"></a></li><li><a href="/pages/build-your-clubs">
+      <span class="p-types__n">21<small> models</small></span><strong>Fairway woods</strong><span>Long approaches and tee-shot alternatives</span></a></li><li><a href="/pages/build-your-clubs">
+      <span class="p-types__n">22<small> models</small></span><strong>Hybrids &amp; utility irons</strong><span>Easier long irons that launch higher</span></a></li><li><a href="/pages/build-your-clubs">
+      <span class="p-types__n">47<small> models</small></span><strong>Irons</strong><span>Built to your specs, shaft and lie</span><img src="assets/img/cutouts/wilson-staff-model-blade-400.webp" alt="" width="400" height="400" loading="lazy"></a></li></ul>
+    <aside class="p-spec" aria-labelledby="p-ex">
+      <p class="p-spec__tag">Example build</p>
+      <h3 id="p-ex">Wilson Staff Model Blade irons</h3>
+      <img src="assets/img/cutouts/wilson-staff-model-blade-400.webp" alt="" width="400" height="400" loading="lazy">
+      <dl>
+        <div><dt>Hand</dt><dd><span class="p-chip is-on">Right</span><span class="p-chip">Left</span></dd></div>
+        <div><dt>Set</dt><dd><span class="p-chip is-on">5-PW</span><span class="p-chip ">4-PW</span></dd></div><div><dt>Shaft</dt><dd><span class="p-chip is-on">Dynamic Gold Mid 115</span></dd></div><div><dt>Flex</dt><dd><span class="p-chip is-on">Stiff</span></dd></div>
+        <div><dt>Lie, length, grip</dt><dd class="p-spec__dim">Set in the builder</dd></div>
+      </dl>
+      <p class="p-spec__price">From £899</p>
+      <a class="p-btn" href="/pages/build-your-clubs">Start building</a>
+    </aside>
+  </div></div></div><p><strong>Members’ area preview.</strong> A framed preview of what’s inside the members’ area, from the perks on the current members page.</p><div class="specimen" style=""><div class="p"><div class="p-portal" aria-labelledby="p-po">
+      <p class="p-portal__bar"><span class="p-mark" aria-hidden="true"><span>EG</span></span><span id="p-po">Inside the members’ area</span><span class="p-portal__url">members.evolutiongolf.co.uk</span></p>
+      <ul><li><strong>Members’-area deals</strong><span>5% off on Free, 15% off on Annual</span></li><li><strong>Your monthly 10% off</strong><span>One order a month for Annual members</span></li><li><strong>Loyalty points</strong><span>1× on Free, 1.25× on Annual</span></li><li><strong>Prize draw</strong><span>A monthly entry for Annual members</span></li><li><strong>Early access</strong><span>48 hours before new products go on general sale</span></li><li><strong>Trade-in bonus</strong><span>+5% on your valuation after 60 days</span></li></ul>
+    </div></div></div><p><strong>Navigation.</strong> ‘Custom clubs’ and ‘Membership’ in the main nav; a labelled ‘Members’ link sits next to the basket so members can always log in.</p><div class="specimen" style=""><div class="p"><header class="p-nav"><nav aria-label="Main"><ul>
+  <li><a class="p-mark" href="#" aria-label="Evolution Golf, home"><span aria-hidden="true">EG</span></a></li>
+  <li class="p-nav__item"><a href="#">Trolleys</a></li><li class="p-nav__item"><a href="#">Custom clubs</a></li><li class="p-nav__item"><a href="#">Clubs</a></li><li class="p-nav__item"><a href="#">Membership</a></li><li class="p-nav__item"><a href="#">Bags</a></li><li class="p-nav__item"><a href="#">Balls &amp; GPS</a></li><li class="p-nav__item"><a href="#">Used</a></li><li class="p-nav__item"><a href="#">Sale</a></li>
+  <li class="p-nav__push"><a href="#" aria-label="Search"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
+  <li><a class="p-members" href="#members" aria-label="Members’ area"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="7" r="3.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 17c1.2-3 3.6-4.5 6.5-4.5s5.3 1.5 6.5 4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span>Members</span></a></li>
+  <li><a href="#" aria-label="Basket, 0 items"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 7h11l-.8 10H5.3L4.5 7Z M7.5 7V5.5a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li><li class="p-nav__menu"><a href="#" aria-label="Menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7h14M3 13h14" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
+</ul></nav></header>
+<p class="p-ribbon">Free next-day UK delivery over £500, order by 1pm. Annual members get free delivery from £<span class="q" title="To be confirmed: Owner decision: annual-member threshold (not configured in Shopify today)">10</span>. <a class="p-l" href="#members">Join free<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></p></div></div>
+
+<div class="cols">
+<div><h2>Imagery and photography</h2><p>Product cut-outs on light tiles; club heads on the dark builder section. One photo of the fitting bay for the near-Ringwood band. No staff portraits needed on the homepage any more (they move to the fitting page).</p></div>
+<div><h2>Headline copy</h2><p><strong>H1:</strong> “Motocaddy trolleys. Clubs built for you.”</p><p><strong>Sections:</strong> “Which Motocaddy is right for you?” · “Build your clubs online.” · “Members get more.” · “Near Ringwood? Get fitted for free.”</p></div>
+<div><h2>Motion</h2><p>As Showroom+: tiles fade up; builder type cards lift on hover; chips toggle in the example build.</p></div>
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:180px">Does well</th><td>Reads as a UK-wide specialist, not a local shop; gives the builder and the members’ area the weight they need for next year; fitting still visible as a genuine extra for people nearby; needs only one new photograph.</td></tr>
+<tr><th>Weaker on</th><td>Less human than v1 (no faces on the homepage); the members’ perks are numerous, so the preview must stay in step with the portal; builder counts must update from data, not by hand.</td></tr>
+<tr><th>Build effort</th><td>Medium: builder entry should read live counts from the builder’s data source; members’ preview needs a single source shared with the portal.</td></tr>
+<tr><th>Photography needed</th><td>Low: one shot of the fitting bay.</td></tr>
+<tr><th>Suits best</th><td>UK-wide buyers of Motocaddy trolleys and custom clubs; members and would-be members.</td></tr>
+</table>
+<p style="margin-top:24px;color:#555">EG monogram: As Showroom+: ‘EG’ in Schibsted Grotesk Bold, white on Evolution green (suggestion only; the mark itself isn’t being redesigned here).</p>
+</div></body></html>
