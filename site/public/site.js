@@ -137,12 +137,17 @@
       $("[data-empty]").hidden = n > 0;
       const active = Object.values(sel).flat().length;
       const fn = $("[data-filter-n]"); if (fn) fn.textContent = active ? ` (${active})` : "";
+      // in-stock switch mirrors the Availability "In stock" option; chips list what's applied
+      const ins = $("[data-instock]"); if (ins) ins.checked = (sel.availability || []).includes("In stock");
+      const chips = $("[data-chips]");
+      if (chips) chips.innerHTML = Object.entries(sel).flatMap(([k, vals]) => vals.map((v) => `<button type="button" class="v-chip" data-chip-f="${k}" data-chip-v="${esc(v)}">${esc(v)} <span aria-hidden="true">×</span><span class="sr"> remove filter</span></button>`)).join("");
       const go = $("[data-finder-go]");
       if (go) go.textContent = need.length ? `Show ${n} trolley${n === 1 ? "" : "s"}` : `Show all ${cards.length} trolleys`;
       sort();
     };
     const sort = () => {
       const by = $("[data-sort]").value;
+      const ss = $("[data-sort-sheet]"); if (ss) ss.value = by;
       const num = (c, k) => parseFloat(c.dataset[k]) || 0;
       const cmp = {
         rec: (a, b) => num(a, "rank") - num(b, "rank"),
@@ -161,6 +166,10 @@
       if (i.matches("input[data-f]")) {
         $$(`input[data-f="${i.dataset.f}"]`).forEach((o) => { if (o.value === i.value) o.checked = i.checked; });
         apply();
+      } else if (i.matches("[data-sort-sheet]")) { $("[data-sort]").value = i.value; apply(); }
+      else if (i.matches("[data-instock]")) {
+        $$('input[data-f="availability"]').forEach((o) => { if (o.value === "In stock") o.checked = i.checked; });
+        apply();
       } else if (i.matches("[data-sort]") || i.closest("[data-finder]")) apply();
     });
     finder?.addEventListener("submit", (e) => { e.preventDefault(); apply(); $("#grid").scrollIntoView({ behavior: "smooth" }); });
@@ -175,6 +184,16 @@
     $$("[data-close-filters]").forEach((b) => b.addEventListener("click", close));
     sheet?.addEventListener("click", (e) => { if (e.target === sheet) close(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && sheet && !sheet.hidden) close(); });
+    document.addEventListener("click", (e) => {
+      const c = e.target.closest("[data-chip-f]"); if (!c) return;
+      $$(`input[data-f="${c.dataset.chipF}"]`).forEach((o) => { if (o.value === c.dataset.chipV) o.checked = false; });
+      apply(); ($("[data-chips] .v-chip") || $("[data-sort]")).focus();
+    });
+    // phones: the finder is a compact card that opens in place
+    const fbox = $("[data-finder-box]"), fopen = $("[data-finder-open]");
+    const openFinder = () => { fbox.classList.add("is-open"); fopen.setAttribute("aria-expanded", "true"); $("input", fbox)?.focus(); };
+    fopen?.addEventListener("click", openFinder);
+    if (location.hash === "#finder" && fopen && getComputedStyle(fopen).display !== "none") openFinder();
     // ?brand=Motocaddy preselects a brand (links from product pages)
     const brand = new URLSearchParams(location.search).get("brand");
     if (brand) $$(`input[data-f="brand"]`).forEach((i) => (i.checked = i.value === brand));

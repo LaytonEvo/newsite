@@ -30,7 +30,7 @@ const batteryOpts = (f) => [holesOf(f).includes("18 holes") && "18 holes", holes
 const stockLabel = { in: "In stock", order: "Available to order", out: "Out of stock" };
 const tags = (f) => ({
   brand: [f.brand], features: featsOf(f), battery: batteryOpts(f), weight: [weightBand(S(f).weight)],
-  price: [priceBand(S(f).from)], availability: [stockLabel[S(f).stock.state]],
+  price: [priceBand(S(f).price)], availability: [stockLabel[S(f).stock.state]],
 });
 // price and availability first: on a £479 to £1,299 range they are what people filter by first (CRO review, round 1)
 const GROUPS = [["availability", "Availability"], ["price", "Price"], ["features", "Features"], ["battery", "Battery range"], ["brand", "Brand"]]; // weight returns once every model has one
@@ -46,7 +46,7 @@ const filtersHtml = () => filterGroups().map(([k, h, opts]) => `<fieldset class=
 const card = (f, i) => {
   const s = S(f); const r = s.rating; const t = tags(f);
   const data = Object.entries(t).map(([k, v]) => `data-${k}="${esc(v.join("|"))}"`).join(" ");
-  return html`<li class="v-card v-card--${s.stock.state}" data-card ${data} data-price-n="${s.from}" data-weight-n="${s.weight ?? ""}" data-rating-n="${r.count ? r.avg : 0}" data-year="${f.year ?? 0}" data-rank="${i}" data-stock="${s.stock.state}">
+  return html`<li class="v-card v-card--${s.stock.state}" data-card ${data} data-price-n="${s.price}" data-weight-n="${s.weight ?? ""}" data-rating-n="${r.count ? r.avg : 0}" data-year="${f.year ?? 0}" data-rank="${i}" data-stock="${s.stock.state}">
     <a href="${f.href}" class="v-card__link">
       <span class="v-card__img"><img src="${cut(f.image, 400)}" alt="" width="400" height="400" loading="lazy"></span>
       <span class="v-card__brand">${esc(f.brand)}${f.year === 2026 ? " · 2026" : ""}</span>
@@ -54,7 +54,7 @@ const card = (f, i) => {
       <span class="v-card__feat">${esc(t.features.length ? t.features.join(" · ") : "Essential controls")}</span>
       <span class="v-card__bat">Battery: ${esc(f.variants.map((v) => `${v.battery.replace(" lithium", "")} (${v.holes})`).join(" or "))}</span>
       ${s.weight ? `<span class="v-card__bat">Weight: ${s.weight}kg</span>` : ""}
-      <span class="v-card__price">${f.variants.length > 1 ? "<small>From</small> " : ""}${gbp(s.from)}</span>
+      <span class="v-card__price">${s.priceFrom ? "<small>From</small> " : ""}${gbp(s.price)}</span>
       <span class="v-card__stock">${stockWord(s.stock)}${s.stock.detail ? ` · ${esc(s.stock.detail)}` : ""}</span>
       ${r.count ? `<span class="v-card__rate"><span aria-hidden="true">★</span> ${r.avg.toFixed(1)} · ${r.count} review${r.count > 1 ? "s" : ""}</span>` : ""}
     </a>
@@ -66,9 +66,10 @@ const card = (f, i) => {
 const radio = (name, value, label, on) => `<label><input type="radio" name="${name}" value="${value}"${on ? ' checked=""' : ""}>${label}</label>`;
 const finder = () => {
   // starts unanswered; every answer narrows the grid and in-stock models rank first (site.js)
-  return html`<section class="v-finder" aria-labelledby="v-fd">
-  <div class="v-finder__head"><h2 id="v-fd">Which trolley is right for me?</h2><p>Four quick questions, then we’ll show the trolleys that fit.</p></div>
-  <form class="v-finder__q" action="#grid" data-finder>
+  return html`<section class="v-finder" id="finder" aria-labelledby="v-fd" data-finder-box>
+  <div class="v-finder__head"><h2 id="v-fd">Which trolley is right for me?</h2><p>Four quick questions, then we’ll show the trolleys that fit.</p>
+    <button type="button" class="p-btn v-finder__open" aria-expanded="false" aria-controls="v-finder-q" data-finder-open>Answer 4 questions</button></div>
+  <form class="v-finder__q" id="v-finder-q" action="#grid" data-finder>
     <fieldset><legend>Course maps?</legend>${radio("gps", "GPS", "GPS")}${radio("gps", "", "Not needed")}</fieldset>
     <fieldset><legend>Hilly course?</legend>${radio("dhc", "Downhill control", "Downhill control")}${radio("dhc", "", "Not needed")}</fieldset>
     <fieldset><legend>Steering?</legend>${radio("rem", "", "Handle")}${radio("rem", "Remote", "Remote")}${radio("rem", "Follow", "Follow")}</fieldset>
@@ -96,7 +97,9 @@ export const collection = ({ drawer = false } = {}) => {
     <p class="v-bar__n" aria-live="polite"><strong data-count>${trolleys.length}</strong> trolleys</p>
     <button type="button" class="v-bar__filter" data-open-filters aria-controls="v-filter-sheet">Filters<span data-filter-n></span></button>
     <label class="v-sort"><span>Sort</span><select data-sort><option value="rec">Recommended</option><option value="low">Price, low to high</option><option value="high">Price, high to low</option><option value="new">Newest</option><option value="rated">Best rated</option></select></label>
+    <label class="v-toggle"><input type="checkbox" data-instock> In stock only</label>
     <p class="v-bar__note">Out-of-stock models always show last.</p>
+    <div class="v-chips" data-chips aria-label="Filters applied"></div>
   </div>
   <div class="v-layout">
     <aside class="v-filters" aria-label="Filter trolleys" data-filters>${filtersHtml()}</aside>
@@ -113,7 +116,7 @@ export const collection = ({ drawer = false } = {}) => {
 </main>
 ${drawer !== false ? html`<div class="v-drawer" id="v-filter-sheet" role="dialog" aria-modal="true" aria-labelledby="v-dr"${drawer === "hidden" ? " hidden" : ""} data-sheet><div class="v-drawer__panel">
   <div class="v-drawer__top"><h2 id="v-dr">Filters</h2><button type="button" class="v-x" aria-label="Close filters" data-close-filters>×</button></div>
-  <div class="v-drawer__body" data-filters>${filtersHtml()}</div>
+  <div class="v-drawer__body"><label class="v-sort v-sort--sheet"><span>Sort</span><select data-sort-sheet><option value="rec">Recommended</option><option value="low">Price, low to high</option><option value="high">Price, high to low</option><option value="new">Newest</option><option value="rated">Best rated</option></select></label><div data-filters>${filtersHtml()}</div></div>
   <div class="v-drawer__foot"><button type="button" class="v-clear" data-clear>Clear all</button><button type="button" class="p-btn" data-close-filters>Show <span data-count>${trolleys.length}</span> trolleys</button></div>
 </div></div>` : ""}`);
 };
@@ -130,6 +133,16 @@ const autoDetail = (f) => {
   if (f.weightKg) specs.push(["Weight", `${f.weightKg}kg`]);
   if (f.warranty) specs.push(["Warranty", f.warranty]);
   return { gallery: [f.image], intro: null, highlights: [], specs, compare: [f.id, ...near.map((o) => o.id)], bundle: null };
+};
+
+/** out-of-stock product pages: the closest trolleys by price that can ship now (CRO round 1, #2) */
+const similarInStock = (f) => {
+  const near = trolleys.filter((o) => o.id !== f.id && S(o).stock.state === "in")
+    .sort((a, b) => Math.abs(S(a).price - S(f).from) - Math.abs(S(b).price - S(f).from)).slice(0, 3);
+  if (!near.length) return "";
+  return html`<section class="v-sec v-similar" aria-labelledby="v-si"><h2 id="v-si">In stock now, and similar</h2>
+    <ul class="v-grid v-grid--3">${near.map((o) => { const so = S(o); return `<li class="v-card v-card--in"><a href="${o.href}" class="v-card__link"><span class="v-card__img"><img src="${cut(o.image, 400)}" alt="" width="400" height="400" loading="lazy"></span><span class="v-card__brand">${esc(o.brand)}</span><h3 class="v-card__name">${esc(o.name)}</h3><span class="v-card__feat">${esc(featsOf(o).join(" · ") || "Essential controls")}</span><span class="v-card__price">${gbp(so.price)}</span><span class="v-card__stock">In stock${so.stock.detail ? ` · ${esc(so.stock.detail)}` : ""}</span></a></li>`; }).join("")}</ul>
+  </section>`;
 };
 
 export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
@@ -154,7 +167,7 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
         <li><button type="button" class="v-gallery__vid" aria-label="Play product video"><span aria-hidden="true">▶</span><span class="q" title="To be confirmed: product video (Motocaddy supplies one per model)">Video</span></button></li>
       </ul>
     </section>
-    <section class="v-buy" aria-labelledby="v-h1">
+    <section class="v-buy" id="buy" aria-labelledby="v-h1">
       <p class="v-buy__brand"><a href="${to(f.brand)}">${esc(f.brand)}</a>${f.year ? ` · ${f.year}` : ""}</p>
       <h1 id="v-h1">${esc(f.name)} electric trolley</h1>
       ${r.count ? `<p class="v-buy__rate"><a href="#reviews"><span aria-hidden="true">★★★★★</span> ${r.avg.toFixed(1)} · ${r.count} review${r.count > 1 ? "s" : ""} of this trolley</a></p>` : ""}
@@ -170,13 +183,14 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
         <p class="v-price__fin">Or 3 interest-free payments of <span data-third>${gbp(pence(first.price / 3), { pence: true })}</span> with Klarna or Clearpay. <span class="q" title="To be confirmed: finance wording must use the providers’ approved text">Wording to be confirmed with providers</span>.</p>
       </div>
 
+
+      <div class="v-actions"><button type="button" class="p-btn v-atb" data-add>${vStock(first) === "out" ? "Email me when it’s back" : "Add to basket"}</button><button type="button" class="v-collect" data-add="collect">Or click and collect from our Hampshire showroom</button></div>
+      <p class="v-added" data-added role="status" hidden></p>
+
       ${giftOn ? html`<fieldset class="v-gift"><legend>Choose your free accessory</legend>
         ${["Gift option 1", "Gift option 2", "Gift option 3"].map((g, i) => `<label class="v-gift__opt${i === 0 ? " is-on" : ""}"><input type="radio" name="gift" value="${g}"${i === 0 ? ' checked=""' : ""}><span class="q" title="To be confirmed: gift list comes from the free-gift app">${g}</span></label>`).join("")}
         <p class="v-fnote">${q("offers.trolleyGift")}</p>
       </fieldset>` : ""}
-
-      <div class="v-actions"><button type="button" class="p-btn v-atb" data-add>${vStock(first) === "out" ? "Email me when it’s back" : "Add to basket"}</button><button type="button" class="v-collect" data-add="collect">Or click and collect from our Hampshire showroom</button></div>
-      <p class="v-added" data-added role="status" hidden></p>
 
       <ul class="v-assure">
         <li>${ic.truck}<span>${freeNext ? "<strong>Free next-day UK delivery.</strong>" : `<strong>Next-day UK delivery</strong> ${gbp(val("delivery.nextDayPrice"), { pence: true })}, free over ${gbp(val("delivery.nextDayFreeThreshold"))}.`} Order by ${esc(val("delivery.nextDayCutoff"))} on a weekday<span data-cutoff></span>.</span></li>
@@ -192,6 +206,8 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
       </div>` : ""}
     </section>
   </div>
+
+  ${s.stock.state === "out" ? similarInStock(f) : ""}
 
   ${d.highlights.length ? html`<section class="v-sec" aria-labelledby="v-hl"><h2 id="v-hl">Highlights</h2>
     <ul class="v-hl">${d.highlights.map(([h, p, img]) => `<li><img src="${cut(img, 400)}" alt="" width="400" height="400" loading="lazy"><h3>${esc(h)}</h3><p>${esc(p)}</p></li>`).join("")}</ul>

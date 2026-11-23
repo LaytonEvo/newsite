@@ -11,6 +11,7 @@ site.routes = {
   "Back to electric trolleys": "/trolleys/",
   Homepage: "/",
   Basket: "/basket/",
+  Finder: "/trolleys/#finder",
   Members: "/#members",
   Motocaddy: "/trolleys/?brand=Motocaddy",
   NAVEE: "/trolleys/?brand=NAVEE",

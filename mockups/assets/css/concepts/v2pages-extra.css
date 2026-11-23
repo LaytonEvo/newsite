@@ -240,3 +240,32 @@ html { scroll-padding-bottom: 96px; }
 .v-done h2 { font: 750 32px var(--h); }
 @media (min-width: 900px) { .v-co { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); } .v-co__sum { position: sticky; top: 80px; } }
 .v-drawer[hidden] { display: none; }
+
+/* ===== review round 2 ===== */
+/* finder: compact card on phones, expands in place */
+.v-finder__open { display: none; margin-top: 12px; }
+@media (max-width: 899px) {
+  .v-finder { padding: 18px 18px; margin-top: 14px; }
+  .v-finder__open { display: inline-flex; }
+  .v-finder:not(.is-open) .v-finder__q { display: none; }
+  .v-finder.is-open .v-finder__open { display: none; }
+  .v-head { padding-top: 12px; }
+  .v-head h1 { font-size: 34px; }
+  .v-head__sub { font-size: 16px; }
+  .v-promise li:nth-child(n+2) { display: none; } /* phones: delivery line only; members and price match are on every product page */
+}
+/* toolbar: in-stock toggle and applied-filter chips */
+.v-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.v-toggle input { width: 22px; height: 22px; margin: 0; accent-color: var(--green); }
+.v-chips { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; }
+.v-chips:empty { display: none; }
+.v-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1.5px solid var(--green); background: #f0f7f3; font: 700 14px var(--b); color: var(--ink); cursor: pointer; }
+.v-chip span[aria-hidden] { font-size: 16px; line-height: 1; }
+@media (max-width: 999px) { .v-bar { top: 0; } .v-bar__note { display: none; } }
+.v-sort--sheet { width: 100%; justify-content: space-between; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid #e6eae8; }
+/* similar and in stock */
+.v-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 700px) { .v-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* desktop buy box: tighter so Add to basket sits above the fold */
+@media (min-width: 1000px) { .v-buy { gap: 12px; } .v-opt__card { min-height: 58px; padding: 10px 16px; } .v-price { padding: 12px 0; } }
+.v-gift { margin-top: 4px; }

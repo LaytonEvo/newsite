@@ -282,3 +282,41 @@ main { display: grid; gap: 12px; padding-top: 12px; }
 .p-menu a { justify-content: flex-start; min-height: 48px; font: 700 18px var(--h); color: var(--ink); border-bottom: 1px solid #eef1ef; }
 @media (min-width: 900px) { .p-menu { display: none !important; } }
 .p-nav ul.p-menu a { display: flex; width: 100%; }
+
+/* ===== review round 2 ===== */
+/* hero: one primary action with a price, then a quiet trust strip */
+.p-hero__cta { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 16px; margin-top: 22px; }
+.p-hero__cta span { font: 700 17px var(--h); color: var(--slate); }
+.p-btn--l { min-height: 56px; padding: 0 30px; font-size: 18px; }
+.p-tile--hero .p-links { margin-top: 6px; }
+.p-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-top: 18px; font-size: 15px; color: #2b3530; }
+.p-trust li { display: inline-flex; align-items: center; gap: 8px; }
+.p-trust svg { width: 20px; height: 20px; color: var(--green); }
+.p-trust__i { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: var(--green); color: #fff; font: 800 11px var(--h); }
+@media (max-width: 899px) {
+  .p-tile--hero { padding-top: 28px; }
+  .p-tile--hero h1 { font-size: clamp(38px, 10.5vw, 48px); }
+  .p-tile--hero .p-sub { font-size: 17px; }
+  .p-tile--hero .p-media { margin-top: 4px; }
+  .p-tile--hero .p-media img.p-hero2__t { width: 72%; }
+  .p-trust { font-size: 14px; gap: 6px 16px; }
+}
+/* ribbon: one line on phones */
+@media (max-width: 699px) { .p-ribbon { font-size: 14px; padding: 9px 12px; } .p-ribbon__more { display: none; } }
+/* compare: sideways on phones so two models sit side by side; buttons 44px */
+.p-btn--s { min-height: 44px; }
+.p-cmp__hint { display: none; text-align: center; font-size: 14px; color: var(--slate); margin-top: 18px; }
+.p-cmp:focus-visible { outline: 2.5px solid var(--link); outline-offset: 4px; }
+.p-cmp__col h3 { min-height: 2.2em; display: flex; align-items: flex-end; justify-content: center; }
+@media (max-width: 899px) {
+  .p-cmp__hint { display: block; }
+  .p-cmp { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin: 12px calc(var(--g) * -1) 20px; padding: 0 var(--g) 8px; width: auto; max-width: none; }
+  .p-cmp__col { flex: 0 0 46%; scroll-snap-align: start; }
+  .p-cmp__col h3 { font-size: 20px; }
+}
+/* tap targets (UX round 1, #15) */
+.p-foot li a { min-height: 44px; }
+.v-crumbs a, .v-crumbs span { min-height: 44px; }
+main { grid-template-columns: minmax(0, 1fr); }
+.p-cmp { min-width: 0; }
+.p-cmp__col { position: relative; } /* keeps the visually-hidden "Buy the …" text inside the scroller */

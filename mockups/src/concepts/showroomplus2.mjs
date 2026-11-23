@@ -3,7 +3,7 @@
 // fitting becomes a supporting "near Ringwood?" option.
 import {
   html, esc, gbp, q, qt, val, facts, families, fam, spec, stockWord, clubs, otherBrands, secondary, saving, tiers, perk,
-  catalogue, cut, photo, phone, email, hours, companyLine, payments, cookie, doc, placeholderNote, site, to,
+  catalogue, cut, photo, phone, email, hours, companyLine, payments, cookie, doc, placeholderNote, site, to, allTrolleys,
 } from "./kit.mjs";
 
 export const chev = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>';
@@ -29,14 +29,20 @@ export const nav = () => html`<header class="p-nav"><nav aria-label="Main"><ul>
   <li><a class="p-members" href="${site.routes.Members ?? "#members"}" aria-label="Members’ area">${ic.user}<span>Members</span></a></li>
   <li><a href="${to("Basket")}" class="p-basket" aria-label="Basket, 0 items" data-basket>${ic.bag}<span class="p-basket__n" data-basket-n hidden></span></a></li><li class="p-nav__menu"><button type="button" class="p-nav__btn" aria-label="Menu" aria-expanded="false" aria-controls="p-menu" data-menu>${ic.menu}</button></li>
 </ul><ul class="p-menu" id="p-menu" hidden>${NAV.map((n) => `<li><a href="${to(n)}">${esc(n)}</a></li>`).join("")}</ul></nav></header>
-<p class="p-ribbon">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))}, order by ${esc(val("delivery.nextDayCutoff"))}. Annual members get free delivery from £${q("delivery.annualMemberThreshold")}. ${L("Join free", site.routes.Members ?? "#members")}</p>`;
+<p class="p-ribbon">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))}, order by ${esc(val("delivery.nextDayCutoff"))}<span class="p-ribbon__more">. Annual members get free delivery from £${q("delivery.annualMemberThreshold")}. ${L("See membership", site.routes.Members ?? "#members")}</span></p>`;
 
 const hero = () => html`<section class="p-tile p-tile--hero" aria-labelledby="p-h1">
   <div class="p-copy">
     <p class="p-kicker">Evolution Golf · delivering across the UK</p>
     <h1 id="p-h1">Motocaddy trolleys.<br>Clubs built for you.</h1>
-    <p class="p-sub">The 2026 Motocaddy range, custom Wilson, Srixon and Mizuno clubs built online, and a members’ club that pays for itself.</p>
-    <p class="p-links">${L("Shop Motocaddy", "#compare")}${L("Build your clubs", "#build")}${L("Join the members’ club", "#members")}</p>
+    <p class="p-sub">The 2026 Motocaddy range, custom Wilson, Srixon and Mizuno clubs built online, and an Annual membership that can pay for itself on one big order.</p>
+    <p class="p-hero__cta"><a class="p-btn p-btn--l" href="${site.routes["Electric trolleys"] ?? "#compare"}">Shop electric trolleys</a><span>from ${gbp(Math.min(...allTrolleys().map((f) => spec(f).price)))}</span></p>
+    <p class="p-links">${L("Build your clubs", "#build")}${L("Membership", "#members")}</p>
+    <ul class="p-trust" aria-label="Why buy from us">
+      <li>${ic.truck}<span>Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))}</span></li>
+      <li><span class="p-trust__i" aria-hidden="true">£</span><span>${esc(facts.pricePromise.short)}</span></li>
+      <li><span class="p-trust__i" aria-hidden="true">★</span><span>${q("trustpilot.rating")} on Trustpilot from ${q("trustpilot.reviewCount")} reviews</span></li>
+    </ul>
   </div>
   <div class="p-media p-hero2">
     <img class="p-hero2__t" src="${cut("m5-gps-dhc-highangle")}" alt="Motocaddy M5 GPS DHC electric trolley" width="800" height="800" fetchpriority="high">
@@ -48,12 +54,13 @@ const compare = () => {
   const ids = ["se", "m1", "m5-gps-dhc", "m7-gps-remote"];
   return html`<section class="p-tile p-tile--grey p-compare" id="compare" aria-labelledby="p-cp">
   <div class="p-copy"><h2 id="p-cp">Which Motocaddy is right for you?</h2><p class="p-sub">Four of the eight 2026 models, side by side. ${q("offers.trolleyGift")}</p></div>
-  <div class="p-cmp">${ids.map((id) => { const f = fam(id); const s = spec(f); return html`<article class="p-cmp__col">
+  <p class="p-cmp__hint" aria-hidden="true">Swipe to compare all four</p>
+  <div class="p-cmp" tabindex="0" role="region" aria-label="Four Motocaddy trolleys compared, scrolls sideways on small screens">${ids.map((id) => { const f = fam(id); const s = spec(f); return html`<article class="p-cmp__col">
     <img src="${cut(f.image, 400)}" alt="Motocaddy ${esc(f.name)}" width="400" height="400" loading="lazy">
     <h3>${esc(f.name)}</h3>
-    <p class="p-cmp__price">${f.variants.length > 1 ? "From " : ""}${gbp(s.from)}</p>
-    <p class="p-cmp__stock p-st--${s.stock.state}">${stockWord(s.stock)}</p>
-    <p class="p-cmp__go"><a class="p-btn p-btn--s" href="${f.href}">Buy</a>${L("Learn more", f.href)}</p>
+    <p class="p-cmp__price">${s.priceFrom ? "From " : ""}${gbp(s.price)}</p>
+    <p class="p-cmp__stock p-st--${s.stock.state}">${stockWord(s.stock)}${s.stock.detail ? ` · ${esc(s.stock.detail)}` : ""}</p>
+    <p class="p-cmp__go"><a class="p-btn p-btn--s" href="${f.href}#buy">${s.stock.state === "out" ? "View" : "Buy"}<span class="sr"> the ${esc(f.name)}</span></a></p>
     <dl>
       <div><dt>GPS</dt><dd>${dot(s.gps, "GPS")}</dd></div>
       <div><dt>Downhill control</dt><dd>${dot(s.dhc, "Downhill control")}</dd></div>
@@ -61,7 +68,7 @@ const compare = () => {
       <div><dt>Battery</dt><dd>${esc(s.batteries.map((b) => b.holes.replace(" holes", "")).join(" or "))} holes</dd></div>
     </dl>
   </article>`; })}</div>
-  <p class="p-links">${L("Compare all eight models")}${L("Which trolley? Three quick questions")}</p>
+  <p class="p-links">${L(`See all ${allTrolleys().length} electric trolleys`, site.routes["Electric trolleys"] ?? "#")}${L("Which trolley? Four quick questions", site.routes.Finder ?? "#")}</p>
 </section>`;
 };
 
@@ -73,15 +80,15 @@ const build = () => {
     <p class="p-sub">Pick the club, the brand and the model, then set it up your way. ${total} buildable models from Wilson, Srixon, Mizuno and more, built to order and delivered across the UK. Custom builds take ${q("leadTimes.customBuild")}.</p></div>
   <ol class="p-steps2" aria-label="Builder steps">${builder.steps.map((s, i) => `<li><b>${i + 1}</b>${esc(s)}</li>`).join("")}</ol>
   <div class="p-build__grid">
-    <ul class="p-types" aria-label="Start with a club type">${builder.types.map((t) => html`<li><a href="${builder.url}">
+    <ul class="p-types" aria-label="Start with a club type">${builder.types.map((t) => html`<li><a href="${builder.url}?type=${t.name.toLowerCase().replace(/[^a-z]+/g, "-").replace(/-$/, "")}">
       <span class="p-types__n">${t.models}<small> models</small></span><strong>${esc(t.name)}</strong><span>${esc(t.line)}</span>${t.img ? `<img src="${cut(t.img, 400)}" alt="" width="400" height="400" loading="lazy">` : ""}</a></li>`)}</ul>
     <aside class="p-spec" aria-labelledby="p-ex">
       <p class="p-spec__tag">Example build</p>
       <h3 id="p-ex">${esc(ex.brand)} ${esc(ex.model)}</h3>
       <img src="${cut(ex.cut, 400)}" alt="" width="400" height="400" loading="lazy">
       <dl>
-        <div><dt>Hand</dt><dd><span class="p-chip is-on">Right</span><span class="p-chip">Left</span></dd></div>
-        ${ex.specs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v.split(/\s*\/\s*|,\s*/).map((x, i) => `<span class="p-chip ${i === 0 ? "is-on" : ""}">${esc(x)}</span>`).join("")}</dd></div>`).join("")}
+        <div><dt>Hand</dt><dd>Right or left</dd></div>
+        ${ex.specs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v.split(/\s*\/\s*|,\s*/).join(" or "))}</dd></div>`).join("")}
         <div><dt>Lie, length, grip</dt><dd class="p-spec__dim">Set in the builder</dd></div>
       </dl>
       <p class="p-spec__price">From ${gbp(ex.from)}</p>
@@ -93,7 +100,7 @@ const build = () => {
     <ul>
       <li>${L("Custom or standard? 30-second check")}</li>
       <li>${L("Ask our fitting team")}<span>${phone()} · ${email()}</span></li>
-      <li>${L("Near Ringwood? Get fitted free", "#fit")}</li>
+      <li>${L("Prefer an in-person fitting? Free at our Hampshire showroom")}</li>
     </ul>
   </div>
 </section>`;
@@ -274,7 +281,6 @@ ${compare()}
 ${build()}
 ${members()}
 ${hole()}
-${fit()}
 ${more()}
 </main>
 ${footer()}

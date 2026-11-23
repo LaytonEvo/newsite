@@ -38,7 +38,16 @@ export const fam = (id) => famById[id];
 export const families = () => sortFamilies(catalogue.trolleyFamilies.filter((f) => f.brand === "Motocaddy"));
 /** every electric trolley family (collection page) */
 export const allTrolleys = () => sortFamilies(catalogue.trolleyFamilies);
-export const flagship = () => famById["m5-gps-dhc"];
+/** variants you can actually get, best first: in stock, then available to order, then the rest */
+const vState = (v) => (!v.available ? "out" : v.stock > 0 ? "in" : "order");
+export const buyable = (f) => { const st = familyStock(f).state; return f.variants.filter((v) => vState(v) === st); };
+/** the homepage/membership example: the M5 GPS DHC while it's in stock, else the first in-stock GPS Motocaddy
+ *  (CRO review round 1: examples must not point at a trolley you can't buy) */
+export const flagship = () => {
+  const m5 = famById["m5-gps-dhc"];
+  if (familyStock(m5).state === "in") return m5;
+  return families().find((f) => familyStock(f).state === "in" && f.features.includes("GPS")) ?? m5;
+};
 
 /** derived specs (from titles/tags in the Shopify snapshot) */
 export const spec = (f) => ({
@@ -49,6 +58,9 @@ export const spec = (f) => ({
   weight: f.weightKg ?? null,
   batteries: f.variants.map((v) => ({ name: v.battery, holes: v.holes })),
   from: familyFrom(f),
+  /** headline price: the cheapest variant in the family's best stock state, so "In stock" and the price agree */
+  price: Math.min(...buyable(f).map((v) => v.price)),
+  priceFrom: new Set(buyable(f).map((v) => v.price)).size > 1,
   stock: familyStock(f),
   rating: familyRating(f),
 });
@@ -77,7 +89,7 @@ export const secondary = [
 /* ---------- membership maths (one source: facts + catalogue) ---------- */
 export const saving = () => {
   const f = flagship();
-  const v = f.variants[0];
+  const v = buyable(f)[0];
   const pct = val("membership.memberDiscountPercent");
   const fee = facts.membership.tiers.find((t) => t.id === "annual").price;
   const off = Math.round(v.price * pct) / 100;
