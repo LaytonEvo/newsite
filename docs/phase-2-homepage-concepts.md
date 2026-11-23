@@ -12,7 +12,19 @@ Status: **awaiting owner feedback**. No concept has been refined further, and no
 | Design sheets | `mockups/dist/concepts/<id>-sheet.html`, screenshot `<id>-sheet.png` |
 | Source | `mockups/src/concepts/` (one module per concept; `kit.mjs` holds the shared content) and `mockups/assets/css/concepts/` |
 
-IDs: `editorial` (The Journal), `lab` (The Lab), `retail` (Block), `local` (The Local).
+IDs: `editorial` (The Journal), `lab` (The Lab), `retail` (Block), `local` (The Local), plus Apple-inspired `showroom` (Showroom), `keynote` (Keynote) and `store` (Store).
+
+## Concepts 5–7: Apple-inspired
+
+These apply Apple’s design principles: product as hero, one idea per block, short copy, restraint. They use none of Apple’s logos, imagery, copy or typefaces. SF Pro can’t be licensed for a non-Apple website, so Inter stands in.
+
+| Concept | What it is |
+|---|---|
+| 5. Showroom | A stack of full-width, centred tiles, one product or service each, with two text links per tile. |
+| 6. Keynote | A dark, cinematic scroll: a three-line statement, a spot-lit M5, highlight cards, big numbers, a four-model compare row, and fitting as the one light section. |
+| 7. Store | A shop page: a picture-led category row, then horizontal shelves for the range, help choosing, clubs, membership and guides. |
+
+Store is the closest of all seven concepts to the rounded-white-card look the brief asked to move away from. Its design sheet flags this.
 
 Rebuild:
 

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Keynote: design sheet</title>
+<link rel="stylesheet" href="assets/css/concepts/keynote.css">
+<style>
+.sh{all:initial;display:block;background:#fff;color:#161616;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:40px clamp(16px,4vw,56px) 64px}
+.sh *{box-sizing:border-box}
+.sh h1{font:700 34px/1.1 system-ui;margin:0 0 6px}.sh h2{font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;margin:40px 0 14px;padding-top:16px;border-top:2px solid #161616}
+.sh p{margin:0 0 10px;max-width:72ch}.sh .lead{font-size:18px;max-width:80ch}
+.sh .meta{color:#555;margin-bottom:20px}
+.sh .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.sh .sw div{border:1px solid #ccc}.sh .sw b{display:flex;align-items:flex-end;height:84px;padding:8px 10px;font:600 13px system-ui}
+.sh .sw p{padding:8px 10px;margin:0;font-size:13px;line-height:1.4}
+.sh table{border-collapse:collapse;width:100%;max-width:1100px}.sh td,.sh th{text-align:left;vertical-align:top;padding:8px 12px 8px 0;border-bottom:1px solid #ddd}
+.sh .specimen{padding:24px;border:1px solid #ccc;margin-top:8px;overflow:hidden}
+.sh .cols{display:grid;gap:24px}@media(min-width:900px){.sh .cols{grid-template-columns:1fr 1fr 1fr}}
+.sh ul{margin:0;padding-left:18px}.sh li{margin:4px 0}
+.sh a{color:inherit}
+</style></head>
+<body><div class="sh">
+<p><a href="index.html">All concepts</a> · <a href="keynote.html">View homepage</a> · <a href="keynote-390.html">390px</a> · <a href="keynote-1440.html">1440px</a></p>
+<h1>Keynote</h1>
+<p class="meta">Concept 6 · Direction: Apple-inspired: product storytelling</p>
+<p class="lead">Borrows the structure of an Apple product page and applies it to the whole shop: a three-line statement (trolleys, fitted clubs, free fitting) over a spot-lit M5 GPS DHC, then a row of large highlight cards that explain the range in four facts drawn from the catalogue (GPS, downhill control, remote, 18 or 36 holes). Three huge numbers carry the proof: £0 fitting, the 1pm next-day cut-off and the £60.90 membership saving. A four-column compare row (SE, M1, M5 GPS DHC, M7 GPS Remote) is the ‘which one?’ moment. The page then turns light for fitting, the one human section, before going dark again for clubs and membership.</p>
+<h2>Structural changes from the brief’s section order</h2><p>The hero carries all three specialisms in its headline. Pillars are replaced by highlight cards; the trolley carousel becomes a four-model compare; the trust row becomes ‘in numbers’. Fitting is the single light section, so it stands out. Reviews, guides and secondary categories are condensed into a three-column tail.</p>
+
+<h2>Palette</h2>
+<div class="sw"><div><b style="background:#000000;color:#fff">Black · #000000</b><p>The stage: page background.<br><small>21.0:1 on white · 1.1:1 on #111</small></p></div><div><b style="background:#161617;color:#fff">Graphite · #161617</b><p>Highlight cards, compare columns.<br><small>18.1:1 on white · 1.0:1 on #111</small></p></div><div><b style="background:#f5f5f7;color:#111">Silver · #F5F5F7</b><p>Primary text on black; also the light fitting section.<br><small>1.1:1 on white · 17.3:1 on #111</small></p></div><div><b style="background:#a1a1a6;color:#111">Mist · #A1A1A6</b><p>Secondary text on black (8:1).<br><small>2.6:1 on white · 7.3:1 on #111</small></p></div><div><b style="background:#3ddc97;color:#111">Green to lime · #3DDC97</b><p>One gradient accent for emphasised words and pill buttons (dark text on it). Gradient runs #3ddc97 → #b8f26b.<br><small>1.8:1 on white · 10.7:1 on #111</small></p></div></div>
+
+<h2>Typefaces</h2>
+<table><tr><th>Everything</th><td><span style="font:700 30px/1 'Inter';font-size:28px">Inter (variable)</span></td><td>Google Fonts, SIL OFL; stands in for SF Pro. Display set at 700 with very tight tracking.</td></tr></table>
+
+<h2>Key components (rendered from the concept’s own CSS)</h2>
+<p><strong>Pill button + text link.</strong> One pill per section at most; everything else is a text link with a chevron.</p><div class="specimen" style="background:#000"><p class="k-hero__acts" style="justify-content:flex-start;margin:0"><a class="k-pill" href="#">Shop Motocaddy</a><a class="k-l" href="#">Book a free fitting<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a></p></div><p><strong>Compare column.</strong> Product, price, stock in words, Buy and Learn more, then aligned spec rows.</p><div class="specimen" style="background:#000"><div class="k" style="max-width:340px"><article class="k-cmp__col">
+    <img src="assets/img/cutouts/se-400.webp" alt="Motocaddy SE" width="400" height="400" loading="lazy">
+    <h3>SE</h3>
+    <p class="k-cmp__price">From £479</p>
+    <p class="k-cmp__stock">In stock</p>
+    <a class="k-pill k-pill--s" href="/trolleys/motocaddy-se">Buy</a><a class="k-l" href="/trolleys/motocaddy-se">Learn more<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+    <dl>
+      <div><dt>GPS</dt><dd><span class="k-off" aria-label="GPS: no">–</span></dd></div>
+      <div><dt>Downhill control</dt><dd><span class="k-off" aria-label="Downhill control: no">–</span></dd></div>
+      <div><dt>Remote</dt><dd><span class="k-off" aria-label="Remote: no">–</span></dd></div>
+      <div><dt>Battery</dt><dd>18 or 36 holes</dd></div>
+    </dl>
+  </article></div></div><p><strong>Navigation.</strong> Thin dark bar; ‘Book fitting’ is the only button in it.</p><div class="specimen" style="background:#000"><div class="k"><header class="k-nav"><nav aria-label="Main"><a class="k-logo" href="#" aria-label="Evolution Golf, home">Evolution Golf</a>
+  <ul><li><a href="#">Trolleys</a></li><li><a href="#">Clubs</a></li><li><a href="#">Fitting</a></li><li><a href="#">Membership</a></li><li><a href="#">Bags</a></li><li><a href="#">Balls &amp; GPS</a></li><li><a href="#">Used</a></li><li><a href="#">Sale</a></li></ul>
+  <a class="k-pill k-pill--s" href="#fit">Book fitting</a></nav></header></div></div>
+
+<div class="cols">
+<div><h2>Imagery and photography</h2><p>Spot-lit product shots on black: the trolley as the star, with a soft radial light behind it. Highlight cards use the Motocaddy gallery images that already show the GPS screen, DHC dial and remote. One documentary photo for fitting.</p></div>
+<div><h2>Headline copy</h2><p><strong>H1:</strong> “Motocaddy trolleys. Fitted clubs. Free fitting.”</p><p><strong>Sections:</strong> “Get to know the range.” · “Which Motocaddy is right for you?” · “Fitting, explained.” · “Pays for itself.”</p></div>
+<div><h2>Motion</h2><p>The most motion of any concept: the trolley fades up out of black on load, highlight cards slide horizontally, numbers count up once. All of it switched off under ‘reduce motion’.</p></div>
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:180px">Does well</th><td>The most dramatic and memorable; the compare row is the clearest ‘which trolley?’ tool for a first-time buyer; highlight cards teach the range without a wall of specs.</td></tr>
+<tr><th>Weaker on</th><td>Dark pages can feel cold and are harder for older eyes; long scroll on mobile; only four trolleys compared on the homepage; the cinematic feel needs better trolley renders than the current gallery shots.</td></tr>
+<tr><th>Build effort</th><td>Medium: scroll-linked animation and a compare component; every third-party widget needs dark styling.</td></tr>
+<tr><th>Photography needed</th><td>Medium: proper studio renders of the trolleys on black would make it; one fitting photo.</td></tr>
+<tr><th>Suits best</th><td>Trolley buyers deciding between models; visitors who arrive curious and have time to scroll.</td></tr>
+</table>
+<p style="margin-top:24px;color:#555">EG monogram: No monogram in the nav; the wordmark ‘Evolution Golf’ in Inter Semibold, silver on black (suggestion only; the mark itself isn’t being redesigned here).</p>
+</div></body></html>

@@ -28,7 +28,7 @@ export const sheet = (c) => {
 <body><div class="sh">
 <p><a href="index.html">All concepts</a> · <a href="${c.id}.html">View homepage</a> · <a href="${c.id}-390.html">390px</a> · <a href="${c.id}-1440.html">1440px</a></p>
 <h1>${esc(c.name)}</h1>
-<p class="meta">Concept ${c.n} of 4 · Direction: ${esc(c.direction)}</p>
+<p class="meta">Concept ${c.n} · Direction: ${esc(c.direction)}</p>
 <p class="lead">${s.rationale}</p>
 ${s.structure ? `<h2>Structural changes from the brief’s section order</h2><p>${s.structure}</p>` : ""}
 

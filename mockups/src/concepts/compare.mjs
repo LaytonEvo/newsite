@@ -24,8 +24,8 @@ thead th{background:#161616;color:#fff}
 .note{margin-top:20px;max-width:90ch;color:#333}
 </style></head>
 <body><main>
-<h1>Homepage concepts: four directions</h1>
-<p>Same content strategy, products and facts in each; everything visual and tonal is different. Desktop (1440px) and mobile (390px), full page, at thumbnail size. Click through for the full page or the design sheet.</p>
+<h1>Homepage concepts</h1>
+<p>Concepts 1–4 are the original four directions; 5–7 are Apple-inspired (principles only: no Apple assets, typefaces or copy). Same content strategy, products and facts in each; everything visual and tonal is different. Desktop (1440px) and mobile (390px), full page, at thumbnail size. Click through for the full page or the design sheet.</p>
 <div class="grid">
 ${concepts.map((c) => `<section class="col" aria-labelledby="c-${c.id}">
   <h2 id="c-${c.id}">${c.n}. ${esc(c.name)}</h2><p>${esc(c.direction)}. ${esc(c.sheet.oneLine)}</p>
