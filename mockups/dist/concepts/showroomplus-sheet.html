@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Showroom+: design sheet</title>
+<link rel="stylesheet" href="assets/css/concepts/showroomplus.css">
+<style>
+.sh{all:initial;display:block;background:#fff;color:#161616;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:40px clamp(16px,4vw,56px) 64px}
+.sh *{box-sizing:border-box}
+.sh h1{font:700 34px/1.1 system-ui;margin:0 0 6px}.sh h2{font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;margin:40px 0 14px;padding-top:16px;border-top:2px solid #161616}
+.sh p{margin:0 0 10px;max-width:72ch}.sh .lead{font-size:18px;max-width:80ch}
+.sh .meta{color:#555;margin-bottom:20px}
+.sh .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.sh .sw div{border:1px solid #ccc}.sh .sw b{display:flex;align-items:flex-end;height:84px;padding:8px 10px;font:600 13px system-ui}
+.sh .sw p{padding:8px 10px;margin:0;font-size:13px;line-height:1.4}
+.sh table{border-collapse:collapse;width:100%;max-width:1100px}.sh td,.sh th{text-align:left;vertical-align:top;padding:8px 12px 8px 0;border-bottom:1px solid #ddd}
+.sh .specimen{padding:24px;border:1px solid #ccc;margin-top:8px;overflow:hidden}
+.sh .cols{display:grid;gap:24px}@media(min-width:900px){.sh .cols{grid-template-columns:1fr 1fr 1fr}}
+.sh ul{margin:0;padding-left:18px}.sh li{margin:4px 0}
+.sh a{color:inherit}
+</style></head>
+<body><div class="sh">
+<p><a href="index.html">All concepts</a> · <a href="showroomplus.html">View homepage</a> · <a href="showroomplus-390.html">390px</a> · <a href="showroomplus-1440.html">1440px</a></p>
+<h1>Showroom+</h1>
+<p class="meta">Concept 8 · Direction: Recommended combination: Showroom base + Keynote compare + The Local’s fitting</p>
+<p class="lead">This combines what worked best across the exploration. The structure is Showroom’s: light, full-width tiles that each do one job, so the three five-second messages (Motocaddy, free fitting, membership) land one screen at a time. Its weakness, slow browsing of the range, is fixed with Keynote’s ‘Which Motocaddy is right for you?’ compare row, restyled for a light page. Showroom’s single black fitting tile is replaced by The Local’s people-led fitting: the fitters’ faces, three steps and the centre’s hours and address. Identity comes from Evolution rather than Apple: brand green, the EG mark, a deep-green footer, Schibsted Grotesk for headlines (a sturdy, characterful news grotesk) and Atkinson Hyperlegible for body text, for older trolley buyers.</p>
+<h2>Structural changes from the brief’s section order</h2><p>Hero → M5 GPS DHC tile → compare row (trolleys) → people-led fitting → membership tile with the sum and both tiers → a two-by-two grid for Wilson, Srixon, Mizuno and approved used → secondary categories and the Trustpilot line → green footer with address and hours.</p>
+
+<h2>Palette</h2>
+<div class="sw"><div><b style="background:#0e4d35;color:#fff">Evolution green · #0E4D35</b><p>EG mark, buttons, footer background, step numbers.<br><small>9.9:1 on white · 1.9:1 on #111</small></p></div><div><b style="background:#0b6b47;color:#fff">Link green · #0B6B47</b><p>Text links (6.6:1 on white).<br><small>6.5:1 on white · 2.9:1 on #111</small></p></div><div><b style="background:#f3f5f4;color:#111">Mist · #F3F5F4</b><p>Alternating light tiles (a neutral near-white, not cream or mint).<br><small>1.1:1 on white · 17.2:1 on #111</small></p></div><div><b style="background:#16201b;color:#fff">Ink · #16201B</b><p>Text; the one dark cell in the club grid.<br><small>16.7:1 on white · 1.1:1 on #111</small></p></div><div><b style="background:#56605b;color:#fff">Slate · #56605B</b><p>Secondary text (6.6:1 on white).<br><small>6.5:1 on white · 2.9:1 on #111</small></p></div><div><b style="background:#a7e3c3;color:#111">Fern · #A7E3C3</b><p>Links and highlights on the green footer and dark cell.<br><small>1.5:1 on white · 13.0:1 on #111</small></p></div></div>
+
+<h2>Typefaces</h2>
+<table><tr><th>Headlines</th><td><span style="font:700 30px/1 'Schibsted';font-size:28px">Schibsted Grotesk (variable)</span></td><td>Google Fonts, SIL OFL. A sturdy, slightly quirky news grotesk: more character than Inter, still calm at large sizes.</td></tr><tr><th>Body and UI</th><td><span style="font:400 24px/1.2 'Atkinson';font-size:28px">Atkinson Hyperlegible (400/700)</span></td><td>Google Fonts, SIL OFL. Designed for low-vision readers; very clear for older trolley buyers. Its zero carries a slash for legibility, so prices and sums are set in Schibsted Grotesk instead.</td></tr></table>
+
+<h2>Key components (rendered from the concept’s own CSS)</h2>
+<p><strong>Links and the one button.</strong> Tiles use text links with a chevron. The only filled button is ‘Buy’ in the compare row.</p><div class="specimen" style=""><p class="p-links" style="justify-content:flex-start"><a class="p-btn p-btn--s" href="#">Buy</a><a class="p-l" href="#">Book a free fitting<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></p></div><p><strong>Compare column.</strong> Product, price, stock in words, Buy and Learn more, then aligned spec rows.</p><div class="specimen" style=""><div class="p" style="max-width:340px"><article class="p-cmp__col">
+    <img src="assets/img/cutouts/se-400.webp" alt="Motocaddy SE" width="400" height="400" loading="lazy">
+    <h3>SE</h3>
+    <p class="p-cmp__price">From £479</p>
+    <p class="p-cmp__stock p-st--in">In stock</p>
+    <p class="p-cmp__go"><a class="p-btn p-btn--s" href="/trolleys/motocaddy-se">Buy</a><a class="p-l" href="/trolleys/motocaddy-se">Learn more<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></p>
+    <dl>
+      <div><dt>GPS</dt><dd><span class="p-off" aria-label="GPS: no">–</span></dd></div>
+      <div><dt>Downhill control</dt><dd><span class="p-off" aria-label="Downhill control: no">–</span></dd></div>
+      <div><dt>Remote</dt><dd><span class="p-off" aria-label="Remote: no">–</span></dd></div>
+      <div><dt>Battery</dt><dd>18 or 36 holes</dd></div>
+    </dl>
+  </article></div></div><p><strong>Navigation.</strong> A thin, translucent bar with the green EG mark; one delivery ribbon under it.</p><div class="specimen" style=""><div class="p"><header class="p-nav"><nav aria-label="Main"><ul>
+  <li><a class="p-mark" href="#" aria-label="Evolution Golf, home"><span aria-hidden="true">EG</span></a></li>
+  <li class="p-nav__item"><a href="#">Trolleys</a></li><li class="p-nav__item"><a href="#">Clubs</a></li><li class="p-nav__item"><a href="#">Fitting</a></li><li class="p-nav__item"><a href="#">Membership</a></li><li class="p-nav__item"><a href="#">Bags</a></li><li class="p-nav__item"><a href="#">Balls &amp; GPS</a></li><li class="p-nav__item"><a href="#">Used</a></li><li class="p-nav__item"><a href="#">Sale</a></li>
+  <li class="p-nav__push"><a href="#" aria-label="Search"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5"/></svg></a></li><li><a href="#" aria-label="Basket, 0 items"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 7h11l-.8 10H5.3L4.5 7Z M7.5 7V5.5a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li><li class="p-nav__menu"><a href="#" aria-label="Menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7h14M3 13h14" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
+</ul></nav></header>
+<p class="p-ribbon">Free next-day delivery over £500, order by 1pm. <a class="p-l" href="#fit">Free fitting in Ringwood<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></p></div></div>
+
+<div class="cols">
+<div><h2>Imagery and photography</h2><p>Product cut-outs centred on light tiles (already available). Real photography of the team and the Ringwood centre for the fitting section: three portraits and one wide shot of the bay would complete it.</p></div>
+<div><h2>Headline copy</h2><p><strong>H1:</strong> “Motocaddy trolleys. Custom‑fitted clubs.”</p><p><strong>Sections:</strong> “Which Motocaddy is right for you?” · “Free custom fitting, in person.” · “£60.90 better off.”</p></div>
+<div><h2>Motion</h2><p>Subtle: tiles fade up into view; compare columns highlight on hover; nothing on load except the hero image fading in.</p></div>
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:180px">Does well</th><td>Clearest five-second read of all eight; calm and premium; light and highly legible for older buyers; the compare row makes the trolley decision easy; fitting has real people; tiles map one-to-one onto Shopify theme sections, so staff can maintain it.</td></tr>
+<tr><th>Weaker on</th><td>Still fewer products per scroll than a classic shop homepage; needs the team photos to make the fitting section sing; the tile pattern will feel familiar to anyone who knows Apple’s site.</td></tr>
+<tr><th>Build effort</th><td>Low–medium: tile, compare and team sections; compare row needs the trolley metafields (GPS, DHC, remote, battery).</td></tr>
+<tr><th>Photography needed</th><td>Medium: three staff portraits and one shot of the fitting bay.</td></tr>
+<tr><th>Suits best</th><td>Everyone: first-time trolley buyers, golfers booking a fitting, members; especially mobile visitors.</td></tr>
+</table>
+<p style="margin-top:24px;color:#555">EG monogram: ‘EG’ in Schibsted Grotesk Bold, white on Evolution green, rounded square; inverted on the footer (suggestion only; the mark itself isn’t being redesigned here).</p>
+</div></body></html>
