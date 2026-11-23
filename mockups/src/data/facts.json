@@ -1,0 +1,109 @@
+{
+  "_comment": "ONE source of truth for every customer-facing fact. Values wrapped as {\"value\":..., \"tbc\":true, \"note\":...} await an owner decision and render with a visible TBC marker.",
+
+  "business": {
+    "tradingName": "Evolution Golf",
+    "companyName": "GB Golf Online Ltd",
+    "companyNumber": "16047589",
+    "vatNumber": { "value": "VAT no. to be supplied", "tbc": true, "note": "Owner to supply VAT registration number" },
+    "phoneDisplay": "0330 122 7089",
+    "phoneHref": "+443301227089",
+    "email": "online@evolutiongolf.co.uk",
+    "address": { "value": "Parvaneh Park, Ringwood, Hampshire", "tbc": true, "note": "Full trading address and postcode needed; site currently spells it two ways (Parvaneh / Parvenah)" },
+    "hours": [
+      { "days": "Monday to Friday", "time": "9am to 5pm" },
+      { "days": "Saturday and Sunday", "time": { "value": "Closed", "tbc": true, "note": "Confirm weekend opening / fitting slots" } }
+    ]
+  },
+
+  "positioning": {
+    "headline": "The UK specialist for Motocaddy trolleys and custom‑fitted clubs.",
+    "sub": "Free, no‑obligation fitting at our Ringwood centre, and a members’ club that pays for itself."
+  },
+
+  "trustpilot": {
+    "rating": { "value": "4.8", "tbc": true, "note": "Pull from one live Trustpilot source; audit found 4 different figures" },
+    "label": "Excellent",
+    "reviewCount": { "value": "629", "tbc": true, "note": "Live figure from Trustpilot" }
+  },
+
+  "dealers": {
+    "motocaddy": { "value": "Authorised Motocaddy dealer", "tbc": true, "note": "Owner to confirm which dealer status can be claimed" },
+    "others": { "value": "Wilson · Srixon · Mizuno", "tbc": true, "note": "Confirm authorised status per brand" }
+  },
+
+  "pricePromise": { "short": "Price match promise", "url": "/pages/price-match" },
+
+  "delivery": {
+    "_source": "Guest rates read from Shopify delivery profiles, 23 Nov 2026",
+    "standardPrice": 3.95,
+    "standardDays": "3 to 5 working days",
+    "guestFreeThreshold": 50,
+    "nextDayPrice": 7.95,
+    "nextDayFreeThreshold": 500,
+    "nextDayCutoff": "1pm",
+    "freeMemberThreshold": { "value": 30, "tbc": true, "note": "Owner decision: free-member threshold (not configured in Shopify today)" },
+    "annualMemberThreshold": { "value": 10, "tbc": true, "note": "Owner decision: annual-member threshold (not configured in Shopify today)" }
+  },
+
+  "returns": {
+    "summary": { "value": "Free returns for Annual members (4 per year)", "tbc": true, "note": "Owner to supply returns wording incl. member limit" }
+  },
+
+  "fitting": {
+    "price": "Free",
+    "obligation": "No obligation to buy",
+    "location": "Ringwood, Hampshire",
+    "durationMinutes": { "value": 60, "tbc": true, "note": "Confirm session lengths per fitting type from Acuity" },
+    "days": { "value": "Mon to Fri", "tbc": true, "note": "Weekend slots: owner decision" },
+    "launchMonitor": { "value": "launch monitor", "tbc": true, "note": "Name the launch-monitor model used" },
+    "brandsFitted": ["Wilson", "Srixon", "Mizuno", "TaylorMade", "Callaway", "PING"]
+  },
+
+  "leadTimes": {
+    "customBuild": { "value": "2 to 3 weeks", "tbc": true, "note": "Audit found 2–3 weeks vs 7–14 working days" }
+  },
+
+  "membership": {
+    "name": { "value": "Evolution Club", "tbc": true, "note": "Owner decision: one programme name" },
+    "oneLiner": "Join free for member prices, or go Annual and the savings on one big purchase usually cover the fee.",
+    "memberDiscountPercent": { "value": 10, "tbc": true, "note": "Depends on discount hierarchy decision (a/b/c)" },
+    "tiers": [
+      {
+        "id": "free",
+        "name": "Free",
+        "price": 0,
+        "priceLabel": "£0",
+        "perks": [
+          { "text": "Member prices on selected lines", "tbc": false },
+          { "text": "Free delivery over £{delivery.freeMemberThreshold}", "tbc": true },
+          { "text": "Early access to new-season launches", "tbc": true }
+        ]
+      },
+      {
+        "id": "annual",
+        "name": "Annual",
+        "price": 36,
+        "priceLabel": "£36",
+        "perks": [
+          { "text": "{membership.memberDiscountPercent}% member price on most products", "tbc": true },
+          { "text": "Free delivery over £{delivery.annualMemberThreshold}", "tbc": true },
+          { "text": "{returns.summary}", "tbc": true },
+          { "text": "Monthly prize draw entry (free entry route and T&Cs apply)", "tbc": true }
+        ]
+      }
+    ]
+  },
+
+  "offers": {
+    "trolleyGift": { "value": "Choose a free accessory with selected Motocaddy electric trolleys, or save with a ready‑made bundle.", "tbc": true, "note": "Confirm which models carry a gift and which bundles exist" }
+  },
+
+  "finance": {
+    "short": { "value": "Spread the cost with Klarna or Clearpay", "tbc": true, "note": "Wording to be confirmed with provider" }
+  },
+
+  "cookies": {
+    "text": "We use essential cookies to run the site. With your permission we’d also like to use analytics and marketing cookies to improve it."
+  }
+}

@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Design system | Evolution Golf mockups</title>
+<meta name="description" content="Evolution Golf design system: colour, type, spacing and components.">
+<link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="mock-ribbon" role="note">Design mockup: <strong>Design system</strong>. Real product data from Shopify (read-only snapshot, 23 Nov 2026). Items marked <span class="tbc-tag">TBC</span> await an owner decision.</div>
+<style>
+.ds-hero { padding-block: var(--space-7) var(--space-5); border-bottom: 1px solid var(--line); }
+.ds-hero > * + * { margin-top: var(--space-3); }
+.ds-toc { display:flex; flex-wrap:wrap; gap: var(--space-2); list-style:none; margin-top: var(--space-5) !important; }
+.ds-section { padding-block: var(--space-7); border-bottom: 1px solid var(--line); }
+.ds-section__head { margin-bottom: var(--space-5); max-width: 46rem; }
+.ds-section__head > * + * { margin-top: var(--space-2); }
+.ds-sub { margin: var(--space-6) 0 var(--space-3); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-600); }
+.ds-grid { display:grid; gap: var(--space-4); align-items: start; }
+@media (min-width: 768px){ .ds-grid--2{grid-template-columns:1fr 1fr} .ds-grid--3{grid-template-columns:repeat(3,1fr)} .ds-grid--4{grid-template-columns:repeat(4,1fr)} }
+.ds-swatches { display:grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); list-style:none; }
+@media (min-width: 768px){ .ds-swatches{ grid-template-columns: repeat(4, 1fr);} }
+.ds-swatch { border:1px solid var(--line); border-radius: var(--radius-md); overflow:hidden; }
+.ds-swatch__chip { height: 72px; display:flex; align-items:flex-end; padding: var(--space-2) var(--space-3); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ds-swatch__meta { display:grid; gap: 2px; padding: var(--space-3); font-size: 12.5px; line-height:1.4; color: var(--ink-700); }
+.ds-swatch__meta strong { color: var(--ink-900); font-size: 13px; }
+.ds-type { display:grid; gap: var(--space-4); }
+.ds-type__row { display:grid; gap: var(--space-1); padding-bottom: var(--space-4); border-bottom: 1px dashed var(--line); }
+.ds-type__spec { font-size: 12px; color: var(--ink-600); font-family: ui-monospace, Menlo, monospace; }
+.ds-space { display:grid; gap: var(--space-2); list-style:none; }
+.ds-space li { display:grid; grid-template-columns: 8.5rem minmax(0,1fr); align-items:center; gap: var(--space-3); font-size: 13px; font-family: ui-monospace, Menlo, monospace; color: var(--ink-700); }
+.ds-space i { display:block; max-width:100%; height: 14px; background: var(--green-800); border-radius: 2px; }
+.ds-panel { padding: var(--space-5); border:1px solid var(--line); border-radius: var(--radius-md); }
+.ds-panel--dark { background: var(--green-900); color:#fff; border-color: transparent; }
+.ds-row { display:flex; flex-wrap:wrap; gap: var(--space-3); align-items:center; }
+.ds-icons { display:flex; flex-wrap:wrap; gap: var(--space-4); list-style:none; color: var(--ink-900); }
+.ds-icons li { display:grid; justify-items:center; gap: 4px; width: 64px; font-size: 11px; color: var(--ink-600); }
+.ds-icons svg { width: 24px; height: 24px; color: var(--ink-900); }
+.ds-note { font-size: var(--fs-caption); color: var(--ink-600); margin-top: var(--space-3); }
+.ds-modal-stage { padding: var(--space-5); border-radius: var(--radius-lg); background: rgba(6,42,28,0.55); }
+</style>
+<main id="main" class="container">
+  <header class="ds-hero">
+    <p class="eyebrow">Evolution Golf · Design system v0.1</p>
+    <h1 class="t-h1">One system for every screen</h1>
+    <p class="t-lead">Colour tokens, type scale, spacing, and the components the homepage and every later page are built from. Mobile first; tap targets 44px minimum; contrast checked against WCAG 2.2 AA.</p>
+    <ul class="ds-toc"><li><a class="chip" href="#logo">Logo</a></li><li><a class="chip" href="#colour">Colour</a></li><li><a class="chip" href="#type">Type</a></li><li><a class="chip" href="#spacing">Spacing</a></li><li><a class="chip" href="#buttons">Buttons</a></li><li><a class="chip" href="#badges">Badges</a></li><li><a class="chip" href="#price-rating">Price & rating</a></li><li><a class="chip" href="#cards">Cards</a></li><li><a class="chip" href="#photography">Photography</a></li><li><a class="chip" href="#banners">Banners</a></li><li><a class="chip" href="#notices">Notices</a></li><li><a class="chip" href="#forms">Forms</a></li><li><a class="chip" href="#modal">Modal</a></li><li><a class="chip" href="#cookie-banner">Cookie banner</a></li><li><a class="chip" href="#navigation">Navigation</a></li><li><a class="chip" href="#icons">Icons</a></li></ul>
+  </header>
+
+  <section class="ds-section" id="logo" aria-labelledby="logo-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="logo-h">Logo</h2><p class="t-muted">The EG monogram in green on white, or white on green. <span class="tbc-tag" aria-label="to be confirmed">TBC</span> This is a stand-in drawn in the headline serif; swap in the supplied monogram artwork.</p></div>
+  
+    <div class="ds-grid ds-grid--2">
+      <div class="ds-panel"><a class="logo" href="index.html" aria-label="Evolution Golf home"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="9" fill="var(--green-800)"/><text x="20" y="27.5" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="19" font-weight="600" letter-spacing="-0.5" fill="#ffffff">EG</text></svg><span class="logo__word" aria-hidden="true">Evolution Golf<small>Ringwood · Hampshire</small></span></a><div class="ds-row" style="margin-top:var(--space-4)"><svg class="logo__mark" style="width:64px;height:64px" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="9" fill="var(--green-800)"/><text x="20" y="27.5" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="19" font-weight="600" letter-spacing="-0.5" fill="#ffffff">EG</text></svg></div></div>
+      <div class="ds-panel ds-panel--dark on-dark"><a class="logo" href="index.html" aria-label="Evolution Golf home"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="9" fill="#ffffff"/><text x="20" y="27.5" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="19" font-weight="600" letter-spacing="-0.5" fill="var(--green-900)">EG</text></svg><span class="logo__word" aria-hidden="true">Evolution Golf<small>Ringwood · Hampshire</small></span></a><div class="ds-row" style="margin-top:var(--space-4)"><svg class="logo__mark" style="width:64px;height:64px" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="9" fill="#ffffff"/><text x="20" y="27.5" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="19" font-weight="600" letter-spacing="-0.5" fill="var(--green-900)">EG</text></svg></div></div>
+    </div>
+</section>
+
+  <section class="ds-section" id="colour" aria-labelledby="colour-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="colour-h">Colour</h2><p class="t-muted">White backgrounds. Brand green is the primary colour; one accent (red) is reserved for sale prices and alerts. Neutrals are cool greys: no cream or beige anywhere.</p></div>
+  <ul class="ds-swatches"><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#0e4d35;color:#ffffff">#0E4D35</div>
+    <div class="ds-swatch__meta"><strong>--green-800</strong><span>Primary: buttons, links, logo</span><span>9.9:1 on white · AAA</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#146142;color:#ffffff">#146142</div>
+    <div class="ds-swatch__meta"><strong>--green-700</strong><span>Primary hover</span><span>7.5:1 on white · AAA</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#0a3a28;color:#ffffff">#0A3A28</div>
+    <div class="ds-swatch__meta"><strong>--green-900</strong><span>Footer, dark bands</span><span>12.7:1 on white · AAA</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#062a1c;color:#ffffff">#062A1C</div>
+    <div class="ds-swatch__meta"><strong>--green-950</strong><span>Deepest green</span><span>15.5:1 on white · AAA</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#1d7a54;color:#ffffff">#1D7A54</div>
+    <div class="ds-swatch__meta"><strong>--green-600</strong><span>Icons on dark</span><span>5.3:1 on white · AA</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#c4dccd;color:#111816">#C4DCCD</div>
+    <div class="ds-swatch__meta"><strong>--green-200</strong><span>Labels on dark</span><span>1.5:1 on white · decorative only</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#dcebe2;color:#111816">#DCEBE2</div>
+    <div class="ds-swatch__meta"><strong>--green-100</strong><span>Focus halo, dividers on dark</span><span>1.2:1 on white · decorative only</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#eef5f1;color:#111816">#EEF5F1</div>
+    <div class="ds-swatch__meta"><strong>--green-50</strong><span>Tinted panels</span><span>1.1:1 on white · decorative only</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#b42318;color:#ffffff">#B42318</div>
+    <div class="ds-swatch__meta"><strong>--accent-700</strong><span>Sale and alert only</span><span>6.6:1 on white · AA</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#fdf0ef;color:#111816">#FDF0EF</div>
+    <div class="ds-swatch__meta"><strong>--accent-50</strong><span>Alert background</span><span>1.1:1 on white · decorative only</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#111816;color:#ffffff">#111816</div>
+    <div class="ds-swatch__meta"><strong>--ink-900</strong><span>Body text</span><span>18.0:1 on white · AAA</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#3c4743;color:#ffffff">#3C4743</div>
+    <div class="ds-swatch__meta"><strong>--ink-700</strong><span>Secondary text</span><span>9.7:1 on white · AAA</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#56625d;color:#ffffff">#56625D</div>
+    <div class="ds-swatch__meta"><strong>--ink-600</strong><span>Meta text (min. size 13px)</span><span>6.4:1 on white · AA</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#b9c3bf;color:#111816">#B9C3BF</div>
+    <div class="ds-swatch__meta"><strong>--line-strong</strong><span>Input borders</span><span>1.8:1 on white · decorative only</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#dce2df;color:#111816">#DCE2DF</div>
+    <div class="ds-swatch__meta"><strong>--line</strong><span>Card borders</span><span>1.3:1 on white · decorative only</span></div></li><li class="ds-swatch"><div class="ds-swatch__chip" style="background:#f4f6f5;color:#111816">#F4F6F5</div>
+    <div class="ds-swatch__meta"><strong>--surface-2</strong><span>Quiet panels</span><span>1.1:1 on white · decorative only</span></div></li></ul>
+</section>
+
+  <section class="ds-section" id="type" aria-labelledby="type-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="type-h">Type</h2><p class="t-muted">Headlines: Source Serif 4 (variable, optical sizing). Body and UI: Inter (variable). Both self-hosted, Open Font License. Sizes are fluid between 390px and 1440px.</p></div>
+  
+    <div class="ds-type">
+      <div class="ds-type__row"><span class="ds-type__spec">Display · serif 600 · 36→60px · line-height 1.1</span><span class="t-display">Free fitting in Ringwood</span></div>
+      <div class="ds-type__row"><span class="ds-type__spec">H1 · serif 600 · 32→48px</span><span class="t-h1">The 2026 Motocaddy range</span></div>
+      <div class="ds-type__row"><span class="ds-type__spec">H2 · serif 600 · 26→38px</span><span class="t-h2">Shop clubs by brand</span></div>
+      <div class="ds-type__row"><span class="ds-type__spec">H3 · serif 600 · 20→24px</span><span class="t-h3">Custom or standard?</span></div>
+      <div class="ds-type__row"><span class="ds-type__spec">H4 · sans 600 · 18px</span><span class="t-h4">Worked example</span></div>
+      <div class="ds-type__row"><span class="ds-type__spec">Lead · sans 400 · 18px · ink-700</span><span class="t-lead">Clubs that suit your swing, not an average one.</span></div>
+      <div class="ds-type__row"><span class="ds-type__spec">Body · sans 400 · 16px · line-height 1.6</span><span>Every model comes with a choice of battery. We set each trolley up before it leaves us.</span></div>
+      <div class="ds-type__row"><span class="ds-type__spec">Small · 14px</span><span class="t-small">Free next-day delivery over £500 when you order by 1pm.</span></div>
+      <div class="ds-type__row"><span class="ds-type__spec">Caption · 13px (smallest size allowed)</span><span class="t-caption">Prices include VAT.</span></div>
+      <div class="ds-type__row"><span class="ds-type__spec">Eyebrow · sans 600 · 13px · tracked caps</span><span class="eyebrow">Custom fitting</span></div>
+    </div>
+</section>
+
+  <section class="ds-section" id="spacing" aria-labelledby="spacing-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="spacing-h">Spacing</h2><p class="t-muted">4px base. Sections use a fluid gap (48→96px). Side gutter: 16px on phones, 32px tablet, 48px desktop; content max 1280px.</p></div>
+  <ul class="ds-space"><li><span>--space-1 · 4px</span><i style="width:12px"></i></li><li><span>--space-2 · 8px</span><i style="width:24px"></i></li><li><span>--space-3 · 12px</span><i style="width:36px"></i></li><li><span>--space-4 · 16px</span><i style="width:48px"></i></li><li><span>--space-5 · 24px</span><i style="width:72px"></i></li><li><span>--space-6 · 32px</span><i style="width:96px"></i></li><li><span>--space-7 · 48px</span><i style="width:144px"></i></li><li><span>--space-8 · 64px</span><i style="width:192px"></i></li><li><span>--space-9 · 96px</span><i style="width:288px"></i></li></ul>
+</section>
+
+  <section class="ds-section" id="buttons" aria-labelledby="buttons-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="buttons-h">Buttons</h2><p class="t-muted">Primary, secondary and text. Minimum height 44px (52px for large). One primary action per view where possible.</p></div>
+  
+    <div class="ds-grid ds-grid--2">
+      <div class="ds-panel"><p class="ds-sub" style="margin-top:0">On white</p><div class="ds-row">
+        <button class="btn btn--primary" type="button">Add to basket</button>
+        <button class="btn btn--secondary" type="button">Book a free fitting</button>
+        <button class="btn btn--text" type="button">Compare trolleys</button>
+        <button class="btn btn--primary" type="button" disabled>Out of stock</button>
+      </div><div class="ds-row" style="margin-top:var(--space-3)"><button class="btn btn--primary btn--lg" type="button">Shop Motocaddy</button><a class="link-arrow" href="#">Link with arrow<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+      <div class="ds-panel ds-panel--dark on-dark"><p class="ds-sub" style="margin-top:0;color:var(--green-200)">On green</p><div class="ds-row">
+        <button class="btn btn--on-dark" type="button">Book a free fitting</button>
+        <button class="btn btn--outline-on-dark" type="button">How fitting works</button>
+      </div></div>
+    </div>
+</section>
+
+  <section class="ds-section" id="badges" aria-labelledby="badges-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="badges-h">Badges</h2><p class="t-muted">Stock states are always words, never colour alone. "Available to order" is kept separate from "In stock" so the in-stock filter stays truthful (order-on-demand lines currently show as available at zero stock). The TBC marker flags any fact still awaiting an owner decision.</p></div>
+  
+    <div class="ds-row"><span class="badge badge--in-stock">In stock</span><span class="badge badge--in-stock">In stock · Ultra battery</span><span class="badge badge--order">Available to order</span><span class="badge badge--out">Out of stock</span>
+      <span class="badge badge--new">2026</span><span class="badge badge--sale">Sale</span><span class="badge badge--member">Member price</span><span class="badge badge--feature">GPS</span><span class="badge badge--feature">Downhill control</span>
+      <span><span class="tbc">Fact awaiting decision</span><span class="tbc-tag" aria-label="to be confirmed">TBC</span></span></div>
+</section>
+
+  <section class="ds-section" id="price-rating" aria-labelledby="price-rating-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="price-rating-h">Price &amp; rating</h2><p class="t-muted">Prices include VAT. The member price sits next to the standard price, never instead of it. Star ratings are product-level only (Judge.me per product); store-level Trustpilot scores never appear next to a product title.</p></div>
+  
+    <div class="ds-grid ds-grid--3">
+      <div class="ds-panel"><p class="price"><span class="price__now">£969</span><span class="price__member">Members £872.10 <span class="tbc-tag" aria-label="to be confirmed">TBC</span></span></p></div>
+      <div class="ds-panel"><p class="price"><span class="price__now price__sale">£249</span><span class="price__from" style="text-decoration:line-through">£449</span><span class="badge badge--sale">Sale</span></p><p class="ds-note">Sale styling only if the discount policy allows public reductions <span class="tbc-tag" aria-label="to be confirmed">TBC</span></p></div>
+      <div class="ds-panel"><span class="rating"><span class="rating__stars" aria-hidden="true"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg></span><span><span class="sr-only">Rated 4.7 out of 5 from </span>4.7 · 11 reviews<span class="sr-only"> of this product</span></span></span><br><span class="rating"><span>No reviews of this model yet</span></span></div>
+    </div>
+</section>
+
+  <section class="ds-section" id="cards" aria-labelledby="cards-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="cards-h">Cards</h2><p class="t-muted">Product card (trolley family, battery as a variant), plain card, tinted card. Whole card is clickable via the title link; focus ring wraps the card.</p></div>
+  
+    <div class="ds-grid ds-grid--4">
+      <article class="product-card" aria-labelledby="t-m5-gps-dhc">
+    <div class="product-card__media">
+      <img src="assets/img/products/m5-gps-dhc-800.webp" srcset="assets/img/products/m5-gps-dhc-400.webp 400w, assets/img/products/m5-gps-dhc-800.webp 800w" sizes="(min-width:1100px) 25vw, 70vw" width="800" height="800" alt="Motocaddy M5 GPS DHC electric golf trolley" loading="lazy" decoding="async">
+      <div class="product-card__flags"><span class="badge badge--new">2026</span></div>
+    </div>
+    <div class="product-card__body">
+      <span class="product-card__brand">Motocaddy</span>
+      <h3 class="product-card__title" id="t-m5-gps-dhc"><a href="/trolleys/motocaddy-m5-gps-dhc">M5 GPS DHC</a></h3>
+      <div class="product-card__features"><span class="badge badge--feature">GPS</span><span class="badge badge--feature">Downhill control</span></div>
+      <p class="product-card__battery">Battery: Standard (18 holes) or Ultra (36 holes)</p>
+      <div class="product-card__foot">
+        <p class="price"><span class="price__from">From</span><span class="price__now">£969</span></p>
+        <span class="badge badge--in-stock">In stock · Standard battery</span>
+        <span class="rating"><span class="rating__stars" aria-hidden="true"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg></span><span><span class="sr-only">Rated 5.0 out of 5 from </span>5.0 · 2 reviews<span class="sr-only"> of this product</span></span></span>
+      </div>
+    </div>
+  </article>
+      <article class="product-card" aria-labelledby="t-m5-gps">
+    <div class="product-card__media">
+      <img src="assets/img/products/m5-gps-800.webp" srcset="assets/img/products/m5-gps-400.webp 400w, assets/img/products/m5-gps-800.webp 800w" sizes="(min-width:1100px) 25vw, 70vw" width="800" height="800" alt="Motocaddy M5 GPS electric golf trolley" loading="lazy" decoding="async">
+      <div class="product-card__flags"><span class="badge badge--new">2026</span></div>
+    </div>
+    <div class="product-card__body">
+      <span class="product-card__brand">Motocaddy</span>
+      <h3 class="product-card__title" id="t-m5-gps"><a href="/trolleys/motocaddy-m5-gps">M5 GPS</a></h3>
+      <div class="product-card__features"><span class="badge badge--feature">GPS</span></div>
+      <p class="product-card__battery">Battery: Standard (18 holes) or Ultra (36 holes)</p>
+      <div class="product-card__foot">
+        <p class="price"><span class="price__from">From</span><span class="price__now">£949</span></p>
+        <span class="badge badge--out">Out of stock</span>
+        <span class="rating"><span class="rating__stars" aria-hidden="true"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg></span><span><span class="sr-only">Rated 5.0 out of 5 from </span>5.0 · 4 reviews<span class="sr-only"> of this product</span></span></span>
+      </div>
+    </div>
+  </article>
+      <div class="card"><div class="card__body"><h3 class="t-h3">Plain card</h3><p class="t-small t-muted">White, 1px border, 8px radius. For guides, tiers and info.</p></div></div>
+      <div class="card card--tinted"><div class="card__body"><h3 class="t-h3">Tinted card</h3><p class="t-small t-muted">Green-50 panel for membership and helpful asides.</p></div></div>
+    </div>
+</section>
+
+  <section class="ds-section" id="photography" aria-labelledby="photography-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="photography-h">Photography</h2><p class="t-muted">Product shots: real Shopify images on white, without baked-in text (several current main images carry a FREE GIFT roundel, so the mockups use the clean gallery shots). Lifestyle: placeholders until the Ringwood centre, fitters and trolleys-on-course are shot. No AI-generated people.</p></div>
+  
+    <div class="ds-grid ds-grid--3">
+      <div class="card" style="aspect-ratio:1"><img src="assets/img/products/m7-gps-remote-800.webp" alt="Motocaddy M7 GPS Remote on white" style="width:100%;height:100%;object-fit:contain;padding:16px"></div>
+      <div class="card" style="aspect-ratio:1"><div class="ph-photo" role="img" aria-label="Placeholder: Ringwood centre exterior with signage"><div class="ph-photo__label"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="ph-photo__tag">Photo to come</span><span>Ringwood centre exterior with signage</span></div></div></div>
+      <div class="card" style="aspect-ratio:1"><div class="ph-photo" role="img" aria-label="Placeholder: Motocaddy trolley on a local course, golfer from behind"><div class="ph-photo__label"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="ph-photo__tag">Photo to come</span><span>Motocaddy trolley on a local course, golfer from behind</span></div></div></div>
+    </div>
+</section>
+
+  <section class="ds-section" id="banners" aria-labelledby="banners-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="banners-h">Banners</h2><p class="t-muted">Live HTML text over an image with a gradient scrim for contrast. Text is never baked into the image, so it stays readable, translatable and accessible.</p></div>
+  
+    <div class="banner"><div class="banner__media"><div class="ph-photo" role="img" aria-label="Placeholder: Wide lifestyle image: fitting bay or course"><div class="ph-photo__label"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="ph-photo__tag">Photo to come</span><span>Wide lifestyle image: fitting bay or course</span></div></div></div>
+      <div class="banner__content"><p class="eyebrow" style="color:var(--green-100)">Banner component</p><h3 class="t-h2">Spring fitting days in Ringwood</h3><p>Live text sits on a dark scrim so it passes contrast on any photo.</p><a class="btn btn--on-dark" href="#">Book a slot</a></div></div>
+</section>
+
+  <section class="ds-section" id="notices" aria-labelledby="notices-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="notices-h">Notices</h2><p class="t-muted">Informational (green) and alert (accent). Used sparingly: no stacked promo strips.</p></div>
+  
+    <div class="ds-grid ds-grid--2">
+      <div class="notice notice--info"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg><span>Order by 1pm for free next-day delivery on orders over £500.</span></div>
+      <div class="notice notice--alert" role="alert"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg><span>Only 1 left in stock. Order soon or reserve for collection in Ringwood.</span></div>
+    </div>
+</section>
+
+  <section class="ds-section" id="forms" aria-labelledby="forms-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="forms-h">Form fields</h2><p class="t-muted">Visible labels on every field, hints below labels, errors in text and colour, 44px minimum height. Marketing consent is unticked by default.</p></div>
+  
+    <div class="ds-grid ds-grid--3">
+      <div class="field"><label class="field__label" for="ds-name">Full name</label><input class="input" id="ds-name" autocomplete="name" placeholder="e.g. Sam Taylor"></div>
+      <div class="field"><label class="field__label" for="ds-hcp">Handicap</label><span class="field__hint" id="ds-hcp-hint">Rough is fine. Leave blank if you don’t have one.</span><select class="select" id="ds-hcp" aria-describedby="ds-hcp-hint"><option>Choose…</option><option>0–9</option><option>10–18</option><option>19–28</option><option>29+</option></select></div>
+      <div class="field"><label class="field__label" for="ds-email">Email</label><input class="input" id="ds-email" type="email" value="sam@" aria-invalid="true" aria-describedby="ds-email-err"><span class="field__error" id="ds-email-err"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg>Enter an email address like name@example.com</span></div>
+    </div>
+    <label class="check" style="margin-top:var(--space-4)"><input type="checkbox"> <span>Yes, email me news and offers. You can unsubscribe at any time.</span></label>
+</section>
+
+  <section class="ds-section" id="modal" aria-labelledby="modal-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="modal-h">Modal</h2><p class="t-muted">Bottom sheet on phones, centred dialog from 768px. Focus is trapped inside, Escape closes, focus returns to the trigger.</p></div>
+  
+    <div class="ds-modal-stage"><div class="modal modal--inline" role="dialog" aria-modal="false" aria-labelledby="ds-modal-t" style="margin-inline:auto">
+      <div class="modal__head"><h3 class="t-h4" id="ds-modal-t">Choose your free accessory <span class="tbc-tag" aria-label="to be confirmed">TBC</span></h3><button class="icon-btn" type="button" aria-label="Close"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="modal__body"><p class="t-small t-muted">Pick one gift to go with your Motocaddy M5 GPS DHC. Gift options come from the free-gift app and are confirmed at checkout.</p>
+        <label class="check"><input type="radio" name="gift"> <span><strong>Option A</strong> (list to be supplied)</span></label>
+        <label class="check"><input type="radio" name="gift"> <span><strong>Option B</strong> (list to be supplied)</span></label></div>
+      <div class="modal__foot"><button class="btn btn--secondary" type="button">Cancel</button><button class="btn btn--primary" type="button">Confirm gift</button></div>
+    </div></div>
+</section>
+
+  <section class="ds-section" id="cookie-banner" aria-labelledby="cookie-banner-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="cookie-banner-h">Cookie banner</h2><p class="t-muted">UK GDPR / PECR: shown on first visit, Accept and Reject given equal weight, nothing non-essential runs until a choice is made. Fixed position, so it never shifts the layout.</p></div>
+  <section class="cookie cookie--inline" aria-label="Cookie preferences" >
+  <h2 class="t-h4">Cookies on Evolution Golf</h2>
+  <p class="t-small t-muted">We use essential cookies to run the site. With your permission we’d also like to use analytics and marketing cookies to improve it. <a href="#">Cookie policy</a></p>
+  <div class="cookie__actions">
+    <button class="btn btn--primary" type="button" data-cookie="accept">Accept all</button>
+    <button class="btn btn--secondary" type="button" data-cookie="reject">Reject non-essential</button>
+    <button class="btn btn--text" type="button">Choose cookies</button>
+  </div>
+</section>
+</section>
+
+  <section class="ds-section" id="navigation" aria-labelledby="navigation-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="navigation-h">Navigation</h2><p class="t-muted">Desktop: eight primary items plus More (Clothing & shoes, Gifts, All brands). Mobile: the two services sit as large cards above the category list.</p></div>
+  
+    <div class="ds-grid ds-grid--2"><div class="drawer" role="dialog" aria-label="Menu (preview)">
+  <div class="drawer__head"><a class="logo" href="index.html" aria-label="Evolution Golf home"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="9" fill="var(--green-800)"/><text x="20" y="27.5" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="19" font-weight="600" letter-spacing="-0.5" fill="#ffffff">EG</text></svg><span class="logo__word" aria-hidden="true">Evolution Golf<small>Ringwood · Hampshire</small></span></a><button class="icon-btn" type="button" aria-label="Close menu"><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="drawer__services">
+    <a class="drawer__service" href="#"><strong>Free fitting</strong><span>Book in Ringwood</span></a>
+    <a class="drawer__service drawer__service--alt" href="#"><strong><span class="tbc" title="To be confirmed: Owner decision: one programme name">Evolution Club</span></strong><span>Join free · member prices</span></a>
+  </div>
+  <ul class="drawer__list">
+    <li><a href="#">Trolleys<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="#">Clubs<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="#">Bags<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="#">Balls, GPS &amp; Accessories<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="#">Used &amp; Trade-in<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="#">Sale<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></a></li>
+    <li class="is-secondary"><a href="#">Clothing &amp; shoes<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></a></li>
+    <li class="is-secondary"><a href="#">Gifts<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></a></li>
+    <li class="is-secondary"><a href="#">All brands<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></a></li>
+    <li class="is-secondary"><a href="#">Help &amp; contact<svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></a></li>
+  </ul>
+</div><div class="ds-panel"><p class="t-small"><strong>Primary:</strong> Trolleys · Clubs · Custom Fitting · Membership · Bags · Balls, GPS &amp; Accessories · Used &amp; Trade-in · Sale</p><p class="t-small" style="margin-top:var(--space-3)"><strong>More:</strong> Clothing &amp; shoes · Gifts · All brands</p><p class="t-small" style="margin-top:var(--space-3)"><strong>Utility bar:</strong> Trustpilot rating · Free fitting in Ringwood (book) · delivery promise (desktop) · phone</p><p class="t-small" style="margin-top:var(--space-3)"><strong>Search:</strong> single field, no category dropdown; visible on mobile without a tap.</p></div></div>
+</section>
+
+  <section class="ds-section" id="icons" aria-labelledby="icons-h">
+  <div class="ds-section__head"><h2 class="t-h2" id="icons-h">Icons</h2><p class="t-muted">One 24px line set, 1.75 stroke, decorative unless labelled.</p></div>
+  <ul class="ds-icons"><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>search</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>bag</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>user</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>menu</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg><span>close</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg><span>phone</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>pin</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>clock</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg><span>truck</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>check</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>arrow</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="8" width="18" height="4"/><path d="M5 12v9h14v-9M12 8v13M12 8S10.5 3 8 3.5 7 8 12 8ZM12 8s1.5-5 4-4.5S17 8 12 8Z"/></svg><span>gift</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg><span>target</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3 5 6v5c0 4.5 3 8.2 7 10 4-1.8 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg><span>shield</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12V4h8l10 10-8 8L3 12Z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>tag</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" fill="currentColor" stroke="none"/></svg><span>star</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg><span>help</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></svg><span>info</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg><span>alert</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 7h8l-1 14H9L8 7Z"/><path d="M10 7V3M12 7V2M14 7V4"/><path d="M8 11h8"/></svg><span>golfbag</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><circle cx="10" cy="9" r=".8" fill="currentColor"/><circle cx="13.5" cy="10" r=".8" fill="currentColor"/><circle cx="11" cy="13" r=".8" fill="currentColor"/><circle cx="14.5" cy="13.5" r=".8" fill="currentColor"/></svg><span>ball</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M12 8.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/><path d="M10 17h4"/></svg><span>gps</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 4h10l-3 4h-4L7 4Z"/><path d="M12 8v12"/></svg><span>tee</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 3 9 18"/><path d="M9 18c-1 2-3 2.5-5 2.5h6.5L9 18Z"/></svg><span>club</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 7h12l-3-3M17 17H5l3 3"/></svg><span>swap</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 5 5 19"/><circle cx="7" cy="7" r="2.2"/><circle cx="17" cy="17" r="2.2"/></svg><span>percent</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c0 1.7-1.8 3-4 3S8 4.7 8 3Z"/></svg><span>shirt</span></li><li><svg class="ico " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/><path d="M7 17 13 5h3M9 13h8l-2 4"/></svg><span>trolley</span></li></ul>
+</section>
+</main>
+<script>
+// Mockup-only behaviour: dismiss cookie banner; hide it when ?consent=1 (used for clean screenshots).
+(function(){var c=document.getElementById('cookie');if(!c)return;if(/consent=1/.test(location.search)){c.remove();return;}
+c.addEventListener('click',function(e){if(e.target.closest('[data-cookie]'))c.remove();});})();
+// Carousel buttons
+document.querySelectorAll('[data-carousel]').forEach(function(root){var t=root.querySelector('.carousel__track');
+root.querySelectorAll('[data-dir]').forEach(function(b){b.addEventListener('click',function(){t.scrollBy({left:(b.dataset.dir==='next'?1:-1)*t.clientWidth*0.9,behavior:'smooth'});});});});
+</script>
+</body>
+</html>

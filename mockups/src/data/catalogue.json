@@ -1,0 +1,104 @@
+{
+  "_source": "Snapshot of Shopify Admin API (read-only queries), 23 November 2026. Prices GBP inc. VAT. Stock: inventoryQuantity / availableForSale. Ratings: product-level Judge.me metafields (reviews.rating, reviews.rating_count).",
+
+  "trolleyFamilies": [
+    {
+      "id": "m5-gps-dhc", "brand": "Motocaddy", "name": "M5 GPS DHC", "year": 2026,
+      "features": ["GPS", "Downhill control"], "image": "m5-gps-dhc", "href": "/trolleys/motocaddy-m5-gps-dhc",
+      "variants": [
+        { "battery": "Standard", "holes": "18 holes", "price": 969.00, "stock": 2, "available": true, "rating": null, "ratingCount": 0, "handle": "motocaddy-2026-m5-gps-dhc-standard-lithium-golf-trolley" },
+        { "battery": "Ultra", "holes": "36 holes", "price": 1049.00, "stock": 0, "available": false, "rating": 5.0, "ratingCount": 2, "handle": "motocaddy-m5-gps-dhc-ultra-lithium-golf-trolley" }
+      ]
+    },
+    {
+      "id": "m1", "brand": "Motocaddy", "name": "M1", "year": 2026,
+      "features": [], "image": "m1", "href": "/trolleys/motocaddy-m1",
+      "variants": [
+        { "battery": "Standard", "holes": "18 holes", "price": 729.00, "stock": 0, "available": false, "rating": 5.0, "ratingCount": 1, "handle": "motocaddy-2026-m1-standard-lithium-electric-golf-trolley" },
+        { "battery": "Ultra", "holes": "36 holes", "price": 749.00, "stock": 2, "available": true, "rating": 5.0, "ratingCount": 1, "handle": "motocaddy-2026-m1-ultra-lithium-electric-golf-trolley" }
+      ]
+    },
+    {
+      "id": "m7-gps-remote", "brand": "Motocaddy", "name": "M7 GPS Remote", "year": 2026,
+      "features": ["GPS", "Remote"], "image": "m7-gps-remote", "href": "/trolleys/motocaddy-m7-gps-remote",
+      "variants": [
+        { "battery": "Ultra", "holes": "36 holes", "price": 1279.00, "stock": 1, "available": true, "rating": 5.0, "ratingCount": 2, "handle": "motocaddy-2026-m7-gps-remote-electric-trolley" }
+      ]
+    },
+    {
+      "id": "se", "brand": "Motocaddy", "name": "SE", "year": 2026,
+      "features": [], "image": "se", "href": "/trolleys/motocaddy-se",
+      "variants": [
+        { "battery": "Standard", "holes": "18 holes", "price": 479.00, "stock": 4, "available": true, "rating": 4.83, "ratingCount": 6, "handle": "motocaddy-2026-se-lithium-electric-golf-trolley" },
+        { "battery": "Ultra", "holes": "36 holes", "price": 529.00, "stock": -1, "available": false, "rating": 4.6, "ratingCount": 5, "handle": "motocaddy-2025-se-ultra-lithium-electric-golf-trolley" }
+      ]
+    },
+    {
+      "id": "m5-gps", "brand": "Motocaddy", "name": "M5 GPS", "year": 2026,
+      "features": ["GPS"], "image": "m5-gps", "href": "/trolleys/motocaddy-m5-gps",
+      "variants": [
+        { "battery": "Standard", "holes": "18 holes", "price": 949.00, "stock": 0, "available": false, "rating": 5.0, "ratingCount": 1, "handle": "motocaddy-2026-m5-gps-standard-lithium-golf-trolley" },
+        { "battery": "Ultra", "holes": "36 holes", "price": 959.00, "stock": 0, "available": false, "rating": 5.0, "ratingCount": 3, "handle": "motocaddy-2026-m5-gps-ultra-lithium-golf-trolley" }
+      ]
+    },
+    {
+      "id": "m1-dhc", "brand": "Motocaddy", "name": "M1 DHC", "year": 2026,
+      "features": ["Downhill control"], "image": "m1-dhc", "href": "/trolleys/motocaddy-m1-dhc",
+      "variants": [
+        { "battery": "Standard", "holes": "18 holes", "price": 779.00, "stock": 0, "available": false, "rating": 5.0, "ratingCount": 1, "handle": "motocaddy-2025-m1-dhc-standard-lithium-electric-golf-trolley" },
+        { "battery": "Ultra", "holes": "36 holes", "price": 829.00, "stock": 0, "available": false, "rating": 5.0, "ratingCount": 1, "handle": "motocaddy-2026-m1-dhc-ultra-lithium-electric-golf-trolley" }
+      ]
+    },
+    {
+      "id": "me-remote", "brand": "Motocaddy", "name": "ME Remote", "year": 2026,
+      "features": ["Remote"], "image": "me-remote", "href": "/trolleys/motocaddy-me-remote",
+      "variants": [
+        { "battery": "Ultra", "holes": "36 holes", "price": 949.00, "stock": 0, "available": false, "rating": 5.0, "ratingCount": 3, "handle": "motocaddy-2025-me-remote-electric-trolley" }
+      ]
+    },
+    {
+      "id": "m-tech-gps", "brand": "Motocaddy", "name": "M‑Tech GPS", "year": 2026,
+      "features": ["GPS", "Downhill control"], "image": "m-tech-gps", "href": "/trolleys/motocaddy-m-tech-gps",
+      "variants": [
+        { "battery": "Ultra+", "holes": "36+ holes", "price": 1249.00, "stock": 0, "available": false, "rating": null, "ratingCount": 0, "handle": "motocaddy-2026-m-tech-gps-electric-golf-trolley-ultra-lithium" }
+      ]
+    }
+  ],
+
+  "clubBrands": [
+    { "name": "Wilson", "image": "wilson-staff-model-blade", "imageAlt": "Wilson Staff Model Blade iron", "standardHref": "/clubs/brand/wilson", "customHref": "/clubs/build?brand=wilson" },
+    { "name": "Srixon", "image": "srixon-zxir-irons", "imageAlt": "Srixon ZXiR iron", "standardHref": "/clubs/brand/srixon", "customHref": "/clubs/build?brand=srixon" },
+    { "name": "Mizuno", "image": "mizuno-jpx-one-driver", "imageAlt": "Mizuno JPX ONE driver", "standardHref": "/clubs/brand/mizuno", "customHref": "/clubs/build?brand=mizuno" }
+  ],
+  "otherClubBrands": ["TaylorMade", "Callaway", "PING", "Titleist", "Cobra", "Cleveland", "PXG", "Odyssey"],
+
+  "guides": [
+    {
+      "title": "Best electric golf trolleys 2026: a UK buyer’s guide",
+      "href": "/guides/best-electric-golf-trolleys-2026-uk-buyers-guide-reviews",
+      "topic": "Trolleys",
+      "products": [
+        { "name": "Motocaddy M5 GPS DHC", "price": 969.00, "from": true, "stock": "in", "image": "m5-gps-dhc", "href": "/trolleys/motocaddy-m5-gps-dhc" },
+        { "name": "Motocaddy SE", "price": 479.00, "from": true, "stock": "in", "image": "se", "href": "/trolleys/motocaddy-se" }
+      ]
+    },
+    {
+      "title": "Best game‑improvement irons 2026: easy‑to‑hit options",
+      "href": "/guides/best-game-improvement-irons-2026-easy-to-hit-options-reviewed-2",
+      "topic": "Irons",
+      "products": [
+        { "name": "Mizuno JPX 925 Hot Metal High Launch Graphite Irons", "price": 699.00, "stock": "in", "image": "mizuno-jpx925-hl", "href": "/products/mizuno-jpx-925-hot-metal-high-launch-graphite-golf-irons" },
+        { "name": "Srixon ZXiR Irons (left handed, steel)", "price": 899.00, "stock": "order", "image": "srixon-zxir-irons", "href": "/products/srixon-zxir-left-handed-steel-irons" }
+      ]
+    },
+    {
+      "title": "Best anti‑slice drivers 2026: picks for straighter shots",
+      "href": "/guides/most-forgiving-drivers-2026-top-picks-for-straighter-shots",
+      "topic": "Drivers",
+      "products": [
+        { "name": "Wilson Staff DYNAPWR Max+ Driver", "price": 349.00, "stock": "in", "image": "wilson-dynapwr-max-plus", "href": "/products/wilson-staff-dynapwr-max-plus-driver" },
+        { "name": "Mizuno JPX ONE Driver", "price": 379.00, "stock": "in", "image": "mizuno-jpx-one-driver", "href": "/products/mizuno-jpx-one-golf-driver" }
+      ]
+    }
+  ]
+}
