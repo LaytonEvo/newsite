@@ -147,9 +147,11 @@ const HOLE_LINKS = { tee: "Drivers", fairway: "Fairway woods & hybrids", approac
 const hole = () => html`<section class="h" id="hole" aria-labelledby="h-t">
   <div class="p-copy"><h2 id="h-t">Shop the hole.</h2>
     <p class="p-sub">From the tee to the green: pick a shot and see what you’d use there.</p></div>
-  <div class="h-course" aria-hidden="true">
-    ${holeMap()}
-    ${ZONES.map((z) => `<span class="h-pin" style="left:${z.x}%;top:${z.y}%">${z.n}</span>`).join("")}
+  <div class="h-course h-course--photo">
+    ${catalogue.holePhoto.src
+      ? `<img class="h-photo" src="${catalogue.holePhoto.src}" alt="${esc(catalogue.holePhoto.alt)}" width="2400" height="1200" loading="lazy">`
+      : `<div class="h-photo h-photo--todo" role="img" aria-label="Photo to come: aerial view of a golf hole"><span class="q" title="To be confirmed: ${esc(catalogue.holePhoto.note)}">Aerial photo of a golf hole, tee to green: to be supplied</span></div>`}
+    ${ZONES.map((z) => `<span class="h-pin" style="left:${z.x}%;top:${z.y}%" aria-hidden="true">${z.n}</span>`).join("")}
   </div>
   <ul class="h-stops" aria-label="Shop by shot">
     ${ZONES.map((z) => `<li><a href="${to(HOLE_LINKS[z.id])}"><b aria-hidden="true">${z.n}</b><span>${esc(z.name)}<small>${esc(z.what)}</small></span></a></li>`).join("")}

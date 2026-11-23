@@ -483,3 +483,12 @@ main:not(.v) { gap: 0; padding: 0; }
 .p-door__img { position: relative; }
 .p-door__img img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: contain; }
 .p-door__img .p-mcard { position: relative; }
+
+/* shop the hole: real aerial photo (placeholder until the owner supplies one) */
+.h-course--photo { position: relative; aspect-ratio: 2 / 1; background: var(--mist); }
+.h-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.h-photo--todo { display: grid; place-items: center; padding: 24px; text-align: center; font-size: 15px; color: var(--slate);
+  background: repeating-linear-gradient(135deg, var(--mist) 0 14px, #ebeeec 14px 28px); }
+.h-course--photo .h-pin { background: #fff; color: var(--green); border: 0; box-shadow: 0 6px 18px rgba(0,0,0,0.28); }
+@media (max-width: 899px) { .h-course--photo { aspect-ratio: 3 / 2; } }
+.h-photo--todo { place-items: start; text-align: left; }

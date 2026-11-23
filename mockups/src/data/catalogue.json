@@ -702,5 +702,10 @@
         "image": "bag-dry-series"
       }
     }
+  },
+  "holePhoto": {
+    "src": null,
+    "alt": "Aerial view of a golf hole from tee to green",
+    "note": "Owner to supply a licensed aerial photo (see docs/briefs/shop-the-hole-photo.md). Pin positions in ZONES may need nudging to match it."
   }
 }
