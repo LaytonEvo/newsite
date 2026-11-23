@@ -11,9 +11,9 @@ const trolleys = allTrolleys();
 const S = (f) => spec(f);
 const holesOf = (f) => f.variants.map((v) => v.holes);
 const fonts = ["schibsted-grotesk-latin-wght-normal.woff2", "atkinson-hyperlegible-latin-400-normal.woff2"];
-const crumbs = (items) => `<nav class="v-crumbs" aria-label="Breadcrumb"><ol>${items.map(([t, h], i) => `<li>${i < items.length - 1 ? `<a href="${h}">${esc(t)}</a>` : `<span aria-current="page">${esc(t)}</span>`}</li>`).join("")}</ol></nav>`;
+export const crumbs = (items) => `<nav class="v-crumbs" aria-label="Breadcrumb"><ol>${items.map(([t, h], i) => `<li>${i < items.length - 1 ? `<a href="${h}">${esc(t)}</a>` : `<span aria-current="page">${esc(t)}</span>`}</li>`).join("")}</ol></nav>`;
 const chk = (group, label, n) => `<label class="v-check"><input type="checkbox" data-f="${group}" value="${esc(label)}"><span>${esc(label)}</span><small>${n}</small></label>`;
-const page = (title, body) => doc({ title, css: "v2pages", fonts, body: html`<a class="sr sr-focus" href="#v-main">Skip to content</a>
+export const page = (title, body) => doc({ title, css: "v2pages", fonts, body: html`<a class="sr sr-focus" href="#v-main">Skip to content</a>
 <div class="p">
 ${nav()}
 ${body}
@@ -296,7 +296,7 @@ export const checkout = () => page("Checkout | Evolution Golf", html`<main id="v
 </main>`);
 
 export const notInPreview = () => page("Not in this preview | Evolution Golf", html`<main id="v-main" class="v v-narrow">
-  <header class="v-head"><h1>Not in this preview yet</h1><p class="v-head__sub"><span data-page-name>This page</span> is part of the full redesign but hasn’t been built for the test site yet. This round covers the homepage, electric trolleys, trolley product pages, the basket and a simulated checkout.</p></header>
+  <header class="v-head"><h1>Not in this preview yet</h1><p class="v-head__sub"><span data-page-name>This page</span> is part of the full redesign but hasn’t been built for the test site yet. This preview covers the homepage, electric trolleys, trolley product pages, the custom clubs page, the basket and a simulated checkout.</p></header>
   <p class="p-links p-links--left">${L("Electric trolleys", to("Electric trolleys"))}${L("Homepage", to("Home"))}</p>
 </main>`);
 

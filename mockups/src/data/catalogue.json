@@ -468,25 +468,118 @@
         "name": "Drivers",
         "line": "Distance and forgiveness off the tee",
         "models": 33,
-        "img": "mizuno-jpx-one-driver"
+        "img": "pxg-lightning-tour-driver",
+        "from": 249,
+        "options": [
+          "Loft",
+          "Shaft",
+          "Flex"
+        ],
+        "slug": "drivers"
       },
       {
         "name": "Fairway woods",
         "line": "Long approaches and tee-shot alternatives",
         "models": 21,
-        "img": null
+        "img": "taylormade-qi4d-fairway",
+        "from": 269,
+        "options": [
+          "Loft",
+          "Shaft",
+          "Flex"
+        ],
+        "slug": "fairway-woods"
       },
       {
         "name": "Hybrids & utility irons",
         "line": "Easier long irons that launch higher",
         "models": 22,
-        "img": null
+        "img": "taylormade-p-udi",
+        "from": 229,
+        "options": [
+          "Loft",
+          "Shaft",
+          "Flex"
+        ],
+        "slug": "hybrids-utility-irons"
       },
       {
         "name": "Irons",
         "line": "Built to your specs, shaft and lie",
         "models": 47,
-        "img": "wilson-staff-model-blade"
+        "img": "mizuno-jpx925-forged",
+        "from": 579,
+        "options": [
+          "Set make-up",
+          "Shaft",
+          "Flex"
+        ],
+        "slug": "irons"
+      }
+    ],
+    "_sourceDetail": "Custom-fit collections read from Shopify (read-only), 23 Nov 2026. Only ACTIVE products counted for prices, brands and left-handed models; model counts per type are the live builder's own.",
+    "brands": [
+      "Callaway",
+      "Mizuno",
+      "PXG",
+      "Srixon",
+      "TaylorMade",
+      "Wilson"
+    ],
+    "leftHandedModels": 45,
+    "setMakeUps": [
+      "5-PW (6 irons)",
+      "4-PW (7 irons)",
+      "5-PW + SW (7 irons)"
+    ],
+    "featured": [
+      {
+        "name": "Wilson Staff Model Blade irons",
+        "brand": "Wilson",
+        "type": "Irons",
+        "from": 899,
+        "img": "wilson-staff-model-blade",
+        "specs": "5-PW or 4-PW · Dynamic Gold Mid 115 · Stiff"
+      },
+      {
+        "name": "Mizuno JPX 925 Forged irons",
+        "brand": "Mizuno",
+        "type": "Irons",
+        "from": 999,
+        "img": "mizuno-jpx925-forged",
+        "specs": "5-PW · Modus Tour 105 steel or Recoil graphite · Regular, Stiff"
+      },
+      {
+        "name": "PXG 0317 CB irons",
+        "brand": "PXG",
+        "type": "Irons",
+        "from": 949,
+        "img": "pxg-0317-cb",
+        "specs": "5-PW or 4-PW · KBS steel or Mitsubishi graphite · Regular, Stiff"
+      },
+      {
+        "name": "PXG Lightning Tour driver",
+        "brand": "PXG",
+        "type": "Drivers",
+        "from": 429,
+        "img": "pxg-lightning-tour-driver",
+        "specs": "9° or 10.5° · Project X Denali Frost Blue 60 · Stiff"
+      },
+      {
+        "name": "Wilson Staff DYNAPWR Max+ driver",
+        "brand": "Wilson",
+        "type": "Drivers",
+        "from": 349,
+        "img": "wilson-dynapwr-max-plus",
+        "specs": "9°, 10.5° or 12° · UST LIN-Q · Senior, Regular, Stiff"
+      },
+      {
+        "name": "TaylorMade P·UDI utility iron",
+        "brand": "TaylorMade",
+        "type": "Hybrids & utility irons",
+        "from": 229,
+        "img": "taylormade-p-udi",
+        "specs": "2, 3 or 4 iron (17° to 22°) · Recoil Dart · Stiff"
       }
     ]
   },

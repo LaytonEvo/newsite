@@ -6,6 +6,8 @@ site.base = "/";
 site.routes = {
   Home: "/",
   Trolleys: "/trolleys/",
+  "Custom clubs": "/custom-clubs/",
+  "Build custom clubs": "/custom-clubs/",
   "Electric trolleys": "/trolleys/",
   "Shop electric trolleys": "/trolleys/",
   "Back to electric trolleys": "/trolleys/",

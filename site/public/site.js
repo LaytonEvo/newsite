@@ -25,7 +25,13 @@
     const a = e.target.closest('a[href="#"], a[href^="/pages/"]');
     if (!a) return;
     e.preventDefault();
-    const name = (a.getAttribute("aria-label") || a.querySelector("strong")?.textContent || a.textContent || "This page").trim().replace(/\s+/g, " ");
+    let name = (a.getAttribute("aria-label") || a.querySelector("strong")?.textContent || a.textContent || "This page").trim().replace(/\s+/g, " ");
+    const href = a.getAttribute("href");
+    if (href.startsWith("/pages/build-your-clubs")) {
+      const u = new URL(href, location.origin);
+      const bits = [u.searchParams.get("type")?.replace(/-/g, " "), u.searchParams.get("hand") === "left" ? "left-handed" : null].filter(Boolean);
+      name = `The club builder${bits.length ? ` (${bits.join(", ")})` : ""}`;
+    }
     location.href = "/not-in-preview/?page=" + encodeURIComponent(name);
   });
   const pn = $("[data-page-name]");
@@ -388,4 +394,20 @@
   const atb = document.querySelector(".v-atb"), bar = document.querySelector("[data-sticky]");
   if (!atb || !bar || !("IntersectionObserver" in window)) return;
   new IntersectionObserver(([e]) => bar.classList.toggle("is-needed", !e.isIntersecting)).observe(atb);
+})();
+
+/* custom clubs: the hand choice travels with every link into the builder */
+(() => {
+  const box = document.querySelector("[data-hand]");
+  if (!box) return;
+  const apply = () => {
+    const hand = new FormData(box.closest("main").querySelector("form") || document.createElement("form")).get("hand") || box.querySelector("input:checked")?.value || "right";
+    document.querySelectorAll("a[data-builder]").forEach((a) => {
+      const u = new URL(a.getAttribute("href"), location.origin);
+      if (hand === "left") u.searchParams.set("hand", "left"); else u.searchParams.delete("hand");
+      a.setAttribute("href", u.pathname + u.search);
+    });
+  };
+  box.addEventListener("change", apply);
+  apply();
 })();

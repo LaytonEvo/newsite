@@ -1,0 +1,7 @@
+---
+import "../lib/setup.mjs";
+import { customClubs } from "../../../mockups/src/v2pages/clubs.mjs";
+import { docOnly } from "../lib/emit.mjs";
+const out = docOnly(customClubs());
+---
+<Fragment set:html={out} />
