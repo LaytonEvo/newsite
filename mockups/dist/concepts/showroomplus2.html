@@ -81,13 +81,18 @@
     <div class="p-mem3__pitch">
       <p class="p-kicker"><span class="q" title="To be confirmed: Owner decision: one programme name (live members page uses ‘Evolution Golf Membership’; elsewhere ‘Evolution Club’, ‘Pro’, ‘Clubhouse’)">Evolution Golf Membership</span></p>
       <h2 id="p-me">Annual pays for itself on one trolley.</h2>
-      <p class="p-mem3__big">£60.90</p>
-      <p class="p-mem3__cap">better off on a £969 Motocaddy M5 GPS DHC, after the £36 fee.</p>
-      <ul class="p-sum3" aria-label="Worked saving">
-        <li>£969.00<span class="sr"> trolley price</span></li>
-        <li>−£96.90 at <span class="q" title="To be confirmed: Depends on discount hierarchy decision (a/b/c)">10</span>% off</li>
-        <li>+£36.00 Annual fee</li>
-      </ul>
+      <p class="p-mem3__big" data-calc-big aria-hidden="true">£60.90</p>
+      <p class="p-mem3__cap" data-calc-cap aria-hidden="true">better off on a £969 order, after the £36 fee.</p>
+      <div class="p-calc" data-calc data-pct="10" data-fee="36">
+        <div class="p-calc__top"><label for="p-calc-r">How much is your next order?</label><output for="p-calc-r" data-calc-out>£969</output></div>
+        <input type="range" id="p-calc-r" min="50" max="2000" step="1" value="969" aria-valuetext="£969" data-calc-range>
+        <dl aria-live="polite">
+          <div><dt><span class="q" title="To be confirmed: Depends on discount hierarchy decision (a/b/c)">10</span>% off this order</dt><dd data-calc-off>−£96.90</dd></div>
+          <div><dt>Annual membership</dt><dd>+£36.00</dd></div>
+          <div class="p-calc__t"><dt data-calc-tl>You’re better off by</dt><dd data-calc-net>£60.90</dd></div>
+        </dl>
+        <p class="p-calc__note" data-calc-note>That’s on this order alone. Annual members get 10% off one order every month. £969 is a Motocaddy M5 GPS DHC.</p>
+      </div>
     </div>
     <div class="p-mem3__tiers">
       <div class="p-tier3">
@@ -109,12 +114,118 @@
     <p class="p-sub">From the tee to the green: pick a shot and see what you’d use there.</p></div>
   <div class="h-course h-course--photo">
     <img class="h-photo" src="assets/img/scenes/hole-illustration-1600.webp" srcset="assets/img/scenes/hole-illustration-800.webp 800w, assets/img/scenes/hole-illustration-1600.webp 1600w" sizes="(min-width: 1360px) 1280px, 94vw" alt="Illustration of a golf hole from the tee to the green" width="1600" height="1052" loading="lazy">
-    <span class="h-pin" style="left:17.9%;top:71.4%" aria-hidden="true">1</span><span class="h-pin" style="left:35.7%;top:48%" aria-hidden="true">2</span><span class="h-pin" style="left:67.2%;top:30.8%" aria-hidden="true">3</span><span class="h-pin" style="left:78.9%;top:24.1%" aria-hidden="true">4</span><span class="h-pin" style="left:24.2%;top:81.1%" aria-hidden="true">5</span>
+    <span class="h-pin is-on" style="left:17.9%;top:71.4%" data-zone="tee" aria-hidden="true">1</span><span class="h-pin" style="left:35.7%;top:48%" data-zone="fairway" aria-hidden="true">2</span><span class="h-pin" style="left:67.2%;top:30.8%" data-zone="approach" aria-hidden="true">3</span><span class="h-pin" style="left:78.9%;top:24.1%" data-zone="green" aria-hidden="true">4</span><span class="h-pin" style="left:24.2%;top:81.1%" data-zone="walk" aria-hidden="true">5</span>
   </div>
   <p class="h-cap"><span class="q" title="To be confirmed: Owner-supplied illustration used as a placeholder; swap for a licensed aerial photo (docs/briefs/shop-the-hole-photo.md) and re-place the pins.">Illustration for now</span></p>
-  <ul class="h-stops" aria-label="Shop by shot">
-    <li><a href="#"><b aria-hidden="true">1</b><span>Off the tee<small>Drivers</small></span></a></li><li><a href="#"><b aria-hidden="true">2</b><span>From the fairway<small>Woods, hybrids and irons</small></span></a></li><li><a href="#"><b aria-hidden="true">3</b><span>Into the green<small>Wedges and rangefinders</small></span></a></li><li><a href="#"><b aria-hidden="true">4</b><span>On the green<small>Putters</small></span></a></li><li><a href="#"><b aria-hidden="true">5</b><span>Getting round<small>Motocaddy trolleys, bags and GPS</small></span></a></li>
-  </ul>
+  <div class="h-stops" role="group" aria-label="Choose a shot">
+    <button type="button" class="h-stop" data-zone="tee" aria-pressed="true" aria-controls="h-zone-tee"><b aria-hidden="true">1</b><span>Off the tee<small>Drivers</small></span></button><button type="button" class="h-stop" data-zone="fairway" aria-pressed="false" aria-controls="h-zone-fairway"><b aria-hidden="true">2</b><span>From the fairway<small>Woods, hybrids and irons</small></span></button><button type="button" class="h-stop" data-zone="approach" aria-pressed="false" aria-controls="h-zone-approach"><b aria-hidden="true">3</b><span>Into the green<small>Wedges and rangefinders</small></span></button><button type="button" class="h-stop" data-zone="green" aria-pressed="false" aria-controls="h-zone-green"><b aria-hidden="true">4</b><span>On the green<small>Putters</small></span></button><button type="button" class="h-stop" data-zone="walk" aria-pressed="false" aria-controls="h-zone-walk"><b aria-hidden="true">5</b><span>Getting round<small>Motocaddy trolleys, bags and GPS</small></span></button>
+  </div>
+  <div class="h-zone" id="h-zone-tee" role="region" aria-labelledby="h-zt-tee" data-zone-panel="tee">
+    <div class="h-zone__head"><h3 id="h-zt-tee">Off the tee: drivers</h3><a class="p-l" href="#">See all drivers<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></div>
+    <ul class="h-picks"><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/wilson-dynapwr-max-plus-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Wilson</span>
+      <strong class="h-pick__name">Staff DYNAPWR Max+ driver</strong>
+      <span class="h-pick__price">£349</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/mizuno-jpx-one-driver-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Mizuno</span>
+      <strong class="h-pick__name">JPX ONE driver</strong>
+      <span class="h-pick__price">£379</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/wilson-dynapwr-carbon-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Wilson</span>
+      <strong class="h-pick__name">Staff DYNAPWR Carbon driver</strong>
+      <span class="h-pick__price">£269</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li></ul>
+  </div><div class="h-zone" id="h-zone-fairway" role="region" aria-labelledby="h-zt-fairway" data-zone-panel="fairway" hidden>
+    <div class="h-zone__head"><h3 id="h-zt-fairway">From the fairway: hybrids and irons</h3><a class="p-l" href="#">See all hybrids and irons<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></div>
+    <ul class="h-picks"><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/mizuno-jpx-one-hybrid-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Mizuno</span>
+      <strong class="h-pick__name">JPX One hybrid</strong>
+      <span class="h-pick__price">£179</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/mizuno-fli-hi-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Mizuno</span>
+      <strong class="h-pick__name">Pro Fli-Hi utility iron</strong>
+      <span class="h-pick__price">£169</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/wilson-staff-model-blade-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Wilson</span>
+      <strong class="h-pick__name">Staff Model Blade irons</strong>
+      <span class="h-pick__price">From £899</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li></ul>
+  </div><div class="h-zone" id="h-zone-approach" role="region" aria-labelledby="h-zt-approach" data-zone-panel="approach" hidden>
+    <div class="h-zone__head"><h3 id="h-zt-approach">Into the green: wedges and rangefinders</h3><a class="p-l" href="#">See all wedges<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></div>
+    <ul class="h-picks"><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/mizuno-t1-wedge-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Mizuno</span>
+      <strong class="h-pick__name">Pro T-1 Soft White Satin wedge</strong>
+      <span class="h-pick__price">£119</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/callaway-opus-sp-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Callaway</span>
+      <strong class="h-pick__name">Opus SP Brushed Chrome wedge</strong>
+      <span class="h-pick__price">£159</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/shotscope-l2-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Shot Scope</span>
+      <strong class="h-pick__name">PRO L2 laser rangefinder</strong>
+      <span class="h-pick__price">£129.99</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li></ul>
+  </div><div class="h-zone" id="h-zone-green" role="region" aria-labelledby="h-zt-green" data-zone-panel="green" hidden>
+    <div class="h-zone__head"><h3 id="h-zt-green">On the green: putters</h3><a class="p-l" href="#">See all putters<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></div>
+    <ul class="h-picks"><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/cleveland-hb-soft2-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Cleveland</span>
+      <strong class="h-pick__name">HB Soft 2 #1 putter</strong>
+      <span class="h-pick__price">£109</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/mizuno-mcraft-tokyo-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Mizuno</span>
+      <strong class="h-pick__name">M.Craft Tokyo B putter</strong>
+      <span class="h-pick__price">£199</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/cleveland-hb-soft2-retreve-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Cleveland</span>
+      <strong class="h-pick__name">HB Soft 2 Retreve putter</strong>
+      <span class="h-pick__price">£119</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li></ul>
+  </div><div class="h-zone" id="h-zone-walk" role="region" aria-labelledby="h-zt-walk" data-zone-panel="walk" hidden>
+    <div class="h-zone__head"><h3 id="h-zt-walk">Getting round: trolleys and bags</h3><a class="p-l" href="#">See all electric trolleys<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></div>
+    <ul class="h-picks"><li class="h-pick"><a href="/trolleys/motocaddy-m5-gps-dhc">
+      <span class="h-pick__img"><img src="assets/img/cutouts/m5-gps-dhc-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Motocaddy</span>
+      <strong class="h-pick__name">M5 GPS DHC electric trolley</strong>
+      <span class="h-pick__price">£969</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li><li class="h-pick"><a href="/trolleys/motocaddy-se">
+      <span class="h-pick__img"><img src="assets/img/cutouts/se-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Motocaddy</span>
+      <strong class="h-pick__name">SE electric trolley</strong>
+      <span class="h-pick__price">£479</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li><li class="h-pick"><a href="#">
+      <span class="h-pick__img"><img src="assets/img/cutouts/bag-dry-series-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">Motocaddy</span>
+      <strong class="h-pick__name">Dry Series cart bag</strong>
+      <span class="h-pick__price">£199</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li></ul>
+  </div>
   <p class="p-also">Also in the shop: <a href="#">Bags</a> · <a href="#">Balls</a> · <a href="#">GPS &amp; rangefinders</a> · <a href="#">Trade-in</a> · <a href="#">Accessories</a> · <a href="#">Sale</a> · <a href="#">Clothing &amp; shoes</a></p>
 </section>
 </main>

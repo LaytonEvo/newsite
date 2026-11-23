@@ -711,5 +711,131 @@
     "alt": "Illustration of a golf hole from the tee to the green",
     "placeholder": true,
     "note": "Owner-supplied illustration used as a placeholder; swap for a licensed aerial photo (docs/briefs/shop-the-hole-photo.md) and re-place the pins."
+  },
+  "holePicks": {
+    "_source": "In-stock, active products read from Shopify (read-only), 23 Nov 2026. Prices are current selling prices; no compare-at or 'save' figures are shown.",
+    "tee": {
+      "title": "Off the tee: drivers",
+      "more": "See all drivers",
+      "items": [
+        {
+          "brand": "Wilson",
+          "name": "Staff DYNAPWR Max+ driver",
+          "price": 349,
+          "img": "wilson-dynapwr-max-plus"
+        },
+        {
+          "brand": "Mizuno",
+          "name": "JPX ONE driver",
+          "price": 379,
+          "img": "mizuno-jpx-one-driver"
+        },
+        {
+          "brand": "Wilson",
+          "name": "Staff DYNAPWR Carbon driver",
+          "price": 269,
+          "img": "wilson-dynapwr-carbon"
+        }
+      ]
+    },
+    "fairway": {
+      "title": "From the fairway: hybrids and irons",
+      "more": "See all hybrids and irons",
+      "items": [
+        {
+          "brand": "Mizuno",
+          "name": "JPX One hybrid",
+          "price": 179,
+          "img": "mizuno-jpx-one-hybrid"
+        },
+        {
+          "brand": "Mizuno",
+          "name": "Pro Fli-Hi utility iron",
+          "price": 169,
+          "img": "mizuno-fli-hi"
+        },
+        {
+          "brand": "Wilson",
+          "name": "Staff Model Blade irons",
+          "price": 899,
+          "from": true,
+          "img": "wilson-staff-model-blade"
+        }
+      ]
+    },
+    "approach": {
+      "title": "Into the green: wedges and rangefinders",
+      "more": "See all wedges",
+      "items": [
+        {
+          "brand": "Mizuno",
+          "name": "Pro T-1 Soft White Satin wedge",
+          "price": 119,
+          "img": "mizuno-t1-wedge"
+        },
+        {
+          "brand": "Callaway",
+          "name": "Opus SP Brushed Chrome wedge",
+          "price": 159,
+          "img": "callaway-opus-sp"
+        },
+        {
+          "brand": "Shot Scope",
+          "name": "PRO L2 laser rangefinder",
+          "price": 129.99,
+          "img": "shotscope-l2"
+        }
+      ]
+    },
+    "green": {
+      "title": "On the green: putters",
+      "more": "See all putters",
+      "items": [
+        {
+          "brand": "Cleveland",
+          "name": "HB Soft 2 #1 putter",
+          "price": 109,
+          "img": "cleveland-hb-soft2"
+        },
+        {
+          "brand": "Mizuno",
+          "name": "M.Craft Tokyo B putter",
+          "price": 199,
+          "img": "mizuno-mcraft-tokyo"
+        },
+        {
+          "brand": "Cleveland",
+          "name": "HB Soft 2 Retreve putter",
+          "price": 119,
+          "img": "cleveland-hb-soft2-retreve"
+        }
+      ]
+    },
+    "walk": {
+      "title": "Getting round: trolleys and bags",
+      "more": "See all electric trolleys",
+      "items": [
+        {
+          "brand": "Motocaddy",
+          "name": "M5 GPS DHC electric trolley",
+          "price": 969,
+          "img": "m5-gps-dhc",
+          "family": "m5-gps-dhc"
+        },
+        {
+          "brand": "Motocaddy",
+          "name": "SE electric trolley",
+          "price": 479,
+          "img": "se",
+          "family": "se"
+        },
+        {
+          "brand": "Motocaddy",
+          "name": "Dry Series cart bag",
+          "price": 199,
+          "img": "bag-dry-series"
+        }
+      ]
+    }
   }
 }

@@ -448,3 +448,49 @@
     if (h && h !== "#" && h !== "/" && path.startsWith(h)) a.setAttribute("aria-current", "page");
   });
 })();
+
+/* shop the hole: choose a shot (stop button or pin) to see its three picks */
+(() => {
+  const stops = [...document.querySelectorAll(".h-stop")];
+  if (!stops.length) return;
+  const pins = [...document.querySelectorAll(".h-pin[data-zone]")];
+  const show = (zone, focusPanel) => {
+    stops.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.zone === zone)));
+    pins.forEach((p) => p.classList.toggle("is-on", p.dataset.zone === zone));
+    document.querySelectorAll("[data-zone-panel]").forEach((p) => (p.hidden = p.dataset.zonePanel !== zone));
+    if (focusPanel) document.getElementById("h-zone-" + zone)?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  stops.forEach((b) => b.addEventListener("click", () => show(b.dataset.zone, false)));
+  pins.forEach((p) => p.addEventListener("click", () => show(p.dataset.zone, true)));
+})();
+
+/* members: order calculator (Annual discount on one order, less the fee) */
+(() => {
+  const box = document.querySelector("[data-calc]");
+  if (!box) return;
+  const pct = Number(box.dataset.pct), fee = Number(box.dataset.fee);
+  const range = box.querySelector("[data-calc-range]");
+  const money = (n, p = true) => "£" + n.toLocaleString("en-GB", { minimumFractionDigits: p ? 2 : 0, maximumFractionDigits: p ? 2 : 0 });
+  const $ = (s) => document.querySelector(s);
+  const breakEven = Math.ceil((fee * 100) / pct);
+  const update = () => {
+    const v = Number(range.value);
+    const off = Math.round(v * pct) / 100, net = Math.round((off - fee) * 100) / 100;
+    box.querySelector("[data-calc-out]").textContent = money(v, false);
+    range.setAttribute("aria-valuetext", money(v, false));
+    box.querySelector("[data-calc-off]").textContent = "−" + money(off);
+    if (net >= 0) {
+      box.querySelector("[data-calc-tl]").textContent = "You’re better off by";
+      box.querySelector("[data-calc-net]").textContent = money(net);
+      $("[data-calc-big]").textContent = money(net);
+      $("[data-calc-cap]").textContent = `better off on a ${money(v, false)} order, after the ${money(fee, false)} fee.`;
+    } else {
+      box.querySelector("[data-calc-tl]").textContent = "On this order alone, you’re short by";
+      box.querySelector("[data-calc-net]").textContent = money(-net);
+      $("[data-calc-big]").textContent = money(breakEven, false);
+      $("[data-calc-cap]").textContent = `is where Annual pays for itself on one order. Below that, it can still add up over the year.`;
+    }
+    box.querySelector("[data-calc-note]").textContent = `That’s on this order alone. Annual members get ${pct}% off one order every month.`;
+  };
+  range.addEventListener("input", update);
+})();

@@ -89,13 +89,18 @@ const members = () => {
     <div class="p-mem3__pitch">
       <p class="p-kicker">${q("membership.name")}</p>
       <h2 id="p-me">Annual pays for itself on one trolley.</h2>
-      <p class="p-mem3__big">${gbp(s.net, { pence: true })}</p>
-      <p class="p-mem3__cap">better off on a ${gbp(s.price)} ${esc(s.product)}, after the ${gbp(s.fee)} fee.</p>
-      <ul class="p-sum3" aria-label="Worked saving">
-        <li>${gbp(s.price, { pence: true })}<span class="sr"> trolley price</span></li>
-        <li>−${gbp(s.off, { pence: true })} at ${q("membership.memberDiscountPercent")}% off</li>
-        <li>+${gbp(s.fee, { pence: true })} Annual fee</li>
-      </ul>
+      <p class="p-mem3__big" data-calc-big aria-hidden="true">${gbp(s.net, { pence: true })}</p>
+      <p class="p-mem3__cap" data-calc-cap aria-hidden="true">better off on a ${gbp(s.price)} order, after the ${gbp(s.fee)} fee.</p>
+      <div class="p-calc" data-calc data-pct="${pct}" data-fee="${s.fee}">
+        <div class="p-calc__top"><label for="p-calc-r">How much is your next order?</label><output for="p-calc-r" data-calc-out>${gbp(s.price)}</output></div>
+        <input type="range" id="p-calc-r" min="50" max="2000" step="1" value="${s.price}" aria-valuetext="${gbp(s.price)}" data-calc-range>
+        <dl aria-live="polite">
+          <div><dt>${q("membership.memberDiscountPercent")}% off this order</dt><dd data-calc-off>−${gbp(s.off, { pence: true })}</dd></div>
+          <div><dt>Annual membership</dt><dd>+${gbp(s.fee, { pence: true })}</dd></div>
+          <div class="p-calc__t"><dt data-calc-tl>You’re better off by</dt><dd data-calc-net>${gbp(s.net, { pence: true })}</dd></div>
+        </dl>
+        <p class="p-calc__note" data-calc-note>That’s on this order alone. Annual members get ${pct}% off one order every month. ${gbp(s.price)} is a ${esc(s.product)}.</p>
+      </div>
     </div>
     <div class="p-mem3__tiers">
       <div class="p-tier3">
@@ -144,6 +149,20 @@ export const holeMap = () => `<svg class="h-map" viewBox="0 0 1000 320" aria-hid
 </svg>`;
 
 const HOLE_LINKS = { tee: "Drivers", fairway: "Fairway woods & hybrids", approach: "Wedges & rangefinders", green: "Putters", walk: "Electric trolleys" };
+const holeZone = (z) => {
+  const zone = catalogue.holePicks[z.id];
+  const href = (i) => (i.family ? fam(i.family).href : "#");
+  return html`<div class="h-zone" id="h-zone-${z.id}" role="region" aria-labelledby="h-zt-${z.id}" data-zone-panel="${z.id}"${z.id === "tee" ? "" : " hidden"}>
+    <div class="h-zone__head"><h3 id="h-zt-${z.id}">${esc(zone.title)}</h3>${L(zone.more, to(HOLE_LINKS[z.id]))}</div>
+    <ul class="h-picks">${zone.items.map((i) => html`<li class="h-pick"><a href="${href(i)}">
+      <span class="h-pick__img"><img src="${cut(i.img, 400)}" alt="" width="400" height="400" loading="lazy"></span>
+      <span class="h-pick__brand">${esc(i.brand)}</span>
+      <strong class="h-pick__name">${esc(i.name)}</strong>
+      <span class="h-pick__price">${i.from ? "From " : ""}${gbp(i.price, { pence: i.price % 1 !== 0 })}</span>
+      <span class="h-pick__stock">In stock</span>
+    </a></li>`)}</ul>
+  </div>`;
+};
 const hole = () => html`<section class="h" id="hole" aria-labelledby="h-t">
   <div class="p-copy"><h2 id="h-t">Shop the hole.</h2>
     <p class="p-sub">From the tee to the green: pick a shot and see what you’d use there.</p></div>
@@ -151,12 +170,13 @@ const hole = () => html`<section class="h" id="hole" aria-labelledby="h-t">
     ${catalogue.holePhoto.src
       ? `<img class="h-photo" src="${site.base}${catalogue.holePhoto.src}" srcset="${site.base}${catalogue.holePhoto.srcSmall} 800w, ${site.base}${catalogue.holePhoto.src} 1600w" sizes="(min-width: 1360px) 1280px, 94vw" alt="${esc(catalogue.holePhoto.alt)}" width="${catalogue.holePhoto.w}" height="${catalogue.holePhoto.h}" loading="lazy">`
       : `<div class="h-photo h-photo--todo" role="img" aria-label="Photo to come: aerial view of a golf hole"><span class="q" title="To be confirmed: ${esc(catalogue.holePhoto.note)}">Aerial photo of a golf hole, tee to green: to be supplied</span></div>`}
-    ${ZONES.map((z) => `<span class="h-pin" style="left:${z.x}%;top:${z.y}%" aria-hidden="true">${z.n}</span>`).join("")}
+    ${ZONES.map((z) => `<span class="h-pin${z.id === "tee" ? " is-on" : ""}" style="left:${z.x}%;top:${z.y}%" data-zone="${z.id}" aria-hidden="true">${z.n}</span>`).join("")}
   </div>
   ${catalogue.holePhoto.placeholder ? `<p class="h-cap">${qt("Illustration for now", catalogue.holePhoto.note)}</p>` : ""}
-  <ul class="h-stops" aria-label="Shop by shot">
-    ${ZONES.map((z) => `<li><a href="${to(HOLE_LINKS[z.id])}"><b aria-hidden="true">${z.n}</b><span>${esc(z.name)}<small>${esc(z.what)}</small></span></a></li>`).join("")}
-  </ul>
+  <div class="h-stops" role="group" aria-label="Choose a shot">
+    ${ZONES.map((z) => `<button type="button" class="h-stop" data-zone="${z.id}" aria-pressed="${z.id === "tee"}" aria-controls="h-zone-${z.id}"><b aria-hidden="true">${z.n}</b><span>${esc(z.name)}<small>${esc(z.what)}</small></span></button>`).join("")}
+  </div>
+  ${ZONES.map((z) => holeZone(z)).join("")}
   <p class="p-also">Also in the shop: ${["Bags", "Balls", "GPS & rangefinders", "Trade-in", "Accessories", "Sale", "Clothing & shoes"].map((n) => `<a href="${to(n)}">${esc(n)}</a>`).join(" · ")}</p>
 </section>`;
 
