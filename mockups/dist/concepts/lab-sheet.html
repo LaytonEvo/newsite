@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>The Lab: design sheet</title>
+<link rel="stylesheet" href="assets/css/concepts/lab.css">
+<style>
+.sh{all:initial;display:block;background:#fff;color:#161616;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:40px clamp(16px,4vw,56px) 64px}
+.sh *{box-sizing:border-box}
+.sh h1{font:700 34px/1.1 system-ui;margin:0 0 6px}.sh h2{font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;margin:40px 0 14px;padding-top:16px;border-top:2px solid #161616}
+.sh p{margin:0 0 10px;max-width:72ch}.sh .lead{font-size:18px;max-width:80ch}
+.sh .meta{color:#555;margin-bottom:20px}
+.sh .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.sh .sw div{border:1px solid #ccc}.sh .sw b{display:flex;align-items:flex-end;height:84px;padding:8px 10px;font:600 13px system-ui}
+.sh .sw p{padding:8px 10px;margin:0;font-size:13px;line-height:1.4}
+.sh table{border-collapse:collapse;width:100%;max-width:1100px}.sh td,.sh th{text-align:left;vertical-align:top;padding:8px 12px 8px 0;border-bottom:1px solid #ddd}
+.sh .specimen{padding:24px;border:1px solid #ccc;margin-top:8px;overflow:hidden}
+.sh .cols{display:grid;gap:24px}@media(min-width:900px){.sh .cols{grid-template-columns:1fr 1fr 1fr}}
+.sh ul{margin:0;padding-left:18px}.sh li{margin:4px 0}
+.sh a{color:inherit}
+</style></head>
+<body><div class="sh">
+<p><a href="index.html">All concepts</a> · <a href="lab.html">View homepage</a> · <a href="lab-390.html">390px</a> · <a href="lab-1440.html">1440px</a></p>
+<h1>The Lab</h1>
+<p class="meta">Concept 2 of 4 · Direction: Performance lab</p>
+<p class="lead">This concept sells the thing national chains can’t: measurement. It opens on the fitting proposition (‘Get measured. Then buy.’) with the session itself as a readout, then treats the Motocaddy range the way an engineer would, as one spec sheet you can scan in seconds: GPS, downhill control, remote, battery, price, stock. Clubs are shown by their real loft, shaft and flex options from the catalogue. Membership is a sum. Nothing is decorative except numbers, a trajectory line and the grid. It suits the profitable side of the business (fitting and considered purchases) and makes comparison genuinely fast.</p>
+<h2>Structural changes from the brief’s section order</h2><p>Fitting moves to the hero, ahead of trolleys, because it is the concept’s organising idea. Trolleys follow immediately as a flagship spec plate (M5 GPS DHC) and the full spec table, so the trolley specialism still lands in the first two screens. The three pillar tiles are folded into the hero copy. Membership becomes a calculation plus a tier comparison table. Reviews are ‘field reports’; guides are ‘test notes’.</p>
+
+<h2>Palette</h2>
+<div class="sw"><div><b style="background:#0b0d0f;color:#fff">Carbon · #0B0D0F</b><p>Page background.<br><small>19.5:1 on white · 1.0:1 on #111</small></p></div><div><b style="background:#16191d;color:#fff">Graphite · #16191D</b><p>Panels, table rows, footer.<br><small>17.6:1 on white · 1.1:1 on #111</small></p></div><div><b style="background:#2b3036;color:#fff">Rule · #2B3036</b><p>Grid lines and table rules (decorative, non-text).<br><small>13.3:1 on white · 1.4:1 on #111</small></p></div><div><b style="background:#e8ecef;color:#111">Chalk · #E8ECEF</b><p>Primary text on dark (16:1 on Carbon).<br><small>1.2:1 on white · 15.9:1 on #111</small></p></div><div><b style="background:#98a2ab;color:#111">Steel · #98A2AB</b><p>Secondary text, labels (7.5:1 on Carbon).<br><small>2.6:1 on white · 7.3:1 on #111</small></p></div><div><b style="background:#5be0ff;color:#111">Signal · #5BE0FF</b><p>The only accent: primary button (dark text on it), live status, trajectory line, ‘in stock’.<br><small>1.5:1 on white · 12.2:1 on #111</small></p></div><div><b style="background:#dde2e6;color:#111">Plate · #DDE2E6</b><p>Light plates behind product cut-outs, so dark trolleys read clearly on a dark page.<br><small>1.3:1 on white · 14.5:1 on #111</small></p></div></div>
+
+<h2>Typefaces</h2>
+<table><tr><th>Headlines and UI</th><td><span style="font:600 28px/1 'Plex';font-size:28px">IBM Plex Sans (600 for headlines, 400/500 for UI)</span></td><td>Google Fonts, SIL OFL. An engineered grotesk, tight tracking at large sizes.</td></tr><tr><th>Data, codes, labels, prices</th><td><span style="font:400 24px/1 'Plex Mono';font-size:28px">IBM Plex Mono (400/500)</span></td><td>Google Fonts, SIL OFL. Tabular by nature: specs and prices line up.</td></tr></table>
+
+<h2>Key components (rendered from the concept’s own CSS)</h2>
+<p><strong>Buttons.</strong> Square-cornered. Primary is Signal with dark text; ghost is an outlined variant. A trailing arrow, never two filled buttons side by side.</p><div class="specimen" style="background:#0b0d0f"><div class="l" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center"><a class="l-btn" href="#">Book a free fitting <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a class="l-btn l-btn--ghost" href="#">Open full spec</a></div></div><p><strong>Product as a spec row.</strong> The product card is a table row: plate thumbnail, model, feature dots, battery options, price, stock in words. On phones each row becomes a labelled spec block.</p><div class="specimen" style="background:#0b0d0f"><div class="l"><div class="l-table-wrap"><table class="l-table"><caption class="sr">2026 Motocaddy electric trolleys</caption>
+    <thead><tr><th scope="col">Model</th><th scope="col">GPS</th><th scope="col">DHC</th><th scope="col">Remote</th><th scope="col">Battery</th><th scope="col">From</th><th scope="col">Status</th></tr></thead><tbody><tr>
+      <th scope="row"><a href="/trolleys/motocaddy-m5-gps-dhc"><span class="l-thumb"><img src="assets/img/cutouts/m5-gps-dhc-400.webp" alt="" width="400" height="400" loading="lazy"></span>M5 GPS DHC</a></th>
+      <td data-l="GPS"><span class="l-y" aria-label="GPS: yes">●</span></td><td data-l="DHC"><span class="l-y" aria-label="Downhill control: yes">●</span></td><td data-l="Remote"><span class="l-n" aria-label="Remote: no">—</span></td>
+      <td data-l="Battery">Standard <small>18h</small> / Ultra <small>36h</small></td>
+      <td data-l="From" class="l-num">£969</td>
+      <td data-l="Status" class="l-st l-st--in">In stock<small>Standard battery</small></td>
+    </tr></tbody></table></div></div></div><p><strong>Navigation.</strong> Status line (bay availability, delivery cut-off, phone) above a compact header; search is a command field with a ‘/’ shortcut.</p><div class="specimen" style="background:#0b0d0f"><div class="l"><div class="l-status" role="note">
+  <span class="l-live"><i aria-hidden="true"></i>Fitting bay, Ringwood: bookable <span class="q" title="To be confirmed: Weekend slots: owner decision">Mon to Fri</span></span>
+  <span class="l-hide-s">Next-day delivery: order by 1pm · free over £500</span>
+  <span class="l-hide-s">Trustpilot <span class="q" title="To be confirmed: Pull from one live Trustpilot source; audit found 4 different figures">4.8</span>/5</span>
+  <span><a href="tel:+443301227089">0330 122 7089</a></span>
+</div><header class="l-head">
+  <a class="l-logo" href="#" aria-label="Evolution Golf, home"><span class="l-logo__mark" aria-hidden="true">EG</span><span class="l-logo__word">Evolution Golf</span></a>
+  <nav class="l-nav" aria-label="Main"><ul>
+    <li><a href="#">Trolleys</a></li><li><a href="#">Clubs</a></li><li><a href="#">Custom fitting</a></li><li><a href="#">Membership</a></li><li><a href="#">Bags</a></li><li><a href="#">Balls, GPS &amp; accessories</a></li><li><a href="#">Used &amp; trade-in</a></li><li><a href="#">Sale</a></li><li><a href="#">More</a></li>
+  </ul></nav>
+  <form class="l-search" role="search" action="#"><label class="sr" for="l-q">Search</label><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6"/></svg><input id="l-q" type="search" placeholder="Search models, specs, brands"><kbd>/</kbd></form>
+  <div class="l-icons"><button class="l-ib l-menu" type="button" aria-label="Menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.6"/></svg></button><a class="l-ib" href="#" aria-label="Basket, 0 items"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7h12l-1 10H5L4 7Z M7.5 7V5.5a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a></div>
+</header></div></div>
+
+<div class="cols">
+<div><h2>Imagery and photography</h2><p>Crisp product cut-outs on light ‘plates’, with callout lines to features. Lifestyle photography is minimal and technical: the launch-monitor screen, hands on a grip, the fitting bay under its own lighting. Graded cool and slightly desaturated. No smiling-golfer stock imagery.</p></div>
+<div><h2>Headline copy</h2><p><strong>H1:</strong> “Get measured. Then buy.”</p><p><strong>Sub:</strong> “Free launch‑monitor fitting at our bay in Ringwood. Then the 2026 Motocaddy range and Wilson, Srixon and Mizuno clubs, specced to your numbers.”</p><p><strong>Section heads:</strong> “2026 Motocaddy spec sheet” · “Clubs, by the numbers” · “Membership, as a sum”</p></div>
+<div><h2>Motion</h2><p>Purposeful: the trajectory line draws on load (respecting reduced motion), the live status dot pulses, and table rows highlight on hover. Filters update the table instantly.</p></div>
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:180px">Does well</th><td>Fastest comparison of any concept (the spec table is genuinely useful); makes fitting feel like a precise, valuable service; distinctive in a category full of white-and-green shops; needs little lifestyle photography.</td></tr>
+<tr><th>Weaker on</th><td>Dark UI can feel cold to older, less technical buyers, a large share of the trolley market. Dense tables need careful mobile design. Specs like weight and range must be added as Shopify metafields for this to work fully.</td></tr>
+<tr><th>Build effort</th><td>Medium–high. Data-driven components (filterable spec table, spec plates) need clean metafields; dark mode needs every app widget (reviews, Klarna, Acuity) themed to match.</td></tr>
+<tr><th>Photography needed</th><td>Low–medium: clean cut-outs (already available) plus a few technical shots of the bay and launch monitor.</td></tr>
+<tr><th>Suits best</th><td>Improvers and low handicappers, gadget-minded golfers, anyone booking a fitting; buyers comparing several trolleys side by side.</td></tr>
+</table>
+<p style="margin-top:24px;color:#555">EG monogram: ‘EG’ in Plex Mono inside a square Signal outline, reading like an equipment badge (suggestion only; the mark itself isn’t being redesigned here).</p>
+</div></body></html>

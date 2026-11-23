@@ -1,0 +1,117 @@
+/* =========================================================
+   Evolution Golf design system: tokens
+   Every colour, size and space used in the mockups comes from here.
+   ========================================================= */
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("../fonts/source-serif-4-latin-opsz-normal.woff2") format("woff2-variations");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Colour: brand green (primary) ---- */
+  --green-950: #062a1c;
+  --green-900: #0a3a28;  /* footer, dark bands */
+  --green-800: #0e4d35;  /* PRIMARY: buttons, links, logo. 9.9:1 on white */
+  --green-700: #146142;  /* hover */
+  --green-600: #1d7a54;  /* focus ring on dark, icons */
+  --green-200: #c4dccd;
+  --green-100: #dcebe2;
+  --green-50:  #eef5f1;  /* tinted panels (cool tint, not cream) */
+
+  /* ---- Colour: single accent (sale + alert only) ---- */
+  --accent-700: #b42318; /* 6.5:1 on white */
+  --accent-600: #d92d20;
+  --accent-50:  #fdf0ef;
+
+  /* ---- Colour: neutrals (cool greys) ---- */
+  --ink-900: #111816;    /* body text, 18.0:1 */
+  --ink-700: #3c4743;    /* secondary text, 9.7:1 */
+  --ink-600: #56625d;    /* meta text, 6.2:1 */
+  --line:    #dce2df;    /* borders, dividers */
+  --line-strong: #b9c3bf;/* input borders (3:1 non-text contrast with focus) */
+  --surface:   #ffffff;
+  --surface-2: #f4f6f5;  /* quiet panels */
+
+  /* ---- Semantic ---- */
+  --color-text: var(--ink-900);
+  --color-text-muted: var(--ink-700);
+  --color-link: var(--green-800);
+  --color-primary: var(--green-800);
+  --color-primary-hover: var(--green-700);
+  --color-sale: var(--accent-700);
+  --color-alert: var(--accent-700);
+  --color-success: var(--green-800);
+  --focus-ring: 0 0 0 3px var(--surface), 0 0 0 5px var(--green-800);
+  --focus-ring-dark: 0 0 0 3px var(--green-900), 0 0 0 5px #ffffff;
+
+  /* ---- Type ---- */
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* Type scale: mobile first, fluid to 1440 */
+  --fs-display: clamp(2rem, 1.45rem + 2.6vw, 3.5rem);   /* 32 → 56 */
+  --fs-h1: clamp(2rem, 1.6rem + 1.6vw, 3rem);            /* 32 → 48 */
+  --fs-h2: clamp(1.625rem, 1.35rem + 1.1vw, 2.375rem);   /* 26 → 38 */
+  --fs-h3: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);      /* 20 → 24 */
+  --fs-h4: 1.125rem;                                     /* 18 */
+  --fs-body-lg: 1.125rem;                                /* 18 */
+  --fs-body: 1rem;                                       /* 16 */
+  --fs-small: 0.875rem;                                  /* 14 */
+  --fs-caption: 0.8125rem;                               /* 13: never smaller */
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.25;
+  --lh-body: 1.6;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* ---- Spacing scale (4px base) ---- */
+  --space-1: 0.25rem;  /* 4 */
+  --space-2: 0.5rem;   /* 8 */
+  --space-3: 0.75rem;  /* 12 */
+  --space-4: 1rem;     /* 16 */
+  --space-5: 1.5rem;   /* 24 */
+  --space-6: 2rem;     /* 32 */
+  --space-7: 3rem;     /* 48 */
+  --space-8: 4rem;     /* 64 */
+  --space-9: 6rem;     /* 96 */
+
+  --section-gap: clamp(3rem, 2rem + 4vw, 6rem);
+  --gutter: 1rem;          /* 16px side gutter on phones */
+  --container: 80rem;      /* 1280 content max */
+
+  /* ---- Shape & depth ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+  --shadow-1: 0 1px 2px rgba(17, 24, 22, 0.06), 0 1px 3px rgba(17, 24, 22, 0.08);
+  --shadow-2: 0 4px 16px rgba(17, 24, 22, 0.10);
+  --shadow-3: 0 16px 48px rgba(17, 24, 22, 0.18);
+
+  /* ---- Interaction ---- */
+  --tap: 44px;             /* minimum tap target (WCAG 2.2 target size) */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur: 160ms;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 2rem; }
+}
+@media (min-width: 1200px) {
+  :root { --gutter: 3rem; }
+}

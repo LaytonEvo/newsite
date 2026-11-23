@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>The Journal: design sheet</title>
+<link rel="stylesheet" href="assets/css/concepts/editorial.css">
+<style>
+.sh{all:initial;display:block;background:#fff;color:#161616;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:40px clamp(16px,4vw,56px) 64px}
+.sh *{box-sizing:border-box}
+.sh h1{font:700 34px/1.1 system-ui;margin:0 0 6px}.sh h2{font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;margin:40px 0 14px;padding-top:16px;border-top:2px solid #161616}
+.sh p{margin:0 0 10px;max-width:72ch}.sh .lead{font-size:18px;max-width:80ch}
+.sh .meta{color:#555;margin-bottom:20px}
+.sh .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.sh .sw div{border:1px solid #ccc}.sh .sw b{display:flex;align-items:flex-end;height:84px;padding:8px 10px;font:600 13px system-ui}
+.sh .sw p{padding:8px 10px;margin:0;font-size:13px;line-height:1.4}
+.sh table{border-collapse:collapse;width:100%;max-width:1100px}.sh td,.sh th{text-align:left;vertical-align:top;padding:8px 12px 8px 0;border-bottom:1px solid #ddd}
+.sh .specimen{padding:24px;border:1px solid #ccc;margin-top:8px;overflow:hidden}
+.sh .cols{display:grid;gap:24px}@media(min-width:900px){.sh .cols{grid-template-columns:1fr 1fr 1fr}}
+.sh ul{margin:0;padding-left:18px}.sh li{margin:4px 0}
+.sh a{color:inherit}
+</style></head>
+<body><div class="sh">
+<p><a href="index.html">All concepts</a> · <a href="editorial.html">View homepage</a> · <a href="editorial-390.html">390px</a> · <a href="editorial-1440.html">1440px</a></p>
+<h1>The Journal</h1>
+<p class="meta">Concept 1 of 4 · Direction: Editorial / journal</p>
+<p class="lead">Evolution’s real edge over the national chains is expertise, so this concept presents the shop as a publication run by fitters. The homepage reads like a well-made print journal: a cover that sells one product (the M5 GPS DHC on a claret cover), a contents strip that states the four things the business does, then numbered features. Products appear as a listing, not a card grid, so trolleys can be compared down a single column of name, spec, price and stock, like a buyer’s guide. Typography does the work that boxes and badges do elsewhere: a heavy condensed grotesk at very large sizes against a reading serif, and black rules instead of grey hairlines.</p>
+<h2>Structural changes from the brief’s section order</h2><p>The brief’s nine sections stay but are regrouped as a magazine: the hero becomes a cover plus a ‘contents’ strip that names trolleys, fitting, clubs and membership in one glance (this replaces the separate three pillar tiles). The trust row is dropped as a component; its facts (Trustpilot, dealer status, Ringwood, price promise) move into the copy where they’re relevant and into the footer colophon. Reviews become ‘Letters’; secondary categories become a typographic index.</p>
+
+<h2>Palette</h2>
+<div class="sw"><div><b style="background:#111111;color:#fff">Ink · #111111</b><p>All text, the heavy rules that structure the page, the footer and the booking bar.<br><small>18.9:1 on white · 1.0:1 on #111</small></p></div><div><b style="background:#ffffff;color:#111">Paper · #FFFFFF</b><p>Page background. Pure white, no cream.<br><small>1.0:1 on white · 18.9:1 on #111</small></p></div><div><b style="background:#7a1c2e;color:#fff">Claret · #7A1C2E</b><p>The one accent: the cover, section numerals, drop caps, the £60.90 figure and hover states. Never used for buttons in bulk.<br><small>10.3:1 on white · 1.8:1 on #111</small></p></div><div><b style="background:#5f6163;color:#fff">Stone · #5F6163</b><p>Captions, specs, meta text (6.3:1 on white).<br><small>6.2:1 on white · 3.0:1 on #111</small></p></div><div><b style="background:#d9dbdc;color:#111">Plate · #D9DBDC</b><p>Photo placeholders only, until the commissioned photography exists.<br><small>1.4:1 on white · 13.6:1 on #111</small></p></div></div>
+
+<h2>Typefaces</h2>
+<table><tr><th>Headlines, nav, numerals</th><td><span style="font:800 28px/1 'Archivo'; font-stretch:70%; text-transform:uppercase;font-size:28px">Archivo (variable, widths 62–125%)</span></td><td>Google Fonts, SIL OFL. Used condensed (62–85%) at 800–860 weight.</td></tr><tr><th>Reading text, captions, standfirsts</th><td><span style="font:italic 400 28px/1.2 'Newsreader';font-size:28px">Newsreader (variable, optical sizes)</span></td><td>Google Fonts, SIL OFL. A text serif designed for long reading, used for body and italics.</td></tr></table>
+
+<h2>Key components (rendered from the concept’s own CSS)</h2>
+<p><strong>Primary action.</strong> No rounded buttons. The primary action is a full-width ink bar with an arrow, like a magazine’s call-out; secondary actions are underlined condensed links.</p><div class="specimen" style=""><div class="j" style="max-width:560px"><a class="j-bar" href="#" style="margin:0">Book a free fitting <svg class="j-arr" viewBox="0 0 32 16" aria-hidden="true"><path d="M0 8h29M22 1l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a><p style="margin-top:16px"><a class="j-link" href="#">Which trolley is right for me?</a></p></div></div><p><strong>Product listing row (instead of a product card).</strong> Number, cut-out, model, spec line in italics, price and stock in words. Trolleys compare down one column.</p><div class="specimen" style=""><div class="j" style="max-width:760px"><ol class="j-list" aria-label="2026 Motocaddy trolleys">
+    <li>
+      <a href="/trolleys/motocaddy-m5-gps-dhc">
+        <span class="j-list__n">01</span>
+        <img src="assets/img/cutouts/m5-gps-dhc-400.webp" alt="" width="400" height="400" loading="lazy">
+        <span class="j-list__name">M5 GPS DHC</span>
+        <span class="j-list__spec">GPS · downhill control · 18 or 36 holes</span>
+        <span class="j-list__price">from £969</span>
+        <span class="j-list__stock j-stock--in">In stock</span>
+      </a>
+    </li></ol></div></div><p><strong>Navigation.</strong> A masthead wordmark with a single condensed uppercase nav line between heavy rules. On phones the nav line scrolls sideways; no hamburger needed for eight items.</p><div class="specimen" style=""><div class="j" style="max-width:1100px"><header class="j-head">
+  <div class="j-top">
+    <p>Ringwood, Hampshire · Winter 2026</p>
+    <p class="j-top__r"><a href="#fitting">Book a free fitting</a><a href="tel:+443301227089">0330 122 7089</a><a class="j-hide-s" href="#">Account</a><a href="#">Basket (0)</a></p>
+  </div>
+  <a class="j-mast" href="#" aria-label="Evolution Golf, home">
+    <span class="j-mast__eg" aria-hidden="true">EG</span><span class="j-mast__word">Evolution Golf</span>
+  </a>
+  <nav class="j-nav" aria-label="Main">
+    <ul>
+      <li><a href="#">Trolleys</a></li><li><a href="#">Clubs</a></li><li><a href="#">Custom fitting</a></li><li><a href="#">Membership</a></li><li><a href="#">Bags</a></li><li><a href="#">Balls, GPS &amp; accessories</a></li><li><a href="#">Used &amp; trade-in</a></li><li><a href="#">Sale</a></li><li><a href="#">More</a></li>
+    </ul>
+    <form class="j-search" role="search" action="#"><label for="j-q" class="sr">Search</label><input id="j-q" type="search" placeholder="Search the shop"><button type="submit" aria-label="Search"><svg class="j-arr" viewBox="0 0 32 16" aria-hidden="true"><path d="M0 8h29M22 1l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></form>
+  </nav>
+</header></div></div>
+
+<div class="cols">
+<div><h2>Imagery and photography</h2><p>Large, art-directed lifestyle photography is the backbone: the fitting bay in natural light, fitters at work, trolleys on New Forest heathland (not manicured fairways). Shot documentary-style, uncropped, no posing.</p><p>Products sit as cut-outs on colour (the cover) or white (listings). Every photo has a caption, like a magazine plate.</p></div>
+<div><h2>Headline copy</h2><p><strong>H1:</strong> “Motocaddy trolleys and custom‑fitted clubs, from the people who fit them.”</p><p><strong>Standfirst:</strong> “Free, no‑obligation fitting at our centre in Ringwood, Hampshire, and a members’ club that pays for itself on a single trolley.”</p><p><strong>Section heads:</strong> “Why we fit for free.” · “Three makers we fit most” · “£60.90”</p></div>
+<div><h2>Motion</h2><p>Almost none: arrows nudge on hover; the cover image could slowly drift on scroll (parallax under 20px). The point is stillness and confidence.</p></div>
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:180px">Does well</th><td>The most distinctive and premium of the four. Builds trust through expertise rather than offers; the trolley listing is genuinely useful for comparison; guides get real weight, which supports SEO.</td></tr>
+<tr><th>Weaker on</th><td>Slower path to purchase for someone who just wants a trolley: fewer ‘add to basket’ moments above the fold. Needs a steady stream of content and named authors to stay credible. Condensed uppercase headlines need careful copy length.</td></tr>
+<tr><th>Build effort</th><td>Medium. Simple components, but layouts are asymmetric and need care at every breakpoint; content editors need well-designed section blocks to keep it looking edited.</td></tr>
+<tr><th>Photography needed</th><td>High. It only works with commissioned photography (fitting bay, fitters, trolleys on course). Without it the plates look empty.</td></tr>
+<tr><th>Suits best</th><td>Considered buyers researching a £500–£1,500 trolley or a custom set; golfers who read reviews before buying.</td></tr>
+</table>
+<p style="margin-top:24px;color:#555">EG monogram: Set in Archivo Condensed Black, claret ‘EG’ leading the ink wordmark in the masthead (suggestion only; the mark itself isn’t being redesigned here).</p>
+</div></body></html>

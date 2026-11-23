@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Block: design sheet</title>
+<link rel="stylesheet" href="assets/css/concepts/retail.css">
+<style>
+.sh{all:initial;display:block;background:#fff;color:#161616;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:40px clamp(16px,4vw,56px) 64px}
+.sh *{box-sizing:border-box}
+.sh h1{font:700 34px/1.1 system-ui;margin:0 0 6px}.sh h2{font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;margin:40px 0 14px;padding-top:16px;border-top:2px solid #161616}
+.sh p{margin:0 0 10px;max-width:72ch}.sh .lead{font-size:18px;max-width:80ch}
+.sh .meta{color:#555;margin-bottom:20px}
+.sh .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.sh .sw div{border:1px solid #ccc}.sh .sw b{display:flex;align-items:flex-end;height:84px;padding:8px 10px;font:600 13px system-ui}
+.sh .sw p{padding:8px 10px;margin:0;font-size:13px;line-height:1.4}
+.sh table{border-collapse:collapse;width:100%;max-width:1100px}.sh td,.sh th{text-align:left;vertical-align:top;padding:8px 12px 8px 0;border-bottom:1px solid #ddd}
+.sh .specimen{padding:24px;border:1px solid #ccc;margin-top:8px;overflow:hidden}
+.sh .cols{display:grid;gap:24px}@media(min-width:900px){.sh .cols{grid-template-columns:1fr 1fr 1fr}}
+.sh ul{margin:0;padding-left:18px}.sh li{margin:4px 0}
+.sh a{color:inherit}
+</style></head>
+<body><div class="sh">
+<p><a href="index.html">All concepts</a> · <a href="retail.html">View homepage</a> · <a href="retail-390.html">390px</a> · <a href="retail-1440.html">1440px</a></p>
+<h1>Block</h1>
+<p class="meta">Concept 3 of 4 · Direction: Bold modern retail</p>
+<p class="lead">This concept treats Evolution as a confident modern retailer that happens to sell golf. Strong colour blocks (cobalt, coral, lilac; deliberately not green) divide the homepage into clear, tappable zones, and a single chunky grotesk carries everything. The hero is a bento of three blocks that each answer one of the five-second questions: Motocaddy, free fitting, membership. Directly underneath, a three-question trolley finder (GPS? hilly? 18 or 36 holes?) gets a buyer to a short list in three taps. Products are big cut-outs on flat colour with prices you can read from across the room. It is the most conversion-focused of the four.</p>
+<h2>Structural changes from the brief’s section order</h2><p>The hero and the three pillar tiles merge into one bento block (Motocaddy / free fitting / membership). A trolley finder is added straight after the hero, ahead of the range, because it is the fastest path to the right trolley. The trust row becomes a single Trustpilot score block lower down; guides shrink to a list because this concept prioritises shopping over reading.</p>
+
+<h2>Palette</h2>
+<div class="sw"><div><b style="background:#2134e8;color:#fff">Cobalt · #2134E8</b><p>Hero block, membership block, finder button; white text on it (7.7:1).<br><small>7.7:1 on white · 2.4:1 on #111</small></p></div><div><b style="background:#ff6a3d;color:#fff">Coral · #FF6A3D</b><p>Fitting block and accents; always ink text on it (6.7:1), never white.<br><small>2.8:1 on white · 6.6:1 on #111</small></p></div><div><b style="background:#dcd6ff;color:#111">Lilac · #DCD6FF</b><p>Membership tile, review block; ink text.<br><small>1.4:1 on white · 13.6:1 on #111</small></p></div><div><b style="background:#f0f0f3;color:#111">Fog · #F0F0F3</b><p>Product tile background so cut-outs read clearly. Cool grey, not cream.<br><small>1.1:1 on white · 16.6:1 on #111</small></p></div><div><b style="background:#101010;color:#fff">Ink · #101010</b><p>Text, primary buttons, footer, the strip.<br><small>19.0:1 on white · 1.0:1 on #111</small></p></div><div><b style="background:#ffffff;color:#111">White · #FFFFFF</b><p>Page background and buttons on colour.<br><small>1.0:1 on white · 18.9:1 on #111</small></p></div></div>
+
+<h2>Typefaces</h2>
+<table><tr><th>Everything (display to body)</th><td><span style="font:800 30px/1 'Bricolage';font-size:28px">Bricolage Grotesque (variable: optical size 12–96, weight 200–800)</span></td><td>Google Fonts, SIL OFL. Chunky and characterful at display sizes (800, opsz 96), calm at body size.</td></tr></table>
+
+<h2>Key components (rendered from the concept’s own CSS)</h2>
+<p><strong>Buttons.</strong> Chunky rectangles with an arrow, 52px+ tall. Ink on light blocks, white on cobalt. No pills.</p><div class="specimen" style=""><div class="b" style="display:flex;gap:12px;flex-wrap:wrap;padding:16px;background:#2134e8"><a class="b-btn b-btn--white" href="#">Shop trolleys</a><a class="b-btn b-btn--ink" href="#">Book a slot</a></div></div><p><strong>Product card.</strong> A flat Fog tile with an oversized cut-out, name, one spec line, a big price and stock in words; in-stock items get a quick-add button.</p><div class="specimen" style=""><div class="b" style="max-width:320px"><div class="b-card b-card--in">
+      <a href="/trolleys/motocaddy-m5-gps-dhc" class="b-card__link">
+        <span class="b-card__img"><img src="assets/img/cutouts/m5-gps-dhc-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+        <span class="b-card__name">M5 GPS DHC</span>
+        <span class="b-card__meta">GPS · DHC · 18/36 holes</span>
+        <span class="b-card__price"><small>from</small>£969</span>
+        <span class="b-card__stock">In stock</span>
+      </a>
+      <button type="button" class="b-add" aria-label="Quick add M5 GPS DHC"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.6"/></svg></button>
+    </div></div></div><p><strong>Navigation.</strong> A delivery strip, a search-first header, then a row of chunky category blocks (scrollable on phones) with Trolleys and Clubs weighted, Fitting and Membership flagged as services.</p><div class="specimen" style=""><div class="b"><div class="b-strip"><p>Free next-day delivery over £500, order by 1pm</p><p class="b-hide-s"><a href="#">Free fitting in Ringwood</a></p><p class="b-hide-s">Trustpilot <span class="q" title="To be confirmed: Pull from one live Trustpilot source; audit found 4 different figures">4.8</span></p><p class="b-hide-s"><a href="tel:+443301227089">0330 122 7089</a></p></div><header class="b-head">
+  <div class="b-head__bar">
+    <a class="b-logo" href="#" aria-label="Evolution Golf, home"><span aria-hidden="true">EG</span><b aria-hidden="true">Evolution<br>Golf</b></a>
+    <form class="b-search" role="search" action="#"><label class="sr" for="b-q">Search</label><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2.4"/></svg><input id="b-q" type="search" placeholder="Search M5, Srixon irons, balls…"></form>
+    <a class="b-ib b-hide-s" href="#" aria-label="Account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></a>
+    <a class="b-ib" href="#" aria-label="Basket, 0 items"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="2.2"/></svg><span class="b-count" aria-hidden="true">0</span></a>
+  </div>
+  <nav class="b-rail" aria-label="Main"><ul>
+    <li><a class="is-key" href="#">Trolleys</a></li><li><a class="is-key" href="#">Clubs</a></li><li><a class="is-svc" href="#">Fitting</a></li><li><a class="is-svc" href="#">Membership</a></li><li><a class="" href="#">Bags</a></li><li><a class="" href="#">Balls, GPS &amp; acc.</a></li><li><a class="" href="#">Used &amp; trade-in</a></li><li><a class="is-sale" href="#">Sale</a></li><li><a class="" href="#">More</a></li>
+  </ul></nav>
+</header></div></div>
+
+<div class="cols">
+<div><h2>Imagery and photography</h2><p>Products do the talking: oversized cut-outs on flat colour, cropped big and allowed to bleed off the edge. Lifestyle photography is optional and, where used, bright and graphic (a trolley against a hedge or sky, shot square-on), never moody fairways.</p></div>
+<div><h2>Headline copy</h2><p><strong>H1:</strong> “Motocaddy. Sorted.”</p><p><strong>Sub:</strong> “The UK specialist for Motocaddy electric trolleys and custom‑fitted clubs.”</p><p><strong>Bento:</strong> “Fitting is free.” · “Members are £60.90 up on an M5.”</p><p><strong>Finder:</strong> “Find your trolley in three taps”</p></div>
+<div><h2>Motion</h2><p>Snappy and physical: blocks scale slightly on press, the finder count ticks up and down as answers change, quick-add confirms with a short colour flash. Nothing slow.</p></div>
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:180px">Does well</th><td>Fastest route to a trolley (finder plus shelf); the clearest prices; the most modern and least ‘golf shop’ look; needs almost no lifestyle photography, so it could launch soonest.</td></tr>
+<tr><th>Weaker on</th><td>Least premium-feeling for the fitting service and the expertise story; a bold palette needs discipline from merchandisers to avoid looking like a sale. Colour away from green is a brand departure that needs owner buy-in.</td></tr>
+<tr><th>Build effort</th><td>Medium. The finder needs the trolley metafields (GPS, DHC, battery holes) to exist; the rest is a straightforward component set.</td></tr>
+<tr><th>Photography needed</th><td>Low: clean cut-outs (already available). Optional graphic lifestyle shots.</td></tr>
+<tr><th>Suits best</th><td>Mobile shoppers who already know they want a Motocaddy and want the right one quickly; younger golfers; gift buyers.</td></tr>
+</table>
+<p style="margin-top:24px;color:#555">EG monogram: Bold ‘EG’ in Bricolage 800, ink on white or white on cobalt, inside a square block (suggestion only; the mark itself isn’t being redesigned here).</p>
+</div></body></html>
