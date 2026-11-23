@@ -485,3 +485,21 @@ html { scroll-padding-top: 72px; scroll-padding-bottom: 120px; }
 @media (max-width: 999px) { .v-bar { position: static; } } /* a sticky multi-row toolbar covered up to 46% of a phone screen */
 .v-collect--line { display: inline-flex; align-items: center; min-height: 44px; justify-self: start; }
 .v-cmp-wrap { position: relative; } /* keeps the visually-hidden yes/no text inside the scroller */
+
+/* ---------- product description (from Shopify, spec lists removed) ---------- */
+.v-about .v-prose { max-width: 760px; }
+.v-prose { font-size: 17px; line-height: 1.6; color: var(--ink); }
+.v-prose > * + * { margin-top: 14px; }
+.v-prose h3 { font: 750 22px/1.2 var(--h); letter-spacing: -0.015em; margin-top: 32px; }
+.v-prose ul, .v-prose ol { padding-left: 22px; }
+.v-prose li + li { margin-top: 6px; }
+.v-prose li::marker { color: var(--green); }
+.v-prose strong { font-weight: 700; }
+.v-about__more { max-width: 760px; margin-top: 8px; }
+.v-about__more > .v-prose { margin-top: 14px; }
+.v-about__more summary { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; list-style: none; font: 700 16px var(--b); color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+.v-about__more summary::-webkit-details-marker { display: none; }
+.v-about__more summary::after { content: ""; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); }
+.v-about__more[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+.v-about__more .v-about__close, .v-about__more[open] .v-about__open { display: none; }
+.v-about__more[open] .v-about__close { display: inline; }

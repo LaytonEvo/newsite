@@ -589,6 +589,18 @@ main:not(.v) { gap: 0; padding: 0; }
 }
 
 
+/* ---------- shop the hole: the illustration runs sideways, tee left to green right, so the picks sit higher ---------- */
+.h-course--photo, .h .h-course--photo { aspect-ratio: 1600 / 594; max-width: 1000px; margin-top: 20px; }
+@media (max-width: 899px) { .h-course--photo, .h .h-course--photo { aspect-ratio: 1600 / 594; margin-top: 16px; } }
+@media (max-width: 899px) {
+  .h-stops { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; margin: 12px calc(-1 * var(--g)) 0; padding: 2px var(--g); }
+  .h-stops::-webkit-scrollbar { display: none; }
+  .h-stop { flex: none; scroll-snap-align: start; min-height: 48px; padding: 6px 14px 6px 8px; border-radius: 999px; gap: 8px; font-size: 15px; white-space: nowrap; }
+  .h-stop small { display: none; }
+  .h-stop b { width: 30px; height: 30px; }
+}
+@media (min-width: 900px) { .h-pick, .h-pick a { min-width: 0; } .h-pick__img { aspect-ratio: 4 / 3; width: 100%; min-width: 0; box-sizing: border-box; overflow: hidden; } .h-pick__img img { width: auto; max-width: 100%; height: 88%; min-height: 0; } }
+
 /* ===== v2 page templates: collection + product (appended to showroomplus2.css) ===== */
 .v { display: block; padding: 0 var(--g); max-width: 1440px; margin: 0 auto; }
 .v-crumbs ol { display: flex; flex-wrap: wrap; gap: 4px 8px; list-style: none; padding: 16px 0 0; font-size: 14px; color: var(--slate); }
@@ -1076,3 +1088,21 @@ html { scroll-padding-top: 72px; scroll-padding-bottom: 120px; }
 @media (max-width: 999px) { .v-bar { position: static; } } /* a sticky multi-row toolbar covered up to 46% of a phone screen */
 .v-collect--line { display: inline-flex; align-items: center; min-height: 44px; justify-self: start; }
 .v-cmp-wrap { position: relative; } /* keeps the visually-hidden yes/no text inside the scroller */
+
+/* ---------- product description (from Shopify, spec lists removed) ---------- */
+.v-about .v-prose { max-width: 760px; }
+.v-prose { font-size: 17px; line-height: 1.6; color: var(--ink); }
+.v-prose > * + * { margin-top: 14px; }
+.v-prose h3 { font: 750 22px/1.2 var(--h); letter-spacing: -0.015em; margin-top: 32px; }
+.v-prose ul, .v-prose ol { padding-left: 22px; }
+.v-prose li + li { margin-top: 6px; }
+.v-prose li::marker { color: var(--green); }
+.v-prose strong { font-weight: 700; }
+.v-about__more { max-width: 760px; margin-top: 8px; }
+.v-about__more > .v-prose { margin-top: 14px; }
+.v-about__more summary { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; list-style: none; font: 700 16px var(--b); color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+.v-about__more summary::-webkit-details-marker { display: none; }
+.v-about__more summary::after { content: ""; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); }
+.v-about__more[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+.v-about__more .v-about__close, .v-about__more[open] .v-about__open { display: none; }
+.v-about__more[open] .v-about__close { display: inline; }

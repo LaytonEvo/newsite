@@ -139,7 +139,7 @@ const similarInStock = (f) => {
 
 export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
   const f = fam(id); const d = catalogue.productDetail[id] ?? autoDetail(f); const s = S(f); const r = s.rating;
-  const full = `${f.brand} ${f.name}`;
+  const full = `${f.brand} ${f.name}`; const desc = catalogue.descriptions?.[id];
   const first = f.variants.find((v) => vStock(v) === "in") ?? f.variants.find((v) => v.available) ?? f.variants[0];
   const pct = val("membership.memberDiscountPercent");
   const member = (p) => pence((p * (100 - pct)) / 100);
@@ -196,6 +196,11 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
 
     </section>
   </div>
+
+  ${desc ? html`<section class="v-sec v-about" aria-labelledby="v-ab"><h2 id="v-ab">About the ${esc(full)}</h2>
+    <div class="v-prose">${desc.intro}</div>
+    ${desc.more ? html`<details class="v-about__more"><summary><span class="v-about__open">Read the full description</span><span class="v-about__close">Show less</span></summary><div class="v-prose">${desc.more}</div></details>` : ""}
+  </section>` : ""}
 
   ${d.highlights.length ? html`<section class="v-sec" aria-labelledby="v-hl"><h2 id="v-hl">Highlights</h2>
     <ul class="v-hl">${d.highlights.map(([h, p, img]) => `<li><img src="${cut(img, 400)}" alt="" width="400" height="400" loading="lazy"><h3>${esc(h)}</h3><p>${esc(p)}</p></li>`).join("")}</ul>
