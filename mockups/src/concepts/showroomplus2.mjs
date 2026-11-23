@@ -3,11 +3,11 @@
 // fitting becomes a supporting "near Ringwood?" option.
 import {
   html, esc, gbp, q, qt, val, facts, families, fam, spec, stockWord, clubs, otherBrands, secondary, saving, tiers, perk,
-  catalogue, cut, photo, phone, email, hours, companyLine, payments, cookie, doc, placeholderNote,
+  catalogue, cut, photo, phone, email, hours, companyLine, payments, cookie, doc, placeholderNote, site, to,
 } from "./kit.mjs";
 
 export const chev = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>';
-export const L = (t, href = "#") => `<a class="p-l" href="${href}">${t}${chev}</a>`;
+export const L = (t, href = to(t)) => `<a class="p-l" href="${href}">${t}${chev}</a>`;
 export const dot = (on, label) => on ? `<span class="p-on" aria-label="${label}: yes">●</span>` : `<span class="p-off" aria-label="${label}: no">–</span>`;
 export const ic = {
   search: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5"/></svg>',
@@ -21,14 +21,15 @@ export const ic = {
 const builder = catalogue.clubBuilder;
 const area = facts.membership.area;
 
+const NAV = ["Trolleys", "Custom clubs", "Clubs", "Membership", "Bags", "Balls & GPS", "Used", "Sale"];
 export const nav = () => html`<header class="p-nav"><nav aria-label="Main"><ul>
-  <li><a class="p-mark" href="#" aria-label="Evolution Golf, home"><span aria-hidden="true">EG</span></a></li>
-  ${["Trolleys", "Custom clubs", "Clubs", "Membership", "Bags", "Balls & GPS", "Used", "Sale"].map((n) => `<li class="p-nav__item"><a href="#">${esc(n)}</a></li>`)}
+  <li><a class="p-mark" href="${to("Home")}" aria-label="Evolution Golf, home"><span aria-hidden="true">EG</span></a></li>
+  ${NAV.map((n) => `<li class="p-nav__item"><a href="${to(n)}">${esc(n)}</a></li>`)}
   <li class="p-nav__push"><a href="#" aria-label="Search">${ic.search}</a></li>
-  <li><a class="p-members" href="#members" aria-label="Members’ area">${ic.user}<span>Members</span></a></li>
-  <li><a href="#" aria-label="Basket, 0 items">${ic.bag}</a></li><li class="p-nav__menu"><a href="#" aria-label="Menu">${ic.menu}</a></li>
-</ul></nav></header>
-<p class="p-ribbon">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))}, order by ${esc(val("delivery.nextDayCutoff"))}. Annual members get free delivery from £${q("delivery.annualMemberThreshold")}. ${L("Join free", "#members")}</p>`;
+  <li><a class="p-members" href="${site.routes.Members ?? "#members"}" aria-label="Members’ area">${ic.user}<span>Members</span></a></li>
+  <li><a href="${to("Basket")}" class="p-basket" aria-label="Basket, 0 items" data-basket>${ic.bag}<span class="p-basket__n" data-basket-n hidden></span></a></li><li class="p-nav__menu"><button type="button" class="p-nav__btn" aria-label="Menu" aria-expanded="false" aria-controls="p-menu" data-menu>${ic.menu}</button></li>
+</ul><ul class="p-menu" id="p-menu" hidden>${NAV.map((n) => `<li><a href="${to(n)}">${esc(n)}</a></li>`).join("")}</ul></nav></header>
+<p class="p-ribbon">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))}, order by ${esc(val("delivery.nextDayCutoff"))}. Annual members get free delivery from £${q("delivery.annualMemberThreshold")}. ${L("Join free", site.routes.Members ?? "#members")}</p>`;
 
 const hero = () => html`<section class="p-tile p-tile--hero" aria-labelledby="p-h1">
   <div class="p-copy">
@@ -208,7 +209,7 @@ const more = () => html`<section class="p-more" aria-labelledby="p-mo">
 export const footer = () => html`<footer class="p-foot">
   <div class="p-foot__top">
     <div class="p-foot__brand"><span class="p-mark p-mark--inv" aria-hidden="true"><span>EG</span></span><p>Motocaddy trolleys, custom-built clubs and a members’ club, delivered across the UK.</p></div>
-    ${[["Shop", ["Electric trolleys", "Build custom clubs", "Golf clubs", "Bags", "Balls, GPS & accessories", "Approved used", "Clothing & shoes"]], ["Members", ["Join free", "Annual membership", "Members’ area log-in", "Prize draw T&Cs", "Trade-in"]], ["Help", ["Delivery & returns", "Contact us", "Help & FAQs", facts.pricePromise.short, "Klarna & Clearpay", "Custom fitting in Ringwood", "About us"]]].map(([h, items]) => `<div><h2>${h}</h2><ul>${items.map((x) => `<li><a href="#">${esc(x)}</a></li>`).join("")}</ul></div>`).join("")}
+    ${[["Shop", ["Electric trolleys", "Build custom clubs", "Golf clubs", "Bags", "Balls, GPS & accessories", "Approved used", "Clothing & shoes"]], ["Members", ["Join free", "Annual membership", "Members’ area log-in", "Prize draw T&Cs", "Trade-in"]], ["Help", ["Delivery & returns", "Contact us", "Help & FAQs", facts.pricePromise.short, "Klarna & Clearpay", "Custom fitting in Ringwood", "About us"]]].map(([h, items]) => `<div><h2>${h}</h2><ul>${items.map((x) => `<li><a href="${to(x)}">${esc(x)}</a></li>`).join("")}</ul></div>`).join("")}
     <form class="p-news" action="#"><h2>Newsletter</h2><p>New-season launches and member offers. Monthly at most.</p><label class="sr" for="p-e">Email address</label><div><input id="p-e" type="email" placeholder="Email address" autocomplete="email"><button type="submit">Sign up</button></div><label class="p-check"><input type="checkbox"> Email me news and offers. Unsubscribe any time.</label></form>
   </div>
   <div class="p-foot__base"><p>Showroom and fitting centre: ${q("business.address")} · ${hours().join(" · ")} · ${phone()} · ${email()}</p><p>${companyLine()} · ${q("dealers.motocaddy")} · Pay with ${payments.join(", ")}</p><p><a href="#">Privacy</a> · <a href="#">Cookies</a> · <a href="#">Terms</a> · <a href="#">Accessibility</a></p><p>${placeholderNote} Finance wording to be confirmed with Klarna and Clearpay.</p></div>

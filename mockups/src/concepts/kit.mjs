@@ -22,9 +22,15 @@ export const q = (path, format = (x) => x) => {
 /** Free-text placeholder (a name, a byline) with the same quiet treatment. */
 export const qt = (text, note) => `<span class="q" title="${esc("To be confirmed: " + note)}">${esc(text)}</span>`;
 
+/* ---------- site mode ----------
+ * The mockups are static files with relative asset paths and "#" links. The Railway test site
+ * reuses the same templates: it sets the base path ("/"), named routes and extra head/body markup. */
+export const site = { base: "", routes: {}, head: "", bodyEnd: "" };
+export const to = (name) => site.routes[name] ?? "#";
+
 /* ---------- products ---------- */
-export const cut = (name, w = 800) => `assets/img/cutouts/${name}-${w}.webp`;
-export const photo = (name, w = 800) => `assets/img/products/${name}-${w}.webp`;
+export const cut = (name, w = 800) => `${site.base}assets/img/cutouts/${name}-${w}.webp`;
+export const photo = (name, w = 800) => `${site.base}assets/img/products/${name}-${w}.webp`;
 
 const famById = Object.fromEntries(catalogue.trolleyFamilies.map((f) => [f.id, f]));
 export const fam = (id) => famById[id];
@@ -102,8 +108,9 @@ export const doc = ({ title, css, fonts = [], body, lang = "en-GB" }) => `<!doct
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-${fonts.map((f) => `<link rel="preload" href="assets/fonts/concepts/${f}" as="font" type="font/woff2" crossorigin>`).join("\n")}
-<link rel="stylesheet" href="assets/css/concepts/${css}.css">
+${fonts.map((f) => `<link rel="preload" href="${site.base}assets/fonts/concepts/${f}" as="font" type="font/woff2" crossorigin>`).join("\n")}
+<link rel="stylesheet" href="${site.base}assets/css/concepts/${css}.css">
+${site.head}
 </head>
 <body>
 ${body}
@@ -111,6 +118,7 @@ ${body}
 (function(){if(/shot=1/.test(location.search))document.documentElement.classList.add('is-shot');var c=document.getElementById('cookie');if(!c)return;if(/consent=1/.test(location.search)){c.remove();return;}
 c.addEventListener('click',function(e){if(e.target.closest('[data-cookie]'))c.remove();});})();
 </script>
+${site.bodyEnd}
 </body>
 </html>`;
 

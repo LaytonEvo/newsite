@@ -1,0 +1,7 @@
+---
+import "../../lib/setup.mjs";
+import { collection } from "../../../../mockups/src/v2pages/pages.mjs";
+import { docOnly } from "../../lib/emit.mjs";
+const out = docOnly(collection({ drawer: "hidden" }));
+---
+<Fragment set:html={out} />

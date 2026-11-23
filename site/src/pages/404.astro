@@ -1,0 +1,7 @@
+---
+import "../lib/setup.mjs";
+import { notFound } from "../../../mockups/src/v2pages/pages.mjs";
+import { docOnly } from "../lib/emit.mjs";
+const out = docOnly(notFound());
+---
+<Fragment set:html={out} />

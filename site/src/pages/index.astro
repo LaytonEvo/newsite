@@ -1,0 +1,7 @@
+---
+import "../lib/setup.mjs";
+import { showroomplus2 as concept } from "../../../mockups/src/concepts/showroomplus2.mjs";
+import { docOnly } from "../lib/emit.mjs";
+const out = docOnly(concept.render());
+---
+<Fragment set:html={out} />

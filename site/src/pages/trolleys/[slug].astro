@@ -1,0 +1,10 @@
+---
+import { families, slugOf } from "../../lib/setup.mjs";
+import { product } from "../../../../mockups/src/v2pages/pages.mjs";
+import { docOnly } from "../../lib/emit.mjs";
+export function getStaticPaths() {
+  return families.map((f) => ({ params: { slug: slugOf(f) }, props: { id: f.id } }));
+}
+const out = docOnly(product({ id: Astro.props.id }));
+---
+<Fragment set:html={out} />

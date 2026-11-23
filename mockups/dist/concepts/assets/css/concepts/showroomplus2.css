@@ -2,7 +2,8 @@
 @font-face { font-family: "Schibsted"; src: url("../../fonts/concepts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2-variations"); font-weight: 400 900; font-display: swap; }
 @font-face { font-family: "Atkinson"; src: url("../../fonts/concepts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Atkinson"; src: url("../../fonts/concepts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "Atkinson"; src: url("../../fonts/concepts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2-variations"); font-weight: 400 700; unicode-range: U+0030-0039; font-display: swap; } /* Schibsted figures: Atkinson's slashed zero reads oddly in prices and specs */
+@font-face { font-family: "Atkinson"; src: url("../../fonts/concepts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2-variations"); font-weight: 400; unicode-range: U+0030-0039; font-display: swap; }
+@font-face { font-family: "Atkinson"; src: url("../../fonts/concepts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2-variations"); font-weight: 700; unicode-range: U+0030-0039; font-display: swap; } /* Schibsted figures: Atkinson's slashed zero reads oddly in prices and specs */
 :root { --green: #0e4d35; --link: #0b6b47; --mist: #f3f5f4; --ink: #16201b; --slate: #56605b; --fern: #a7e3c3; --h: "Schibsted", "Helvetica Neue", Arial, sans-serif; --b: "Atkinson", Verdana, Arial, sans-serif; --g: 20px; }
 @media (min-width: 900px) { :root { --g: 48px; } }
 * { box-sizing: border-box; }
@@ -270,3 +271,14 @@ main { display: grid; gap: 12px; padding-top: 12px; }
   .h-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 }
 .h h2 { font: 750 clamp(34px, 4.4vw, 58px)/1.05 var(--h); letter-spacing: -0.03em; }
+/* basket count (test site) */
+.p-basket { position: relative; }
+.p-basket__n { position: absolute; top: 4px; right: 2px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--green); color: #fff; font: 800 11px/18px var(--h); text-align: center; }
+.p-basket__n[hidden] { display: none; }
+/* phone menu */
+.p-nav__btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; background: none; color: #2b3530; cursor: pointer; border-radius: 50%; }
+.p-nav ul.p-menu { display: grid; height: auto; gap: 0; padding: 4px 16px 16px; border-top: 1px solid #e6eae8; max-width: 1100px; margin: 0 auto; }
+.p-menu[hidden], [hidden] { display: none !important; }
+.p-menu a { justify-content: flex-start; min-height: 48px; font: 700 18px var(--h); color: var(--ink); border-bottom: 1px solid #eef1ef; }
+@media (min-width: 900px) { .p-menu { display: none !important; } }
+.p-nav ul.p-menu a { display: flex; width: 100%; }

@@ -5,8 +5,11 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const here = dirname(fileURLToPath(import.meta.url));
-export const facts = JSON.parse(readFileSync(join(here, "../data/facts.json"), "utf8"));
-export const catalogue = JSON.parse(readFileSync(join(here, "../data/catalogue.json"), "utf8"));
+// JSON imports (not file reads) so the test site's bundler can include the data
+import factsJson from "../data/facts.json" with { type: "json" };
+import catalogueJson from "../data/catalogue.json" with { type: "json" };
+export const facts = factsJson;
+export const catalogue = catalogueJson;
 
 /* ---------- basics ---------- */
 export const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));

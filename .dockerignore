@@ -1,0 +1,8 @@
+.git
+**/node_modules
+site/dist
+site/.astro
+site/public/assets
+mockups/dist
+mockups/screenshots
+docs

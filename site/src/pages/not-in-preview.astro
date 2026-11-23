@@ -1,0 +1,7 @@
+---
+import "../lib/setup.mjs";
+import { notInPreview } from "../../../mockups/src/v2pages/pages.mjs";
+import { docOnly } from "../lib/emit.mjs";
+const out = docOnly(notInPreview());
+---
+<Fragment set:html={out} />

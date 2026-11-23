@@ -1,0 +1,3 @@
+# Test site for the Evolution Golf redesign. Not for indexing.
+User-agent: *
+Disallow: /

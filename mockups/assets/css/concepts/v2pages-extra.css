@@ -187,3 +187,56 @@
   .v-crumbs li:nth-last-child(2) { display: inline-flex; }
   .v-crumbs li:nth-last-child(2)::before { content: "‹"; margin-right: 6px; }
 }
+
+/* ===== review round 1 fixes (UX + CRO subagents) ===== */
+.v-card__name { margin: 0; }
+/* option cards: selection follows :checked, and keyboard focus is visible */
+.v-opt__card:has(input:checked), .v-gift__opt:has(input:checked) { border: 2px solid var(--green); background: #f0f7f3; }
+.v-opt__card:has(input:focus-visible), .v-gift__opt:has(input:focus-visible) { outline: 2.5px solid var(--link); outline-offset: 3px; }
+.v-opt__card input, .v-gift__opt input { pointer-events: none; }
+/* keep focused things clear of the phone sticky bar */
+html { scroll-padding-bottom: 96px; }
+/* click and collect is an option, not a second main action */
+.v-collect { min-height: 44px; border: 0; background: none; text-decoration: underline; text-underline-offset: 3px; font: 700 15px var(--b); color: var(--ink); justify-self: start; padding: 0; }
+.v-cmp-wrap:focus-visible { outline: 2.5px solid var(--link); outline-offset: 3px; }
+/* footer reflow at 320px */
+.p-foot * { min-width: 0; }
+.p-foot a { overflow-wrap: anywhere; }
+
+/* ===== test-site pages ===== */
+.v-narrow { max-width: 1040px; }
+.v-preview { margin: 8px 0 20px; padding: 10px 14px; border-radius: 12px; background: #fff7e0; color: #4a3b00; font-size: 15px; }
+.v-added { padding: 12px 14px; border-radius: 12px; background: #f0f7f3; font-size: 15px; }
+.v-added a { font-weight: 700; color: var(--link); }
+.v-empty { padding: 32px 0; font-size: 17px; }
+.v-formnote { font-size: 14px; margin-top: 8px; }
+.v-bl { display: grid; gap: 0; border-top: 1px solid #e6eae8; }
+.v-bl__row { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; gap: 8px 14px; align-items: center; padding: 16px 0; border-bottom: 1px solid #e6eae8; }
+.v-bl__row img { width: 72px; height: 72px; object-fit: contain; background: var(--mist); border-radius: 12px; }
+.v-bl__row div { display: grid; gap: 2px; font-size: 15px; color: var(--slate); }
+.v-bl__row div a { color: var(--ink); text-decoration: none; }
+.v-bl__row div strong { font: 750 18px var(--h); }
+.v-bl__p { font: 750 18px var(--h); text-align: right; }
+.v-qty select { min-height: 44px; border-radius: 10px; border: 1.5px solid #cfd8d3; padding: 0 10px; font: 700 15px var(--b); background: #fff; }
+.v-bl__row .v-clear { grid-column: 2; justify-self: start; padding: 0; min-height: 36px; }
+.v-bl__sum { display: grid; gap: 10px; margin: 24px 0 0 auto; max-width: 420px; }
+.v-bl__sum p:first-child { display: flex; justify-content: space-between; font-size: 18px; }
+.v-bl__sum .p-btn { text-align: center; }
+@media (min-width: 700px) { .v-bl__row { grid-template-columns: 96px minmax(0, 1fr) auto auto; } .v-bl__row img { width: 96px; height: 96px; } .v-bl__row .v-clear { grid-column: 2; } }
+.v-co { display: grid; gap: 32px; padding-bottom: 56px; }
+.v-co__form { display: grid; gap: 22px; }
+.v-co__form fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; }
+.v-co__form legend { font: 750 22px var(--h); margin-bottom: 6px; }
+.v-field { display: grid; gap: 4px; font-size: 15px; font-weight: 700; }
+.v-field input { min-height: 48px; border-radius: 12px; border: 1.5px solid #9aa29e; padding: 0 14px; font: 400 17px var(--b); }
+.v-field input[aria-invalid="true"] { border-color: #b3261e; }
+.v-error { color: #b3261e; font-weight: 700; }
+.v-co__sum { align-self: start; padding: 20px; border-radius: 20px; background: var(--mist); display: grid; gap: 10px; }
+.v-co__sum h2 { font: 750 22px var(--h); }
+.v-co__sum ul { display: grid; gap: 8px; font-size: 15px; }
+.v-co__sum li, .v-co__sum p { display: flex; justify-content: space-between; gap: 12px; }
+.v-co__total { font-size: 19px; border-top: 1px solid #d5dbd8; padding-top: 10px; }
+.v-done { padding: 32px 0 64px; display: grid; gap: 10px; }
+.v-done h2 { font: 750 32px var(--h); }
+@media (min-width: 900px) { .v-co { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); } .v-co__sum { position: sticky; top: 80px; } }
+.v-drawer[hidden] { display: none; }
