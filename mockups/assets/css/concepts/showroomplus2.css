@@ -544,3 +544,47 @@ main:not(.v) { gap: 0; padding: 0; }
 .p-calc .q { text-decoration-color: var(--fern); }
 .p-calc__note { font-size: 14px; color: #fff; opacity: 0.85; margin-top: 8px; }
 .p-calc :focus-visible { outline-color: var(--fern); }
+
+/* ---------- members band: comparison table and result panel (variant C, chosen by owner) ---------- */
+/* Members band variants A, B and C. Drop-in with showroomplus2.css; colours limited to
+   --green, --fern, white, and the white/fern alpha tints the band already uses. */
+
+/* ---------- shared: the two CTA buttons ---------- */
+.mv-c .mv-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.mv-c .mv-cta .p-btn { flex: 1 1 auto; margin: 0; min-height: 52px; padding: 0 26px; font-size: 17px; background: #fff; color: var(--green); }
+.mv-c .mv-cta .p-btn:hover { background: var(--fern); }
+.mv-c .mv-cta .mv-ghost { background: transparent; color: #fff; box-shadow: inset 0 0 0 1.5px var(--fern); }
+.mv-c .mv-cta .mv-ghost:hover { background: rgba(167,227,195,0.14); }
+.mv-c .p-l { color: #fff; }
+.mv-c .p-calc { margin-top: 0; max-width: none; }
+.mv-c .p-kicker { margin-bottom: 8px; }
+@media (min-width: 900px) {
+  .mv-c .mv-cta .p-btn { flex: 0 0 auto; }
+}
+
+/* ---------- C: comparison table replaces the tier cards; figure + calculator as one result panel ---------- */
+.mv-c__grid { display: grid; gap: 28px; max-width: var(--wrap); width: 100%; margin: 0 auto; text-align: left; }
+.mv-c__result { display: grid; }
+.mv-c__result .p-mem3__big { margin-top: 0; font-size: clamp(64px, 7vw, 104px); }
+.mv-c__result .p-mem3__cap { margin: 6px 0 20px; }
+.mv-c__perks { display: grid; gap: 20px; }
+.mv-c__tbl { width: 100%; border-collapse: collapse; font-size: 16px; }
+.mv-c__tbl th, .mv-c__tbl td { padding: 12px 8px; border-bottom: 1px solid rgba(255,255,255,0.18); text-align: center; vertical-align: middle; }
+.mv-c__tbl th[scope="row"] { text-align: left; font-weight: 400; padding-left: 0; }
+.mv-c__tbl thead th { font: 750 20px var(--h); vertical-align: bottom; width: 28%; }
+.mv-c__tbl thead th span { display: block; font: 700 14px var(--b); color: var(--fern); margin-top: 2px; }
+.mv-c__tbl thead td { border-bottom-color: transparent; }
+.mv-c__tbl tbody td:nth-child(2) { color: var(--fern); font-weight: 700; }
+.mv-c__perks .mv-cta { display: grid; grid-template-columns: minmax(0, 1fr); }
+.mv-c__perks .mv-cta .p-btn { padding: 0 12px; }
+@media (min-width: 900px) {
+  .mv-c__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); grid-template-areas: "copy result" "perks result"; column-gap: 72px; row-gap: 32px; align-items: start; }
+  .mv-c__copy { grid-area: copy; }
+  .mv-c__result { grid-area: result; }
+  .mv-c__perks { grid-area: perks; }
+  /* buttons sit under their own column of the table */
+  .mv-c__perks .mv-cta { grid-template-columns: minmax(0, 44%) minmax(0, 28%) minmax(0, 28%); }
+  .mv-c__perks .mv-cta .p-btn:first-child { grid-column: 2; }
+  .mv-c__tbl thead th { width: 28%; }
+}
+

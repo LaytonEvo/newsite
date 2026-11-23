@@ -84,11 +84,14 @@ const members = () => {
   const s = saving();
   const annual = tiers.find((t) => t.price), free = tiers.find((t) => !t.price);
   const pct = val("membership.memberDiscountPercent");
-  return html`<section class="p-tile p-members-sec" id="members" aria-labelledby="p-me">
-  <div class="p-mem3">
-    <div class="p-mem3__pitch">
+  const no = `<span aria-hidden="true">–</span><span class="sr">Not included</span>`;
+  return html`<section class="p-tile p-members-sec mv-c" id="members" aria-labelledby="p-me">
+  <div class="mv-c__grid">
+    <div class="mv-c__copy">
       <p class="p-kicker">${q("membership.name")}</p>
       <h2 id="p-me">Annual pays for itself on one trolley.</h2>
+    </div>
+    <div class="mv-c__result">
       <p class="p-mem3__big" data-calc-big aria-hidden="true">${gbp(s.net, { pence: true })}</p>
       <p class="p-mem3__cap" data-calc-cap aria-hidden="true">better off on a ${gbp(s.price)} order, after the ${gbp(s.fee)} fee.</p>
       <div class="p-calc" data-calc data-pct="${pct}" data-fee="${s.fee}">
@@ -102,20 +105,24 @@ const members = () => {
         <p class="p-calc__note" data-calc-note>That’s on this order alone. Annual members get ${pct}% off one order every month. ${gbp(s.price)} is a ${esc(s.product)}.</p>
       </div>
     </div>
-    <div class="p-mem3__tiers">
-      <div class="p-tier3">
-        <p class="p-tier3__head"><span class="p-tier3__eg" aria-hidden="true">EG</span><strong>${esc(annual.name)}</strong><span>${esc(annual.priceLabel)} a year</span></p>
-        <ul><li>${pct}% off one order a month</li><li>15% off members’-area deals</li><li>1.25× loyalty points and 48-hour early access</li></ul>
-        <a class="p-btn" href="#">Join Annual for ${gbp(s.fee)}</a>
+    <div class="mv-c__perks">
+      <table class="mv-c__tbl">
+        <caption class="sr">What ${esc(annual.name)} and ${esc(free.name)} membership include</caption>
+        <thead><tr><td></td><th scope="col">${esc(annual.name)}<span>${esc(annual.priceLabel)} a year</span></th><th scope="col">${esc(free.name)}<span>£0</span></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Off one order a month</th><td>${q("membership.memberDiscountPercent")}%</td><td>${no}</td></tr>
+          <tr><th scope="row">Members’-area deals</th><td>15% off</td><td>5% off</td></tr>
+          <tr><th scope="row">Loyalty points</th><td>1.25×</td><td><span class="q" title="To be confirmed: Free members’ points rate (taken from the old portal copy)">1×</span></td></tr>
+          <tr><th scope="row">Early access to new products</th><td>48 hours</td><td>${no}</td></tr>
+        </tbody>
+      </table>
+      <div class="mv-cta">
+        <a class="p-btn" href="#">Join ${esc(annual.name)} for ${gbp(s.fee)}</a>
+        <a class="p-btn mv-ghost" href="#">Join free</a>
       </div>
-      <div class="p-tier3 p-tier3--free">
-        <p class="p-tier3__head"><strong>${esc(free.name)}</strong><span>£0</span></p>
-        <p>Members’ area, 5% off members’-area deals and loyalty points.</p>
-        ${L("Join free")}
-      </div>
+      <p class="mv-c__more">${L("See every perk and the terms")}</p>
     </div>
   </div>
-  <p class="p-mem3__more">${L("See every perk, delivery and returns detail")}</p>
 </section>`;
 };
 
@@ -247,7 +254,7 @@ export const showroomplus2 = {
   },
   specimens() {
     this.sheet.components[0].html = `<div class="p">${(build().match(/<ul class="p-types"[\s\S]*?<\/ul>/) || [""])[0]}</div>`;
-    this.sheet.components[1].html = `<div class="p"><section class="p-members-sec">${(members().match(/<div class="p-mem3__pitch">[\s\S]*?<\/ul>\s*<\/div>/) || [""])[0]}</section></div>`;
+    this.sheet.components[1].html = `<div class="p"><section class="p-members-sec">${(members().match(/<div class="mv-c__result">[\s\S]*?<\/dl>/) || [""])[0]}</div></div></section></div>`;
     this.sheet.components[2].html = `<div class="p">${nav()}</div>`;
   },
   render() {
