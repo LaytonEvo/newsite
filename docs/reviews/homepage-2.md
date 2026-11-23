@@ -53,5 +53,72 @@ The only coloured band in the page body (brand green):
 - **Bands go full-bleed with no gaps.**
 - **Target height:** about 5,000px at 390 (from 6,827) and about 4,150px at 1440 (from 5,564).
 
-## Status
-Hero direction is waiting on the owner.
+## Owner decision
+Hero A, "Three doors".
+
+## Built (all ten ranked changes plus the defects)
+
+### Palette
+
+| | Before | After |
+|---|---|---|
+| Green-tinted colours | 19 | 4: green, fern, ink, slate |
+
+- `--link` is aliased to green.
+- Fern is used only on green.
+- Ink is text only.
+- Footer text is white.
+- The hole illustration is redrawn in the palette; the water and second fairway tint are gone.
+
+### Focus ring
+
+- Green on light surfaces.
+- Fern on green: the members band and the footer.
+
+### Hero
+
+- Headline: "Trolleys, custom clubs, and members who pay less."
+- Three equal door cards: Motocaddy trolleys (from £479), Custom clubs (123 models), Members' club (a CSS membership card).
+- One Trustpilot line.
+- All three doors sit above the fold on phone (last card ends at 675px of 844) and desktop (804 of 900).
+
+### Compare
+
+- The spec grid is now one feature line.
+- Image tiles are white on the mist band.
+
+### Custom clubs
+
+- A light band: the example card and kicker are cut.
+- The cards show one fact each ("33 models · from £249 a club").
+- One "Start building" button to /custom-clubs/.
+
+### Members
+
+- The only coloured band in the page body.
+- "Annual pays for itself on one trolley."
+- A large fern £60.90 and three equation chips; the 10% is dotted once.
+- A white Annual card (three perks, the band's only button) and an outlined Free card.
+- A "See every perk" link.
+- Fixes the 1440 layout bug that clipped £60.90.
+
+### Shop the hole
+
+- The unsupported "Only at Evolution Golf" kicker is gone.
+- "Also in the shop" is a text-link row; the empty circles are gone.
+
+### Layout
+
+- Full-bleed bands with no white frames.
+- One container width.
+
+### Result
+
+| | Before | After |
+|---|---|---|
+| Height at 390 | 6,827 | 5,389 |
+| Height at 1440 | 5,564 | 4,447 |
+
+- axe clean on four pages at 320, 390, 768 and 1440.
+- No sideways scrolling.
+- Journey tests pass.

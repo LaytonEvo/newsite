@@ -31,18 +31,24 @@ export const nav = () => html`<header class="p-nav"><nav aria-label="Main"><ul>
 </ul><ul class="p-menu" id="p-menu" hidden>${NAV.map((n) => `<li><a href="${to(n)}">${esc(n)}</a></li>`).join("")}</ul></nav></header>
 <p class="p-ribbon" role="region" aria-label="Delivery offer">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))} · order by ${esc(val("delivery.nextDayCutoff"))}</p>`;
 
-const hero = () => html`<section class="p-tile p-tile--hero" aria-labelledby="p-h1">
+const memberCard = () => `<span class="p-mcard" aria-hidden="true"><span class="p-mcard__eg">EG</span><span class="p-mcard__t">Annual member</span><span class="p-mcard__p">£36 a year</span></span>`;
+const hero = () => {
+  const from = Math.min(...allTrolleys().map((f) => spec(f).price));
+  const models = builder.types.reduce((n, t) => n + t.models, 0);
+  const doors = [
+    { t: "Motocaddy trolleys", s: `2026 range from ${gbp(from)}`, href: site.routes["Electric trolleys"] ?? "#compare", img: `<img src="${cut("m5-gps-dhc-highangle")}" alt="" width="800" height="800" fetchpriority="high">` },
+    { t: "Custom clubs", s: `${models} models, built online`, href: site.routes["Custom clubs"] ?? "#build", img: `<img src="${cut("wilson-staff-model-blade")}" alt="" width="800" height="800">` },
+    { t: "Members’ club", s: "Free, or Annual at £36 a year", href: "#members", img: memberCard() },
+  ];
+  return html`<section class="p-tile p-tile--hero" aria-labelledby="p-h1">
   <div class="p-copy">
-    <h1 id="p-h1">Motocaddy trolleys.<br>Clubs built for you.</h1>
-    <p class="p-sub">The 2026 Motocaddy range from ${gbp(Math.min(...allTrolleys().map((f) => spec(f).price)))}, and custom clubs built online. Delivered across the UK.</p>
-    <p class="p-hero__cta"><a class="p-btn p-btn--l" href="${site.routes["Electric trolleys"] ?? "#compare"}">Shop electric trolleys</a>${L("Build your clubs", "#build")}</p>
-    <p class="p-hero__proof">Rated ${q("trustpilot.rating")} on Trustpilot from ${q("trustpilot.reviewCount")} reviews · ${L("Read reviews")}</p>
+    <h1 id="p-h1">Trolleys, custom clubs, and members who pay less.</h1>
+    <p class="p-sub">The 2026 Motocaddy range, clubs built to your specs online, and a members’ club that’s free to join. Delivered across the UK.</p>
   </div>
-  <div class="p-media p-hero2">
-    <img class="p-hero2__t" src="${cut("m5-gps-dhc-highangle")}" alt="Motocaddy M5 GPS DHC electric trolley" width="800" height="800" fetchpriority="high">
-    <img class="p-hero2__c" src="${cut("wilson-staff-model-blade", 400)}" alt="Wilson Staff Model Blade iron" width="400" height="400">
-  </div>
+  <ul class="p-doors">${doors.map((d) => html`<li class="p-door"><a href="${d.href}"><span class="p-door__img">${d.img}</span><span class="p-door__txt"><strong class="p-door__t">${esc(d.t)}${chev}</strong><span class="p-door__s">${esc(d.s)}</span></span></a></li>`)}</ul>
+  <p class="p-hero__proof">Rated ${q("trustpilot.rating")} on Trustpilot from ${q("trustpilot.reviewCount")} reviews · ${L("Read reviews")}</p>
 </section>`;
+};
 
 const compare = () => {
   const ids = ["se", "m1", "m5-gps-dhc", "m7-gps-remote"];
@@ -55,54 +61,58 @@ const compare = () => {
     <p class="p-cmp__price">${s.priceFrom ? "From " : ""}${gbp(s.price)}</p>
     <p class="p-cmp__stock p-st--${s.stock.state}">${stockWord(s.stock)}${s.stock.detail ? ` · ${esc(s.stock.detail)}` : ""}</p>
     <p class="p-cmp__go"><a class="p-btn p-btn--s p-btn--ghost" href="${f.href}#buy">${s.stock.state === "out" ? "View" : "Buy"}<span class="sr"> the ${esc(f.name)}</span></a></p>
-    <dl>
-      <div><dt>GPS</dt><dd>${dot(s.gps, "GPS")}</dd></div>
-      <div><dt>Downhill control</dt><dd>${dot(s.dhc, "Downhill control")}</dd></div>
-      <div><dt>Remote</dt><dd>${dot(s.remote, "Remote")}</dd></div>
-      <div><dt>Battery</dt><dd>${esc(s.batteries.map((b) => b.holes.replace(" holes", "")).join(" or "))} holes</dd></div>
-    </dl>
+    <p class="p-cmp__feat">${esc([s.gps && "GPS", s.dhc && "Downhill control", s.remote && "Remote", `${[...new Set(s.batteries.map((b) => b.holes.replace(" holes", "")))].join(" or ")} holes`].filter(Boolean).join(" · "))}</p>
   </article>`; })}</div>
   <p class="p-links">${L(`See all ${allTrolleys().length} electric trolleys, including NAVEE and Powerbug`, site.routes["Electric trolleys"] ?? "#")}</p>
 </section>`;
 };
 
 const build = () => {
-  const ex = clubs[0];
   const total = builder.types.reduce((n, t) => n + t.models, 0);
   return html`<section class="p-build" id="build" aria-labelledby="p-bd">
-  <div class="p-copy p-copy--dark"><p class="p-kicker">Custom club builder</p><h2 id="p-bd">Build your clubs online.</h2>
+  <div class="p-copy"><h2 id="p-bd">Build your clubs online.</h2>
     <p class="p-sub">Pick the club, the brand and the model, then set it up your way. ${total} models from six brands, built to order in ${q("leadTimes.customBuild")}.</p></div>
   <div class="p-build__grid">
-    <ul class="p-types" aria-label="Start with a club type">${builder.types.map((t) => html`<li><a href="${builder.url}?type=${t.name.toLowerCase().replace(/[^a-z]+/g, "-").replace(/-$/, "")}">
-      <span class="p-types__n">${t.models}<small> models</small></span><strong>${esc(t.name)}</strong><span>${esc(t.line)}</span>${t.img ? `<img src="${cut(t.img, 400)}" alt="" width="400" height="400" loading="lazy">` : ""}</a></li>`)}</ul>
-    <div class="p-spec">
-      <p class="p-spec__tag">Example build</p>
-      <h3 id="p-ex">${esc(ex.brand)} ${esc(ex.model)}</h3>
-      <img src="${cut(ex.cut, 400)}" alt="" width="400" height="400" loading="lazy">
-      <p class="p-spec__price">From ${gbp(ex.from)}</p>
-      <a class="p-btn" href="${builder.url}">Start building</a>
-    </div>
+    <ul class="p-types" aria-label="Start with a club type">${builder.types.map((t) => html`<li><a href="${builder.url}?type=${t.slug}">
+      ${t.img ? `<img src="${cut(t.img, 400)}" alt="" width="400" height="400" loading="lazy">` : `<span class="p-types__blank" aria-hidden="true"></span>`}<strong>${esc(t.name)}</strong><span>${t.models} models · from ${gbp(t.from)} ${t.unit}</span></a></li>`)}</ul>
   </div>
-  <p class="p-links p-build__more">${L("How custom builds work", site.routes["Custom clubs"] ?? "#")}${L("Not sure of your specs? Ask our team", site.routes["Custom clubs"] ? site.routes["Custom clubs"] + "#c-hp" : "#")}</p>
+  <p class="p-hero__cta p-build__go"><a class="p-btn" href="${site.routes["Custom clubs"] ?? builder.url}">Start building</a>${L("Not sure of your specs? Ask our team", site.routes["Custom clubs"] ? site.routes["Custom clubs"] + "#c-hp" : "#")}</p>
 </section>`;
 };
 
-const members = () => { const s = saving(); return html`<section class="p-tile p-tile--grey p-members-sec" id="members" aria-labelledby="p-me">
-  <div class="p-copy"><p class="p-kicker">${q("membership.name")}</p><h2 id="p-me">Members get more.</h2>
-    <p class="p-sub">${esc(facts.membership.oneLiner)}</p>
-    <p class="p-hero__cta"><a class="p-btn" href="#">Join Annual for ${gbp(s.fee)}</a>${L("Join free")}</p></div>
-  <div class="p-mem2">
-    <div class="p-mem2__side">
-      <table class="p-sum"><caption class="sr">Worked saving</caption>
-        <tr><th>${esc(s.product)}, ${esc(s.battery)}</th><td>${gbp(s.price, { pence: true })}</td></tr>
-        <tr><th>Your monthly ${q("membership.memberDiscountPercent")}% off</th><td>−${gbp(s.off, { pence: true })}</td></tr>
-        <tr><th>Annual membership</th><td>+${gbp(s.fee, { pence: true })}</td></tr>
-        <tr class="p-sum__t"><th>Better off on one order</th><td>${gbp(s.net, { pence: true })}</td></tr>
-      </table>
-      <div class="p-tiers">${tiers.map((t) => html`<div><h3>${esc(t.name)} <span>${t.price ? esc(t.priceLabel) + " a year" : "£0, no fee"}</span></h3><ul>${t.perks.map((p) => `<li>${perk(p.text)}</li>`)}</ul></div>`)}</div>
+const members = () => {
+  const s = saving();
+  const annual = tiers.find((t) => t.price), free = tiers.find((t) => !t.price);
+  const pct = val("membership.memberDiscountPercent");
+  return html`<section class="p-tile p-members-sec" id="members" aria-labelledby="p-me">
+  <div class="p-mem3">
+    <div class="p-mem3__pitch">
+      <p class="p-kicker">${q("membership.name")}</p>
+      <h2 id="p-me">Annual pays for itself on one trolley.</h2>
+      <p class="p-mem3__big">${gbp(s.net, { pence: true })}</p>
+      <p class="p-mem3__cap">better off on a ${gbp(s.price)} ${esc(s.product)}, after the ${gbp(s.fee)} fee.</p>
+      <ul class="p-sum3" aria-label="Worked saving">
+        <li>${gbp(s.price, { pence: true })}<span class="sr"> trolley price</span></li>
+        <li>−${gbp(s.off, { pence: true })} at ${q("membership.memberDiscountPercent")}% off</li>
+        <li>+${gbp(s.fee, { pence: true })} Annual fee</li>
+      </ul>
+    </div>
+    <div class="p-mem3__tiers">
+      <div class="p-tier3">
+        <p class="p-tier3__head"><span class="p-tier3__eg" aria-hidden="true">EG</span><strong>${esc(annual.name)}</strong><span>${esc(annual.priceLabel)} a year</span></p>
+        <ul><li>${pct}% off one order a month</li><li>15% off members’-area deals</li><li>1.25× loyalty points and 48-hour early access</li></ul>
+        <a class="p-btn" href="#">Join Annual for ${gbp(s.fee)}</a>
+      </div>
+      <div class="p-tier3 p-tier3--free">
+        <p class="p-tier3__head"><strong>${esc(free.name)}</strong><span>£0</span></p>
+        <p>Members’ area, 5% off members’-area deals and loyalty points.</p>
+        ${L("Join free")}
+      </div>
     </div>
   </div>
-</section>`; };
+  <p class="p-mem3__more">${L("See every perk, delivery and returns detail")}</p>
+</section>`;
+};
 
 const brands = () => {
   const cells = [
@@ -122,22 +132,20 @@ const ZONES = [
   { id: "walk", n: 5, name: "Getting round", what: "Motocaddy trolleys, bags and GPS", x: 52, y: 90 },
 ];
 export const holeMap = () => `<svg class="h-map" viewBox="0 0 1000 320" aria-hidden="true" focusable="false">
-  <rect width="1000" height="320" rx="0" fill="#e4eee8"/>
-  <path d="M30 300 C260 292 470 304 690 284 S930 270 990 280" fill="none" stroke="#c3cec8" stroke-width="10" stroke-linecap="round"/>
-  <path d="M40 236 C140 170 300 214 430 186 C560 158 620 200 720 170 C800 146 830 96 890 80 C960 64 990 130 950 170 C900 214 820 196 740 224 C620 266 500 222 400 248 C280 276 140 282 70 266 C34 258 24 248 40 236Z" fill="#c7e2d3"/>
-  <path d="M84 236 C170 200 300 228 430 204 C560 180 610 214 720 188 C790 172 820 132 870 116 C912 106 928 130 906 150 C870 180 800 182 730 206 C620 244 510 210 404 230 C300 250 170 254 104 248 C80 246 72 242 84 236Z" fill="#a7d4bb"/>
-  <ellipse cx="864" cy="98" rx="74" ry="46" fill="#7fc49f"/>
-  <ellipse cx="560" cy="118" rx="70" ry="26" fill="#bcd9e6"/>
-  <ellipse cx="770" cy="236" rx="46" ry="15" fill="#f1f3f1" stroke="#cfd8d3" stroke-width="2"/>
-  <ellipse cx="958" cy="60" rx="26" ry="11" fill="#f1f3f1" stroke="#cfd8d3" stroke-width="2"/>
-  <rect x="62" y="216" width="46" height="26" rx="6" fill="#7fc49f"/>
-  <path d="M90 224 C220 150 330 180 410 186 S620 150 670 148 S820 100 860 96" fill="none" stroke="#0e4d35" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
-  <line x1="872" y1="96" x2="872" y2="44" stroke="#16201b" stroke-width="3"/><path d="M872 44 L904 54 L872 64Z" fill="#0e4d35"/>
+  <rect width="1000" height="320" rx="0" fill="#f3f5f4"/>
+  <path d="M30 300 C260 292 470 304 690 284 S930 270 990 280" fill="none" stroke="#e3e8e5" stroke-width="10" stroke-linecap="round"/>
+  <path d="M40 236 C140 170 300 214 430 186 C560 158 620 200 720 170 C800 146 830 96 890 80 C960 64 990 130 950 170 C900 214 820 196 740 224 C620 266 500 222 400 248 C280 276 140 282 70 266 C34 258 24 248 40 236Z" fill="#a7e3c3"/>
+  <ellipse cx="864" cy="98" rx="74" ry="46" fill="#0e4d35"/>
+  <ellipse cx="770" cy="236" rx="46" ry="15" fill="#fff" stroke="#e3e8e5" stroke-width="2"/>
+  <ellipse cx="958" cy="60" rx="26" ry="11" fill="#fff" stroke="#e3e8e5" stroke-width="2"/>
+  <rect x="62" y="216" width="46" height="26" rx="6" fill="#0e4d35"/>
+  <path d="M90 224 C220 150 330 180 410 186 S620 150 670 148 S820 100 860 96" fill="none" stroke="#16201b" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <line x1="872" y1="96" x2="872" y2="44" stroke="#fff" stroke-width="3"/><path d="M872 44 L904 54 L872 64Z" fill="#fff"/>
 </svg>`;
 
 const HOLE_LINKS = { tee: "Drivers", fairway: "Fairway woods & hybrids", approach: "Wedges & rangefinders", green: "Putters", walk: "Electric trolleys" };
 const hole = () => html`<section class="h" id="hole" aria-labelledby="h-t">
-  <div class="p-copy"><p class="p-kicker">Only at Evolution Golf</p><h2 id="h-t">Shop the hole.</h2>
+  <div class="p-copy"><h2 id="h-t">Shop the hole.</h2>
     <p class="p-sub">From the tee to the green: pick a shot and see what you’d use there.</p></div>
   <div class="h-course" aria-hidden="true">
     ${holeMap()}
@@ -146,6 +154,7 @@ const hole = () => html`<section class="h" id="hole" aria-labelledby="h-t">
   <ul class="h-stops" aria-label="Shop by shot">
     ${ZONES.map((z) => `<li><a href="${to(HOLE_LINKS[z.id])}"><b aria-hidden="true">${z.n}</b><span>${esc(z.name)}<small>${esc(z.what)}</small></span></a></li>`).join("")}
   </ul>
+  <p class="p-also">Also in the shop: ${["Bags", "Balls", "GPS & rangefinders", "Trade-in", "Accessories", "Sale", "Clothing & shoes"].map((n) => `<a href="${to(n)}">${esc(n)}</a>`).join(" · ")}</p>
 </section>`;
 
 const fit = () => html`<section class="p-near" id="fit" aria-labelledby="p-ft">
@@ -214,8 +223,8 @@ export const showroomplus2 = {
     scores: { trolley: 5, fitting: 3, membership: 5, premium: 5, build: "Medium", photo: "Low: one fitting-bay photo" },
   },
   specimens() {
-    this.sheet.components[0].html = `<div class="p" style="background:#16201b;padding:16px">${build().match(/<div class="p-build__grid">[\s\S]*?<p class="p-links p-build__more">/)[0].replace(/<p class="p-links p-build__more">$/, "")}</div>`;
-    this.sheet.components[1].html = `<div class="p">${members().match(/<table class="p-sum"[\s\S]*?<\/table>/)[0]}</div>`;
+    this.sheet.components[0].html = `<div class="p">${(build().match(/<ul class="p-types"[\s\S]*?<\/ul>/) || [""])[0]}</div>`;
+    this.sheet.components[1].html = `<div class="p"><section class="p-members-sec">${(members().match(/<div class="p-mem3__pitch">[\s\S]*?<\/ul>\s*<\/div>/) || [""])[0]}</section></div>`;
     this.sheet.components[2].html = `<div class="p">${nav()}</div>`;
   },
   render() {
@@ -232,7 +241,6 @@ ${compare()}
 ${build()}
 ${members()}
 ${hole()}
-${more()}
 </main>
 ${footer()}
 </div>
