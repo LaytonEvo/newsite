@@ -6,10 +6,10 @@ import {
   catalogue, cut, photo, phone, email, hours, companyLine, payments, cookie, doc, placeholderNote,
 } from "./kit.mjs";
 
-const chev = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>';
-const L = (t, href = "#") => `<a class="p-l" href="${href}">${t}${chev}</a>`;
-const dot = (on, label) => on ? `<span class="p-on" aria-label="${label}: yes">●</span>` : `<span class="p-off" aria-label="${label}: no">–</span>`;
-const ic = {
+export const chev = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>';
+export const L = (t, href = "#") => `<a class="p-l" href="${href}">${t}${chev}</a>`;
+export const dot = (on, label) => on ? `<span class="p-on" aria-label="${label}: yes">●</span>` : `<span class="p-off" aria-label="${label}: no">–</span>`;
+export const ic = {
   search: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5"/></svg>',
   bag: '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 7h11l-.8 10H5.3L4.5 7Z M7.5 7V5.5a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
   user: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="7" r="3.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 17c1.2-3 3.6-4.5 6.5-4.5s5.3 1.5 6.5 4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
@@ -21,7 +21,7 @@ const ic = {
 const builder = catalogue.clubBuilder;
 const area = facts.membership.area;
 
-const nav = () => html`<header class="p-nav"><nav aria-label="Main"><ul>
+export const nav = () => html`<header class="p-nav"><nav aria-label="Main"><ul>
   <li><a class="p-mark" href="#" aria-label="Evolution Golf, home"><span aria-hidden="true">EG</span></a></li>
   ${["Trolleys", "Custom clubs", "Clubs", "Membership", "Bags", "Balls & GPS", "Used", "Sale"].map((n) => `<li class="p-nav__item"><a href="#">${esc(n)}</a></li>`)}
   <li class="p-nav__push"><a href="#" aria-label="Search">${ic.search}</a></li>
@@ -127,6 +127,67 @@ const brands = () => {
   return html`<div class="p-grid">${cells.map((c) => html`<section class="p-cell ${c.dark ? "p-cell--dark" : ""}"><div class="p-copy"><h3>${esc(c.h)}</h3><p class="p-sub">${c.sub}</p><p class="p-links">${c.links.join("")}</p></div><div class="p-cell__media">${c.img}</div></section>`)}</div>`;
 };
 
+
+/* Shop the hole: a tee-to-green route into the range (static mockup shows "Off the tee" selected) */
+const ZONES = [
+  { id: "tee", n: 1, name: "Off the tee", what: "Drivers", x: 9, y: 70 },
+  { id: "fairway", n: 2, name: "From the fairway", what: "Woods, hybrids and irons", x: 41, y: 58 },
+  { id: "approach", n: 3, name: "Into the green", what: "Wedges and rangefinders", x: 67, y: 46 },
+  { id: "green", n: 4, name: "On the green", what: "Putters", x: 86, y: 30 },
+  { id: "walk", n: 5, name: "Getting round", what: "Motocaddy trolleys, bags and GPS", x: 52, y: 90 },
+];
+export const holeMap = () => `<svg class="h-map" viewBox="0 0 1000 320" aria-hidden="true" focusable="false">
+  <rect width="1000" height="320" rx="0" fill="#e4eee8"/>
+  <path d="M30 300 C260 292 470 304 690 284 S930 270 990 280" fill="none" stroke="#c3cec8" stroke-width="10" stroke-linecap="round"/>
+  <path d="M40 236 C140 170 300 214 430 186 C560 158 620 200 720 170 C800 146 830 96 890 80 C960 64 990 130 950 170 C900 214 820 196 740 224 C620 266 500 222 400 248 C280 276 140 282 70 266 C34 258 24 248 40 236Z" fill="#c7e2d3"/>
+  <path d="M84 236 C170 200 300 228 430 204 C560 180 610 214 720 188 C790 172 820 132 870 116 C912 106 928 130 906 150 C870 180 800 182 730 206 C620 244 510 210 404 230 C300 250 170 254 104 248 C80 246 72 242 84 236Z" fill="#a7d4bb"/>
+  <ellipse cx="864" cy="98" rx="74" ry="46" fill="#7fc49f"/>
+  <ellipse cx="560" cy="118" rx="70" ry="26" fill="#bcd9e6"/>
+  <ellipse cx="770" cy="236" rx="46" ry="15" fill="#f1f3f1" stroke="#cfd8d3" stroke-width="2"/>
+  <ellipse cx="958" cy="60" rx="26" ry="11" fill="#f1f3f1" stroke="#cfd8d3" stroke-width="2"/>
+  <rect x="62" y="216" width="46" height="26" rx="6" fill="#7fc49f"/>
+  <path d="M90 224 C220 150 330 180 410 186 S620 150 670 148 S820 100 860 96" fill="none" stroke="#0e4d35" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <line x1="872" y1="96" x2="872" y2="44" stroke="#16201b" stroke-width="3"/><path d="M872 44 L904 54 L872 64Z" fill="#0e4d35"/>
+</svg>`;
+
+const hole = () => {
+  const cards = [
+    { kind: "buy", brand: "Wilson", name: "Staff DYNAPWR Max+ driver", img: "wilson-dynapwr-max-plus", price: 349, stock: "In stock", opts: "9° · 10.5° · 12° · Senior, Regular, Stiff" },
+    { kind: "buy", brand: "Mizuno", name: "JPX ONE driver", img: "mizuno-jpx-one-driver", price: 379, stock: "In stock", opts: "9° · 10.5° · 12° · Regular, Stiff" },
+  ];
+  const drivers = catalogue.clubBuilder.types.find((t) => t.name === "Drivers");
+  return html`<section class="h" id="hole" aria-labelledby="h-t">
+  <div class="p-copy"><p class="p-kicker">Only at Evolution Golf</p><h2 id="h-t">Shop the hole.</h2>
+    <p class="p-sub">Pick a shot, from the tee to the green, and see the clubs for it. Buy them ready to play or build them to your specs.</p></div>
+  <div class="h-course">
+    ${holeMap()}
+    ${ZONES.map((z) => `<button type="button" class="h-pin" style="left:${z.x}%;top:${z.y}%" aria-pressed="${z.id === "tee"}" aria-label="${z.n}. ${esc(z.name)}: ${esc(z.what)}">${z.n}</button>`).join("")}
+  </div>
+  <div class="h-stops" role="group" aria-label="Choose a shot">
+    ${ZONES.map((z) => `<button type="button" aria-pressed="${z.id === "tee"}"><b>${z.n}</b><span>${esc(z.name)}<small>${esc(z.what)}</small></span></button>`).join("")}
+  </div>
+  <div class="h-zone">
+    <div class="h-zone__head"><h3>Off the tee: drivers</h3>${L("See all drivers")}</div>
+    <ul class="h-cards">
+      ${cards.map((c) => html`<li class="h-card"><a href="#">
+        <span class="h-card__img"><img src="${cut(c.img, 400)}" alt="" width="400" height="400" loading="lazy"></span>
+        <span class="h-card__brand">${esc(c.brand)}</span><strong>${esc(c.name)}</strong>
+        <span class="h-card__opts">${esc(c.opts)}</span>
+        <span class="h-card__price">${gbp(c.price)} <em>${esc(c.stock)}</em></span>
+        <span class="h-card__mem">Members: 15% off members’-area deals, or your monthly ${q("membership.memberDiscountPercent")}% off</span>
+      </a></li>`)}
+      <li class="h-card h-card--build"><a href="${catalogue.clubBuilder.url}">
+        <span class="h-card__n">${drivers.models}<small> drivers</small></span>
+        <strong>Build a driver to your specs</strong>
+        <span class="h-card__opts">Choose head, loft, shaft, flex, length and grip. Built to order in ${q("leadTimes.customBuild")}.</span>
+        <span class="p-btn">Start building</span>
+      </a></li>
+    </ul>
+    <p class="h-note">Getting round? Stop 5 takes you to Motocaddy trolleys, bags and GPS. ${L("Compare trolleys", "#compare")}</p>
+  </div>
+</section>`;
+};
+
 const fit = () => html`<section class="p-near" id="fit" aria-labelledby="p-ft">
   <div class="p-near__ph" role="img" aria-label="Photo to come: the fitting bay in Ringwood"><span class="q" title="To be confirmed: photography not yet taken">The fitting bay in Ringwood</span></div>
   <div class="p-near__copy">
@@ -144,7 +205,7 @@ const more = () => html`<section class="p-more" aria-labelledby="p-mo">
   <p class="p-more__note">Rated ${q("trustpilot.rating")} on Trustpilot from ${q("trustpilot.reviewCount")} reviews. ${L("Read reviews")}${L("Buying guides")}</p>
 </section>`;
 
-const footer = () => html`<footer class="p-foot">
+export const footer = () => html`<footer class="p-foot">
   <div class="p-foot__top">
     <div class="p-foot__brand"><span class="p-mark p-mark--inv" aria-hidden="true"><span>EG</span></span><p>Motocaddy trolleys, custom-built clubs and a members’ club, delivered across the UK.</p></div>
     ${[["Shop", ["Electric trolleys", "Build custom clubs", "Golf clubs", "Bags", "Balls, GPS & accessories", "Approved used", "Clothing & shoes"]], ["Members", ["Join free", "Annual membership", "Members’ area log-in", "Prize draw T&Cs", "Trade-in"]], ["Help", ["Delivery & returns", "Contact us", "Help & FAQs", facts.pricePromise.short, "Klarna & Clearpay", "Custom fitting in Ringwood", "About us"]]].map(([h, items]) => `<div><h2>${h}</h2><ul>${items.map((x) => `<li><a href="#">${esc(x)}</a></li>`).join("")}</ul></div>`).join("")}
@@ -162,7 +223,7 @@ export const showroomplus2 = {
   sheet: {
     oneLine: "Showroom+ rebalanced for a UK-wide audience: Motocaddy, custom clubs built online and the members’ area lead; fitting is a ‘near Ringwood?’ option.",
     rationale: "Owner feedback: fitting was over-weighted for a business that sells across the UK from one bay in Ringwood, and next year’s big pushes are the custom club builder and the members’ area. So v2 keeps Showroom+’s calm, light, one-idea-per-screen structure but changes what the ideas are. The hero names Motocaddy and ‘clubs built for you’ and says ‘delivering across the UK’, not Ringwood. A full dark section sells the online builder with its real steps and live model counts (33 drivers, 21 fairways, 22 hybrids and utility irons, 47 irons), an example build with real spec options, and three routes for anyone unsure of their specs. The members’ section becomes a preview of the members’ area itself, using the perks published on the current members page. Fitting moves to a compact ‘Near Ringwood? Get fitted for free’ band, positioned as one of the ways to get your specs for the builder.",
-    structure: "Hero (three links: Motocaddy, build your clubs, join) → Motocaddy compare row → custom club builder (dark, the big push) → members’ area preview with the worked saving and both tiers → Wilson / Srixon / Mizuno / used grid (build custom first) → near-Ringwood fitting band → rest of the shop → footer with a Members column.",
+    structure: "Hero (three links: Motocaddy, build your clubs, join) → Motocaddy compare row → custom club builder (dark, the big push) → members’ area preview with the worked saving and both tiers → Shop the hole (replaces the brand grid: five shots from tee to green, each with buy-or-build) → near-Ringwood fitting band → rest of the shop → footer with a Members column.",
     palette: [
       { name: "Evolution green", hex: "#0e4d35", use: "EG mark, buttons, footer, step numbers." },
       { name: "Link green", hex: "#0b6b47", use: "Text links (6.6:1 on white)." },
@@ -211,7 +272,7 @@ ${hero()}
 ${compare()}
 ${build()}
 ${members()}
-${brands()}
+${hole()}
 ${fit()}
 ${more()}
 </main>

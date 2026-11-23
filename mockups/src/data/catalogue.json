@@ -1,5 +1,5 @@
 {
-  "_source": "Snapshot of Shopify Admin API (read-only queries), 23 November 2026. Prices GBP inc. VAT. Stock: inventoryQuantity / availableForSale. Ratings: product-level Judge.me metafields (reviews.rating, reviews.rating_count).",
+  "_source": "Snapshot of Shopify Admin API (read-only queries), 23 November 2026. Prices GBP inc. VAT. Stock: inventoryQuantity / availableForSale. Ratings: product-level Judge.me metafields (reviews.rating, reviews.rating_count). Trolley weights and warranties from each product's description (public product JSON), read 23 Nov 2026.",
   "trolleyFamilies": [
     {
       "id": "m5-gps-dhc",
@@ -33,7 +33,9 @@
           "ratingCount": 2,
           "handle": "motocaddy-m5-gps-dhc-ultra-lithium-golf-trolley"
         }
-      ]
+      ],
+      "weightKg": 11.2,
+      "warranty": "24 months trolley and charger, 60 months lithium battery"
     },
     {
       "id": "m1",
@@ -64,7 +66,9 @@
           "ratingCount": 1,
           "handle": "motocaddy-2026-m1-ultra-lithium-electric-golf-trolley"
         }
-      ]
+      ],
+      "weightKg": 10,
+      "warranty": "24 months trolley"
     },
     {
       "id": "m7-gps-remote",
@@ -88,7 +92,9 @@
           "ratingCount": 2,
           "handle": "motocaddy-2026-m7-gps-remote-electric-trolley"
         }
-      ]
+      ],
+      "weightKg": null,
+      "warranty": null
     },
     {
       "id": "se",
@@ -119,7 +125,9 @@
           "ratingCount": 5,
           "handle": "motocaddy-2025-se-ultra-lithium-electric-golf-trolley"
         }
-      ]
+      ],
+      "weightKg": null,
+      "warranty": "24 months trolley"
     },
     {
       "id": "m5-gps",
@@ -152,7 +160,9 @@
           "ratingCount": 3,
           "handle": "motocaddy-2026-m5-gps-ultra-lithium-golf-trolley"
         }
-      ]
+      ],
+      "weightKg": 10.5,
+      "warranty": "24 months trolley"
     },
     {
       "id": "m1-dhc",
@@ -185,7 +195,9 @@
           "ratingCount": 1,
           "handle": "motocaddy-2026-m1-dhc-ultra-lithium-electric-golf-trolley"
         }
-      ]
+      ],
+      "weightKg": 10.6,
+      "warranty": "24 months trolley"
     },
     {
       "id": "me-remote",
@@ -208,7 +220,9 @@
           "ratingCount": 3,
           "handle": "motocaddy-2025-me-remote-electric-trolley"
         }
-      ]
+      ],
+      "weightKg": null,
+      "warranty": "24 months trolley"
     },
     {
       "id": "m-tech-gps",
@@ -231,6 +245,107 @@
           "rating": null,
           "ratingCount": 0,
           "handle": "motocaddy-2026-m-tech-gps-electric-golf-trolley-ultra-lithium"
+        }
+      ],
+      "weightKg": null,
+      "warranty": null
+    },
+    {
+      "id": "navee-birdie-3x",
+      "brand": "NAVEE",
+      "name": "Birdie 3X Remote + Follow",
+      "year": 2026,
+      "features": [
+        "Remote",
+        "Follow"
+      ],
+      "image": "navee-birdie-3x",
+      "href": "/trolleys/navee-birdie-3x",
+      "weightKg": 17.2,
+      "warranty": "3 years body, 5 years battery when registered",
+      "variants": [
+        {
+          "battery": "220Wh lithium",
+          "holes": "36 holes",
+          "price": 1299.0,
+          "stock": -1,
+          "available": true,
+          "rating": null,
+          "ratingCount": 0,
+          "handle": "navee-birdie-3x-remote-follow-electric-golf-trolley"
+        }
+      ]
+    },
+    {
+      "id": "navee-birdie-3",
+      "brand": "NAVEE",
+      "name": "Birdie 3 Remote",
+      "year": 2026,
+      "features": [
+        "Remote"
+      ],
+      "image": "navee-birdie-3",
+      "href": "/trolleys/navee-birdie-3",
+      "weightKg": 17.2,
+      "warranty": "3 years body, 5 years battery when registered",
+      "variants": [
+        {
+          "battery": "220Wh lithium",
+          "holes": "36 holes",
+          "price": 849.0,
+          "stock": 0,
+          "available": true,
+          "rating": null,
+          "ratingCount": 0,
+          "handle": "navee-birdie-3-remote-electric-golf-trolley"
+        }
+      ]
+    },
+    {
+      "id": "powerbug-nx-dhc",
+      "brand": "Powerbug",
+      "name": "NX DHC",
+      "year": null,
+      "features": [
+        "Downhill control"
+      ],
+      "image": "powerbug-nx-dhc",
+      "href": "/trolleys/powerbug-nx-dhc",
+      "weightKg": null,
+      "warranty": "3 years",
+      "variants": [
+        {
+          "battery": "Ultra lithium",
+          "holes": "36 holes",
+          "price": 549.0,
+          "stock": -2,
+          "available": true,
+          "rating": 4.0,
+          "ratingCount": 2,
+          "handle": "powerbug-nx-dhc-ultra-lithium-electric-trolley"
+        }
+      ]
+    },
+    {
+      "id": "powerbug-nx",
+      "brand": "Powerbug",
+      "name": "NX",
+      "year": null,
+      "features": [],
+      "image": "powerbug-nx",
+      "href": "/trolleys/powerbug-nx",
+      "weightKg": null,
+      "warranty": "3 years",
+      "variants": [
+        {
+          "battery": "Ultra lithium",
+          "holes": "36 holes",
+          "price": 499.0,
+          "stock": 0,
+          "available": true,
+          "rating": null,
+          "ratingCount": 0,
+          "handle": "powerbug-nx-ultra-lithium-electric-trolley"
         }
       ]
     }
@@ -374,5 +489,98 @@
         "img": "wilson-staff-model-blade"
       }
     ]
+  },
+  "productDetail": {
+    "m5-gps-dhc": {
+      "_source": "Product description, motocaddy-2026-m5-gps-dhc-standard-lithium-golf-trolley, 23 Nov 2026",
+      "gallery": [
+        "m5-gps-dhc-highangle",
+        "m5-gps-dhc",
+        "m5dhc-handle-hero",
+        "m5dhc-handle-fullhole",
+        "m5dhc-folded"
+      ],
+      "intro": "Advanced GPS and automatic downhill control in one trolley, with a 3.5-inch touchscreen and a cable-free lithium battery.",
+      "highlights": [
+        [
+          "GPS on the handle",
+          "A 3.5-inch touchscreen with full-hole mapping, front, middle and back-of-green distances, and 40,000+ pre-loaded courses.",
+          "m5dhc-handle-hero"
+        ],
+        [
+          "Automatic downhill control",
+          "Regulates speed on descents, with an electronic parking brake that holds the trolley on slopes.",
+          "m5dhc-handle-fullhole"
+        ],
+        [
+          "Cable-free lithium battery",
+          "CLICK ‘N’ CONNECT battery with auto-disconnect and a pop-up charging port. Standard or Ultra.",
+          "m5-gps-dhc"
+        ],
+        [
+          "Folds for the car",
+          "Compact fold to 650 × 470 × 410mm. Distance control sends it up to 60 yards ahead.",
+          "m5dhc-folded"
+        ]
+      ],
+      "specs": [
+        [
+          "Battery options",
+          "Standard lithium (18 holes) or Ultra lithium (36 holes)"
+        ],
+        [
+          "Weight",
+          "11.2kg"
+        ],
+        [
+          "Folded size",
+          "650 × 470 × 410mm"
+        ],
+        [
+          "Motor",
+          "230W with DHC"
+        ],
+        [
+          "Voltage",
+          "28V"
+        ],
+        [
+          "Frame",
+          "Aluminium, graphite"
+        ],
+        [
+          "GPS",
+          "3.5-inch touchscreen, 40,000+ pre-loaded courses"
+        ],
+        [
+          "Distance control",
+          "Up to 60 yards, in 5-yard steps"
+        ],
+        [
+          "Warranty",
+          "24 months trolley and charger; 60 months lithium battery"
+        ]
+      ],
+      "compare": [
+        "m5-gps",
+        "m5-gps-dhc",
+        "m7-gps-remote",
+        "m-tech-gps"
+      ],
+      "bundle": {
+        "name": "M5 GPS DHC + Motocaddy Dry Series cart bag",
+        "items": [
+          [
+            "Motocaddy M5 GPS DHC, Standard",
+            969.0
+          ],
+          [
+            "Motocaddy Dry Series cart bag",
+            199.0
+          ]
+        ],
+        "image": "bag-dry-series"
+      }
+    }
   }
 }

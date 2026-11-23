@@ -28,7 +28,10 @@ export const photo = (name, w = 800) => `assets/img/products/${name}-${w}.webp`;
 
 const famById = Object.fromEntries(catalogue.trolleyFamilies.map((f) => [f.id, f]));
 export const fam = (id) => famById[id];
-export const families = () => sortFamilies(catalogue.trolleyFamilies);
+/** the 2026 Motocaddy range (homepage concepts) */
+export const families = () => sortFamilies(catalogue.trolleyFamilies.filter((f) => f.brand === "Motocaddy"));
+/** every electric trolley family (collection page) */
+export const allTrolleys = () => sortFamilies(catalogue.trolleyFamilies);
 export const flagship = () => famById["m5-gps-dhc"];
 
 /** derived specs (from titles/tags in the Shopify snapshot) */
@@ -36,6 +39,8 @@ export const spec = (f) => ({
   gps: f.features.includes("GPS"),
   dhc: f.features.includes("Downhill control"),
   remote: f.features.includes("Remote"),
+  follow: f.features.includes("Follow"),
+  weight: f.weightKg ?? null,
   batteries: f.variants.map((v) => ({ name: v.battery, holes: v.holes })),
   from: familyFrom(f),
   stock: familyStock(f),
