@@ -35,7 +35,7 @@ const hero = () => html`<section class="p-tile p-tile--hero" aria-labelledby="p-
   <div class="p-copy">
     <p class="p-kicker">Evolution Golf · delivering across the UK</p>
     <h1 id="p-h1">Motocaddy trolleys.<br>Clubs built for you.</h1>
-    <p class="p-sub">The 2026 Motocaddy range, custom Wilson, Srixon and Mizuno clubs built online, and an Annual membership that can pay for itself on one big order.</p>
+    <p class="p-sub">The 2026 Motocaddy range, custom clubs from six brands built online, and an Annual membership that can pay for itself on one big order.</p>
     <p class="p-hero__cta"><a class="p-btn p-btn--l" href="${site.routes["Electric trolleys"] ?? "#compare"}">Shop electric trolleys</a><span>from ${gbp(Math.min(...allTrolleys().map((f) => spec(f).price)))}</span></p>
     <p class="p-links">${L("Build your clubs", "#build")}${L("Membership", "#members")}</p>
     <ul class="p-trust" aria-label="Why buy from us">
@@ -100,6 +100,7 @@ const build = () => {
     <ul>
       <li>${L("Custom or standard? 30-second check")}</li>
       <li>${L("Ask our fitting team")}<span>${phone()} · ${email()}</span></li>
+      <li>${L("How custom builds work", site.routes["Custom clubs"] ?? "#")}</li>
       <li>${L("Prefer an in-person fitting? Free at our Hampshire showroom")}</li>
     </ul>
   </div>

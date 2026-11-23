@@ -191,6 +191,12 @@
       };
       const rank = by === "rec" ? rankStock : { in: 0, order: 0, out: 1 };
       [...cards].sort((a, b) => rank[eff(a)] - rank[eff(b)] || cmp(a, b)).forEach((c) => grid.append(c));
+      const word = { in: "In stock", order: "Available to order", out: "Out of stock" };
+      cards.forEach((c) => {
+        const line = c.querySelector(".v-card__stock");
+        if (!line.dataset.orig) line.dataset.orig = line.textContent;
+        line.textContent = bat ? `${bat.replace(" holes", "-hole")} battery: ${word[eff(c)]}` : line.dataset.orig;
+      });
     };
     // keep sidebar and sheet checkboxes in step
     document.addEventListener("change", (e) => {
@@ -396,18 +402,41 @@
   new IntersectionObserver(([e]) => bar.classList.toggle("is-needed", !e.isIntersecting)).observe(atb);
 })();
 
-/* custom clubs: the hand choice travels with every link into the builder */
+/* custom clubs: the hand choice is read when a builder link is used (so Back/forward cache can't
+   leave links out of step), and the cards show left-handed counts and prices when chosen */
 (() => {
   const box = document.querySelector("[data-hand]");
   if (!box) return;
-  const apply = () => {
-    const hand = new FormData(box.closest("main").querySelector("form") || document.createElement("form")).get("hand") || box.querySelector("input:checked")?.value || "right";
-    document.querySelectorAll("a[data-builder]").forEach((a) => {
-      const u = new URL(a.getAttribute("href"), location.origin);
-      if (hand === "left") u.searchParams.set("hand", "left"); else u.searchParams.delete("hand");
-      a.setAttribute("href", u.pathname + u.search);
+  const hand = () => box.querySelector("input:checked")?.value || "right";
+  const gbp = (n) => "£" + n.toLocaleString("en-GB");
+  const show = (announce) => {
+    const left = hand() === "left";
+    document.querySelectorAll(".c-type").forEach((c) => {
+      const [n, from] = c.dataset[left ? "left" : "right"].split("|").map(Number);
+      c.querySelector("[data-count]").textContent = n;
+      c.querySelector("[data-from]").textContent = gbp(from);
     });
+    const total = [...document.querySelectorAll(".c-type")].reduce((t, c) => t + Number(c.dataset.left.split("|")[0]), 0);
+    const note = box.querySelector("[data-hand-note]");
+    if (announce) note.textContent = left ? `Showing left-handed: ${total} models.` : `Showing right-handed. ${total} of these models also come left-handed.`;
   };
-  box.addEventListener("change", apply);
-  apply();
+  box.addEventListener("change", () => show(true));
+  window.addEventListener("pageshow", () => show(false)); // restored form state after Back
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-builder]");
+    if (!a) return;
+    const u = new URL(a.getAttribute("href"), location.origin);
+    if (hand() === "left") u.searchParams.set("hand", "left"); else u.searchParams.delete("hand");
+    a.setAttribute("href", u.pathname + u.search);
+  }, true); // capture: runs before the "not in this preview" redirect reads the href
+  show(false);
+})();
+
+/* mark the current section in the main nav */
+(() => {
+  const path = location.pathname;
+  document.querySelectorAll(".p-nav__item a, #p-menu a").forEach((a) => {
+    const h = a.getAttribute("href");
+    if (h && h !== "#" && h !== "/" && path.startsWith(h)) a.setAttribute("aria-current", "page");
+  });
 })();

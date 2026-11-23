@@ -58,7 +58,6 @@ const card = (f, i) => {
       <span class="v-card__stock">${stockWord(s.stock)}${s.stock.detail ? ` · ${esc(s.stock.detail)}` : ""}</span>
       ${r.count ? `<span class="v-card__rate"><span aria-hidden="true">★</span> ${r.avg.toFixed(1)} · ${r.count} review${r.count > 1 ? "s" : ""}</span>` : ""}
     </a>
-    <label class="v-compare"><input type="checkbox" data-compare="${f.id}"> Compare<span class="sr"> ${esc(f.name)}</span></label>
   </li>`;
 };
 
@@ -240,7 +239,7 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
   </section>
 
   <section class="v-sec v-help" aria-labelledby="v-qu"><h2 id="v-qu">Questions about this trolley?</h2>
-    <p>Call ${phone()} or email ${email()}.</p><p>${L("Near Ringwood? See it in the showroom")}</p>
+    <p>Call ${phone()} or email ${email()}.</p><p class="p-links p-links--left">${L("Complete your kit: custom clubs built online", to("Custom clubs"))}${L("Near Ringwood? See it in the showroom")}</p>
   </section>
 </main>
 <div class="v-sticky${firstScreen ? " v-sticky--live" : ""}" role="region" aria-label="Quick add to basket" data-sticky><div><strong>${esc(f.name)} · <span data-s-battery>${esc(first.battery)}</span></strong><span data-s-line>${gbp(first.price)} · ${vStockWord[vStock(first)].replace(" · email me", "")}</span>${giftOn && !out ? `<span data-s-gift>Free accessory: Gift option 1</span>` : ""}</div><button type="button" class="p-btn" data-add>Add to basket</button></div>`);
@@ -292,7 +291,7 @@ export const checkout = () => page("Checkout | Evolution Golf", html`<main id="v
     <aside class="v-co__sum" aria-label="Order summary" data-summary></aside>
   </div>
   <section class="v-done" data-done hidden tabindex="-1" aria-labelledby="v-dn"><h2 id="v-dn">Order placed (test only)</h2><p>Thanks. On the real site you’d now get an order confirmation email. Nothing was sent and no payment was taken.</p><div class="v-co__sum" data-recap></div>
-    <h3>While you wait</h3><p class="p-links p-links--left">${L("Build your clubs online", catalogue.clubBuilder.url)}${L("See membership", to("Members"))}${L("Back to electric trolleys", to("Electric trolleys"))}</p></section>
+    <h3>While you wait</h3><p class="p-links p-links--left">${L("Build your clubs online", to("Custom clubs") === "#" ? catalogue.clubBuilder.url : to("Custom clubs"))}${L("See membership", to("Members"))}${L("Back to electric trolleys", to("Electric trolleys"))}</p></section>
 </main>`);
 
 export const notInPreview = () => page("Not in this preview | Evolution Golf", html`<main id="v-main" class="v v-narrow">

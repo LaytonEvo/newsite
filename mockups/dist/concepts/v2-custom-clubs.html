@@ -28,55 +28,112 @@
     <p class="p-kicker">Custom club builder</p>
     <h1>Clubs built to your specs, online.</h1>
     <p class="c-hero__sub">Choose the club, the brand and the model, then set it up your way. 123 buildable models from Callaway, Mizuno, PXG, Srixon, TaylorMade and Wilson, built to order and delivered across the UK.</p>
-    <p class="p-hero__cta c-hero__cta"><a class="p-btn p-btn--l" href="/pages/build-your-clubs" data-builder>Start building</a><span>from £229</span></p>
+    <p class="p-hero__cta c-hero__cta"><a class="p-btn p-btn--l" href="#types">Choose your club type</a><span>from £229 a club</span></p>
     <ul class="p-trust c-trust" aria-label="About custom builds">
-      <li><span class="p-trust__i" aria-hidden="true">L</span><span>Right- and left-handed</span></li>
-      <li><span class="p-trust__i" aria-hidden="true">✓</span><span>Free custom fitting specs included</span></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="7" cy="18" r="1.8" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="18" r="1.8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span>Built to order in <span class="q" title="To be confirmed: Audit found 2–3 weeks vs 7–14 working days">2 to 3 weeks</span></span></li>
+      <li><span class="p-trust__i" aria-hidden="true">✓</span><span>Right- and left-handed</span></li>
+      <li><span class="p-trust__i" aria-hidden="true">✓</span><span>Use your own specs, or ask our team</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="7" cy="18" r="1.8" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="18" r="1.8" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span>Built and dispatched in <span class="q" title="To be confirmed: Audit found 2–3 weeks vs 7–14 working days">2 to 3 weeks</span></span></li>
     </ul>
+    <p class="c-risk"><span class="q" title="To be confirmed: Owner to confirm returns or remake policy for made-to-order clubs">Returns on custom builds to be confirmed</span>. <span class="q" title="To be confirmed: Confirm whether shaft, grip, length or lie changes cost extra">Prices include the standard shaft and grip; any upgrades are priced in the builder</span>.</p>
   </div>
   <div class="c-hero__art" aria-hidden="true">
     <img class="c-hero__club c-hero__club--1" src="assets/img/cutouts/wilson-staff-model-blade-800.webp" alt="" width="800" height="800"><img class="c-hero__club c-hero__club--2" src="assets/img/cutouts/pxg-lightning-tour-driver-800.webp" alt="" width="800" height="800"><img class="c-hero__club c-hero__club--3" src="assets/img/cutouts/mizuno-jpx925-forged-800.webp" alt="" width="800" height="800">
   </div>
 </header>
-  <section class="c-sec" aria-labelledby="c-ty">
+  <section class="c-sec" id="types" aria-labelledby="c-ty">
   <div class="c-sec__head"><h2 id="c-ty">Start with a club type</h2><fieldset class="c-hand" data-hand>
-  <legend>I play</legend>
-  <label><input type="radio" name="hand" value="right" checked="">Right-handed</label><label><input type="radio" name="hand" value="left">Left-handed</label>
-  <p class="c-hand__note" data-hand-note>45 left-handed models in the builder today.</p>
+  <legend>Which hand do you play?</legend>
+  <div class="c-hand__opts"><label><input type="radio" name="hand" value="right" checked="">Right-handed</label><label><input type="radio" name="hand" value="left">Left-handed</label></div>
+  <p class="c-hand__note" data-hand-note aria-live="polite">45 of these models also come left-handed.</p>
 </fieldset></div>
-  <ul class="c-types"><li><a href="/pages/build-your-clubs?type=drivers" data-builder data-type="drivers">
+  <ul class="c-types"><li class="c-type" data-right="33|249" data-left="8|279">
     <span class="c-types__img"><img src="assets/img/cutouts/pxg-lightning-tour-driver-400.webp" alt="" width="400" height="400" loading="lazy"></span>
-    <strong>Drivers</strong>
+    <h3><a href="/pages/build-your-clubs?type=drivers" data-builder>Drivers</a></h3>
     <span class="c-types__line">Distance and forgiveness off the tee</span>
-    <span class="c-types__meta">33 models · from £249</span>
+    <span class="c-types__meta"><span data-count>33</span> models · from <span data-from>£249</span> a club</span>
     <span class="c-types__opts">You choose: loft, shaft, flex</span>
-    <span class="p-l" aria-hidden="true">Build drivers</span>
-  </a></li><li><a href="/pages/build-your-clubs?type=fairway-woods" data-builder data-type="fairway-woods">
+    <span class="p-l c-types__go" aria-hidden="true">Build drivers</span>
+  </li><li class="c-type" data-right="21|269" data-left="6|269">
     <span class="c-types__img"><img src="assets/img/cutouts/taylormade-qi4d-fairway-400.webp" alt="" width="400" height="400" loading="lazy"></span>
-    <strong>Fairway woods</strong>
+    <h3><a href="/pages/build-your-clubs?type=fairway-woods" data-builder>Fairway woods</a></h3>
     <span class="c-types__line">Long approaches and tee-shot alternatives</span>
-    <span class="c-types__meta">21 models · from £269</span>
+    <span class="c-types__meta"><span data-count>21</span> models · from <span data-from>£269</span> a club</span>
     <span class="c-types__opts">You choose: loft, shaft, flex</span>
-    <span class="p-l" aria-hidden="true">Build fairway woods</span>
-  </a></li><li><a href="/pages/build-your-clubs?type=hybrids-utility-irons" data-builder data-type="hybrids-utility-irons">
+    <span class="p-l c-types__go" aria-hidden="true">Build fairway woods</span>
+  </li><li class="c-type" data-right="22|229" data-left="1|229">
     <span class="c-types__img"><img src="assets/img/cutouts/taylormade-p-udi-400.webp" alt="" width="400" height="400" loading="lazy"></span>
-    <strong>Hybrids &amp; utility irons</strong>
+    <h3><a href="/pages/build-your-clubs?type=hybrids-utility-irons" data-builder>Hybrids &amp; utility irons</a></h3>
     <span class="c-types__line">Easier long irons that launch higher</span>
-    <span class="c-types__meta">22 models · from £229</span>
+    <span class="c-types__meta"><span data-count>22</span> models · from <span data-from>£229</span> a club</span>
     <span class="c-types__opts">You choose: loft, shaft, flex</span>
-    <span class="p-l" aria-hidden="true">Build hybrids &amp; utility irons</span>
-  </a></li><li><a href="/pages/build-your-clubs?type=irons" data-builder data-type="irons">
+    <span class="p-l c-types__go" aria-hidden="true">Build hybrids &amp; utility irons</span>
+  </li><li class="c-type" data-right="47|579" data-left="30|579">
     <span class="c-types__img"><img src="assets/img/cutouts/mizuno-jpx925-forged-400.webp" alt="" width="400" height="400" loading="lazy"></span>
-    <strong>Irons</strong>
+    <h3><a href="/pages/build-your-clubs?type=irons" data-builder>Irons</a></h3>
     <span class="c-types__line">Built to your specs, shaft and lie</span>
-    <span class="c-types__meta">47 models · from £579</span>
+    <span class="c-types__meta"><span data-count>47</span> models · from <span data-from>£579</span> a set</span>
     <span class="c-types__opts">You choose: set make-up, shaft, flex</span>
-    <span class="p-l" aria-hidden="true">Build irons</span>
-  </a></li></ul>
+    <span class="p-l c-types__go" aria-hidden="true">Build irons</span>
+  </li></ul>
+  <p class="c-fine"><span class="q" title="To be confirmed: Confirm whether shaft, grip, length or lie changes cost extra">Prices include the standard shaft and grip; any upgrades are priced in the builder</span>. Irons are priced as a set of six (5-PW) unless you choose a longer set.</p>
 </section>
-  <section class="c-sec c-how" aria-labelledby="c-hw"><h2 id="c-hw">How the builder works</h2>
-  <ol class="c-steps"><li><b aria-hidden="true">1</b><div><h3>Club type</h3><p>Drivers, fairway woods, hybrids and utility irons, or a set of irons.</p></div></li><li><b aria-hidden="true">2</b><div><h3>Brand</h3><p>Callaway, Mizuno, PXG, Srixon, TaylorMade, Wilson.</p></div></li><li><b aria-hidden="true">3</b><div><h3>Model</h3><p>Pick the head you want. Each model shows the options it can be built with.</p></div></li><li><b aria-hidden="true">4</b><div><h3>Build</h3><p>Set it up your way, then add it to your basket like anything else.</p></div></li></ol>
+  <section class="c-sec" aria-labelledby="c-ft">
+  <div class="c-sec__head"><h2 id="c-ft">Example builds</h2><p class="c-sec__sub">Models in the builder now, with the options they can be built with. Each button opens the builder at that club type; the model is listed under its brand.</p></div>
+  <ul class="c-builds"><li class="c-build">
+    <span class="c-build__img"><img src="assets/img/cutouts/wilson-staff-model-blade-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+    <span class="c-build__type">Wilson · Irons · left-handed too</span>
+    <h3>Wilson Staff Model Blade irons</h3>
+    <p class="c-build__specs">5-PW or 4-PW · Dynamic Gold Mid 115 · Stiff</p>
+    <p class="c-build__price">From £899 a set</p>
+    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=irons" data-builder>Build irons<span class="sr">, then choose Wilson Staff Model Blade irons</span></a>
+  </li><li class="c-build">
+    <span class="c-build__img"><img src="assets/img/cutouts/mizuno-jpx925-forged-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+    <span class="c-build__type">Mizuno · Irons · left-handed too</span>
+    <h3>Mizuno JPX 925 Forged irons</h3>
+    <p class="c-build__specs">5-PW · Modus Tour 105 steel or Recoil graphite · Regular, Stiff</p>
+    <p class="c-build__price">From £999 a set</p>
+    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=irons" data-builder>Build irons<span class="sr">, then choose Mizuno JPX 925 Forged irons</span></a>
+  </li><li class="c-build">
+    <span class="c-build__img"><img src="assets/img/cutouts/pxg-0317-cb-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+    <span class="c-build__type">PXG · Irons · left-handed too</span>
+    <h3>PXG 0317 CB irons</h3>
+    <p class="c-build__specs">5-PW or 4-PW · KBS steel or Mitsubishi graphite · Regular, Stiff</p>
+    <p class="c-build__price">From £949 a set</p>
+    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=irons" data-builder>Build irons<span class="sr">, then choose PXG 0317 CB irons</span></a>
+  </li><li class="c-build">
+    <span class="c-build__img"><img src="assets/img/cutouts/pxg-lightning-tour-driver-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+    <span class="c-build__type">PXG · Drivers · left-handed too</span>
+    <h3>PXG Lightning Tour driver</h3>
+    <p class="c-build__specs">9° or 10.5° · Project X Denali Frost Blue 60 · Stiff</p>
+    <p class="c-build__price">From £429 a club</p>
+    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=drivers" data-builder>Build drivers<span class="sr">, then choose PXG Lightning Tour driver</span></a>
+  </li><li class="c-build">
+    <span class="c-build__img"><img src="assets/img/cutouts/wilson-dynapwr-max-plus-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+    <span class="c-build__type">Wilson · Drivers · left-handed too</span>
+    <h3>Wilson Staff DYNAPWR Max+ driver</h3>
+    <p class="c-build__specs">9°, 10.5° or 12° · UST LIN-Q · Senior, Regular, Stiff</p>
+    <p class="c-build__price">From £349 a club</p>
+    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=drivers" data-builder>Build drivers<span class="sr">, then choose Wilson Staff DYNAPWR Max+ driver</span></a>
+  </li><li class="c-build">
+    <span class="c-build__img"><img src="assets/img/cutouts/taylormade-p-udi-400.webp" alt="" width="400" height="400" loading="lazy"></span>
+    <span class="c-build__type">TaylorMade · Hybrids &amp; utility irons · left-handed too</span>
+    <h3>TaylorMade P·UDI utility iron</h3>
+    <p class="c-build__specs">2, 3 or 4 iron (17° to 22°) · Recoil Dart · Stiff</p>
+    <p class="c-build__price">From £229 a club</p>
+    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=hybrids-utility-irons" data-builder>Build hybrids &amp; utility irons<span class="sr">, then choose TaylorMade P·UDI utility iron</span></a>
+  </li></ul>
+  <p class="c-brands">Brands in the builder: Callaway, Mizuno, PXG, Srixon, TaylorMade, Wilson.</p>
+</section>
+  <section class="c-sec c-help" aria-labelledby="c-hp"><h2 id="c-hp">Not sure of your specs?</h2>
+  <ul class="c-routes">
+    <li><h3>Know your numbers?</h3><p>Choose your loft, shaft and flex in the builder, model by model.</p><a class="p-l" href="/pages/build-your-clubs" data-builder>Open the builder</a></li>
+    <li><h3>Ask our team</h3><p>Tell us your height, current clubs and how you play, and we’ll suggest a build. <a href="tel:+443301227089">0330 122 7089</a> · <a href="mailto:online@evolutiongolf.co.uk">online@evolutiongolf.co.uk</a></p><a class="p-l" href="#">Contact us<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></li>
+    <li><h3>Prefer to be fitted in person?</h3><p>Free fitting at our Hampshire showroom, about <span class="q" title="To be confirmed: Confirm session lengths per fitting type from Acuity">60</span> minutes on a <span class="q" title="To be confirmed: Name the launch-monitor model used">launch monitor</span>. Your specs go straight into the builder.</p><a class="p-l" href="#">Book a free fitting<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></li>
+  </ul>
+  <p class="c-member"><span class="v-promise__eg" aria-hidden="true">EG</span><span>Annual members: your monthly <span class="q" title="To be confirmed: Depends on discount hierarchy decision (a/b/c)">10</span>% off <span class="q" title="To be confirmed: Confirm the member discount applies to custom builds">works on custom builds</span>. <a class="p-l" href="#">See membership<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></span></p>
+</section>
+  <section class="c-sec c-how" aria-labelledby="c-hw"><h2 id="c-hw">How it works</h2>
+  <ol class="c-steps"><li><b aria-hidden="true">1</b><div><h3>Club type</h3><p>Drivers, fairway woods, hybrids and utility irons, or a set of irons.</p></div></li><li><b aria-hidden="true">2</b><div><h3>Brand</h3><p>Callaway, Mizuno, PXG, Srixon, TaylorMade, Wilson.</p></div></li><li><b aria-hidden="true">3</b><div><h3>Model</h3><p>Pick the head you want. Each model shows the options it can be built with.</p></div></li><li><b aria-hidden="true">4</b><div><h3>Build</h3><p>Set it up your way, then add it to your basket like anything else.</p></div></li><li><b aria-hidden="true">5</b><div><h3>We build and send it</h3><p>Your clubs are built to order and dispatched in <span class="q" title="To be confirmed: Audit found 2–3 weeks vs 7–14 working days">2 to 3 weeks</span>, then delivered free across the UK.</p></div></li></ol>
   <div class="c-set">
     <h3>What you can set</h3>
     <ul>
@@ -88,63 +145,8 @@
     </ul>
   </div>
 </section>
-  <section class="c-sec" aria-labelledby="c-ft">
-  <div class="c-sec__head"><h2 id="c-ft">Popular builds</h2><p class="c-sec__sub">Real models in the builder now, with the options they can be built with.</p></div>
-  <ul class="c-builds"><li class="c-build">
-    <span class="c-build__img"><img src="assets/img/cutouts/wilson-staff-model-blade-400.webp" alt="" width="400" height="400" loading="lazy"></span>
-    <span class="c-build__type">Wilson · Irons</span>
-    <h3>Wilson Staff Model Blade irons</h3>
-    <p class="c-build__specs">5-PW or 4-PW · Dynamic Gold Mid 115 · Stiff</p>
-    <p class="c-build__price">From £899</p>
-    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=irons" data-builder data-type="irons">Build this<span class="sr"> Wilson Staff Model Blade irons</span></a>
-  </li><li class="c-build">
-    <span class="c-build__img"><img src="assets/img/cutouts/mizuno-jpx925-forged-400.webp" alt="" width="400" height="400" loading="lazy"></span>
-    <span class="c-build__type">Mizuno · Irons</span>
-    <h3>Mizuno JPX 925 Forged irons</h3>
-    <p class="c-build__specs">5-PW · Modus Tour 105 steel or Recoil graphite · Regular, Stiff</p>
-    <p class="c-build__price">From £999</p>
-    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=irons" data-builder data-type="irons">Build this<span class="sr"> Mizuno JPX 925 Forged irons</span></a>
-  </li><li class="c-build">
-    <span class="c-build__img"><img src="assets/img/cutouts/pxg-0317-cb-400.webp" alt="" width="400" height="400" loading="lazy"></span>
-    <span class="c-build__type">PXG · Irons</span>
-    <h3>PXG 0317 CB irons</h3>
-    <p class="c-build__specs">5-PW or 4-PW · KBS steel or Mitsubishi graphite · Regular, Stiff</p>
-    <p class="c-build__price">From £949</p>
-    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=irons" data-builder data-type="irons">Build this<span class="sr"> PXG 0317 CB irons</span></a>
-  </li><li class="c-build">
-    <span class="c-build__img"><img src="assets/img/cutouts/pxg-lightning-tour-driver-400.webp" alt="" width="400" height="400" loading="lazy"></span>
-    <span class="c-build__type">PXG · Drivers</span>
-    <h3>PXG Lightning Tour driver</h3>
-    <p class="c-build__specs">9° or 10.5° · Project X Denali Frost Blue 60 · Stiff</p>
-    <p class="c-build__price">From £429</p>
-    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=drivers" data-builder data-type="drivers">Build this<span class="sr"> PXG Lightning Tour driver</span></a>
-  </li><li class="c-build">
-    <span class="c-build__img"><img src="assets/img/cutouts/wilson-dynapwr-max-plus-400.webp" alt="" width="400" height="400" loading="lazy"></span>
-    <span class="c-build__type">Wilson · Drivers</span>
-    <h3>Wilson Staff DYNAPWR Max+ driver</h3>
-    <p class="c-build__specs">9°, 10.5° or 12° · UST LIN-Q · Senior, Regular, Stiff</p>
-    <p class="c-build__price">From £349</p>
-    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=drivers" data-builder data-type="drivers">Build this<span class="sr"> Wilson Staff DYNAPWR Max+ driver</span></a>
-  </li><li class="c-build">
-    <span class="c-build__img"><img src="assets/img/cutouts/taylormade-p-udi-400.webp" alt="" width="400" height="400" loading="lazy"></span>
-    <span class="c-build__type">TaylorMade · Hybrids &amp; utility irons</span>
-    <h3>TaylorMade P·UDI utility iron</h3>
-    <p class="c-build__specs">2, 3 or 4 iron (17° to 22°) · Recoil Dart · Stiff</p>
-    <p class="c-build__price">From £229</p>
-    <a class="p-btn p-btn--s" href="/pages/build-your-clubs?type=hybrids-utility-irons" data-builder data-type="hybrids-utility-irons">Build this<span class="sr"> TaylorMade P·UDI utility iron</span></a>
-  </li></ul>
-  <p class="c-brands"><span>In the builder:</span> <span class="c-brand">Callaway</span><span class="c-brand">Mizuno</span><span class="c-brand">PXG</span><span class="c-brand">Srixon</span><span class="c-brand">TaylorMade</span><span class="c-brand">Wilson</span></p>
-</section>
-  <section class="c-sec c-help" aria-labelledby="c-hp"><h2 id="c-hp">Not sure of your specs?</h2>
-  <ul class="c-routes">
-    <li><h3>Know your numbers?</h3><p>Choose your loft, shaft and flex in the builder, model by model.</p><a class="p-l" href="/pages/build-your-clubs">Start building<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></li>
-    <li><h3>Ask our team</h3><p>Tell us your height, current clubs and how you play, and we’ll suggest a build. <a href="tel:+443301227089">0330 122 7089</a> · <a href="mailto:online@evolutiongolf.co.uk">online@evolutiongolf.co.uk</a></p><a class="p-l" href="#">Contact us<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></li>
-    <li><h3>Prefer to be fitted in person?</h3><p>Free fitting at our Hampshire showroom, about <span class="q" title="To be confirmed: Confirm session lengths per fitting type from Acuity">60</span> minutes on a <span class="q" title="To be confirmed: Name the launch-monitor model used">launch monitor</span>. Your specs go straight into the builder.</p><a class="p-l" href="#">Book a free fitting<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></li>
-  </ul>
-  <p class="c-member"><span class="v-promise__eg" aria-hidden="true">EG</span><span>Annual members: your monthly <span class="q" title="To be confirmed: Depends on discount hierarchy decision (a/b/c)">10</span>% off <span class="q" title="To be confirmed: Confirm the member discount applies to custom builds">works on custom builds</span>. <a class="p-l" href="#">See membership<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a></span></p>
-</section>
   <section class="c-sec c-faq" aria-labelledby="c-fq"><h2 id="c-fq">Questions</h2>
-  <details open><summary>How long does a custom build take?</summary><p>Custom builds take <span class="q" title="To be confirmed: Audit found 2–3 weeks vs 7–14 working days">2 to 3 weeks</span> from order to dispatch.</p></details><details><summary>Can I return a custom build?</summary><p><span class="q" title="To be confirmed: Owner to confirm the returns policy for made-to-order clubs">Returns wording for custom builds to be confirmed</span>. Standard, off-the-shelf clubs are covered by our normal returns policy.</p></details><details><summary>Do I need a fitting first?</summary><p>No. You can build with standard specs, use specs from a previous fitting, or ask our team. A free fitting is there if you want one.</p></details><details><summary>Can I build left-handed?</summary><p>Yes. 45 models in the builder come in left-handed, across drivers, fairway woods and irons. Choose “Left-handed” before you pick a model.</p></details>
+  <details open><summary>How long does a custom build take?<span class="c-faq__i" aria-hidden="true"></span></summary><p>Clubs are built to order and dispatched in <span class="q" title="To be confirmed: Audit found 2–3 weeks vs 7–14 working days">2 to 3 weeks</span>, then delivered free across the UK.</p></details><details><summary>Do upgrades cost extra?<span class="c-faq__i" aria-hidden="true"></span></summary><p><span class="q" title="To be confirmed: Confirm whether shaft, grip, length or lie changes cost extra">Prices include the standard shaft and grip; any upgrades are priced in the builder</span>.</p></details><details><summary>Can I return a custom build?<span class="c-faq__i" aria-hidden="true"></span></summary><p><span class="q" title="To be confirmed: Owner to confirm returns or remake policy for made-to-order clubs">Returns on custom builds to be confirmed</span>. Standard, off-the-shelf clubs are covered by our normal returns policy.</p></details><details><summary>What warranty do custom builds have?<span class="c-faq__i" aria-hidden="true"></span></summary><p><span class="q" title="To be confirmed: Owner to confirm warranty terms for custom builds">Manufacturer warranty applies to custom builds; wording to be confirmed</span></p></details><details><summary>Do I need a fitting first?<span class="c-faq__i" aria-hidden="true"></span></summary><p>No. You can build with standard specs, use specs from a previous fitting, or ask our team. A free fitting is there if you want one.</p></details><details><summary>Can I build left-handed?<span class="c-faq__i" aria-hidden="true"></span></summary><p>Yes. 45 models come in left-handed: 8 drivers, 6 fairway woods, 1 hybrids & utility irons, 30 irons. Choose “Left-handed” above before you pick a type.</p></details>
 </section>
 </main>
 <footer class="p-foot">

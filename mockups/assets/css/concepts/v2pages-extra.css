@@ -400,3 +400,35 @@ html { scroll-padding-top: 72px; scroll-padding-bottom: 120px; }
 .c-faq summary::after { content: "+"; font-size: 24px; color: var(--green); }
 .c-faq details[open] summary::after { content: "–"; }
 .c-faq details p { padding: 0 0 16px; color: #2b3530; }
+
+/* ===== custom clubs, review round 3 ===== */
+.c-risk { font-size: 14px; color: var(--slate); margin-top: 12px; max-width: 40rem; }
+.c-fine { font-size: 14px; color: var(--slate); margin-top: 14px; }
+.c-hand legend { float: none; display: block; margin: 0 0 6px; font-weight: 700; }
+.c-hand { display: block; }
+.c-hand__opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.c-hand__note { margin-top: 6px; }
+/* type cards: the heading is the link; the whole card is clickable via a stretched link */
+.c-type { position: relative; display: grid; gap: 4px; align-content: start; padding: 14px; border-radius: 22px; background: var(--mist); }
+.c-type:hover { background: #e9efec; }
+.c-type h3 { font: 750 20px/1.15 var(--h); margin: 0; }
+.c-type h3 a { color: var(--ink); text-decoration: none; }
+.c-type h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 22px; }
+.c-type h3 a:focus-visible { outline: none; }
+.c-type:has(h3 a:focus-visible) { outline: 2.5px solid var(--link); outline-offset: 3px; }
+.c-types__go { min-height: 32px; margin-top: 4px; }
+@media (min-width: 900px) { .c-type { padding: 18px; } }
+@media (max-width: 899px) {
+  .c-hero__art { display: none; }
+  .c-types { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .c-type { grid-template-columns: 96px minmax(0, 1fr); column-gap: 14px; padding: 12px; }
+  .c-type > * { grid-column: 2; }
+  .c-type .c-types__img { grid-column: 1; grid-row: 1 / span 5; margin: 0; align-self: center; }
+  .c-types__opts { display: none; }
+  .c-builds { gap: 16px 10px; }
+}
+.c-brands { display: block; font-size: 15px; color: var(--slate); }
+/* FAQ marker no longer read aloud */
+.c-faq summary::after { content: none; }
+.c-faq__i::before { content: "+"; font-size: 24px; color: var(--green); }
+.c-faq details[open] .c-faq__i::before { content: "–"; }

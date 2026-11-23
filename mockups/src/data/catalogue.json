@@ -475,7 +475,12 @@
           "Shaft",
           "Flex"
         ],
-        "slug": "drivers"
+        "slug": "drivers",
+        "left": {
+          "models": 8,
+          "from": 279
+        },
+        "unit": "a club"
       },
       {
         "name": "Fairway woods",
@@ -488,7 +493,12 @@
           "Shaft",
           "Flex"
         ],
-        "slug": "fairway-woods"
+        "slug": "fairway-woods",
+        "left": {
+          "models": 6,
+          "from": 269
+        },
+        "unit": "a club"
       },
       {
         "name": "Hybrids & utility irons",
@@ -501,7 +511,12 @@
           "Shaft",
           "Flex"
         ],
-        "slug": "hybrids-utility-irons"
+        "slug": "hybrids-utility-irons",
+        "left": {
+          "models": 1,
+          "from": 229
+        },
+        "unit": "a club"
       },
       {
         "name": "Irons",
@@ -514,7 +529,12 @@
           "Shaft",
           "Flex"
         ],
-        "slug": "irons"
+        "slug": "irons",
+        "left": {
+          "models": 30,
+          "from": 579
+        },
+        "unit": "a set"
       }
     ],
     "_sourceDetail": "Custom-fit collections read from Shopify (read-only), 23 Nov 2026. Only ACTIVE products counted for prices, brands and left-handed models; model counts per type are the live builder's own.",
@@ -539,7 +559,8 @@
         "type": "Irons",
         "from": 899,
         "img": "wilson-staff-model-blade",
-        "specs": "5-PW or 4-PW · Dynamic Gold Mid 115 · Stiff"
+        "specs": "5-PW or 4-PW · Dynamic Gold Mid 115 · Stiff",
+        "left": true
       },
       {
         "name": "Mizuno JPX 925 Forged irons",
@@ -547,7 +568,8 @@
         "type": "Irons",
         "from": 999,
         "img": "mizuno-jpx925-forged",
-        "specs": "5-PW · Modus Tour 105 steel or Recoil graphite · Regular, Stiff"
+        "specs": "5-PW · Modus Tour 105 steel or Recoil graphite · Regular, Stiff",
+        "left": true
       },
       {
         "name": "PXG 0317 CB irons",
@@ -555,7 +577,8 @@
         "type": "Irons",
         "from": 949,
         "img": "pxg-0317-cb",
-        "specs": "5-PW or 4-PW · KBS steel or Mitsubishi graphite · Regular, Stiff"
+        "specs": "5-PW or 4-PW · KBS steel or Mitsubishi graphite · Regular, Stiff",
+        "left": true
       },
       {
         "name": "PXG Lightning Tour driver",
@@ -563,7 +586,8 @@
         "type": "Drivers",
         "from": 429,
         "img": "pxg-lightning-tour-driver",
-        "specs": "9° or 10.5° · Project X Denali Frost Blue 60 · Stiff"
+        "specs": "9° or 10.5° · Project X Denali Frost Blue 60 · Stiff",
+        "left": true
       },
       {
         "name": "Wilson Staff DYNAPWR Max+ driver",
@@ -571,7 +595,8 @@
         "type": "Drivers",
         "from": 349,
         "img": "wilson-dynapwr-max-plus",
-        "specs": "9°, 10.5° or 12° · UST LIN-Q · Senior, Regular, Stiff"
+        "specs": "9°, 10.5° or 12° · UST LIN-Q · Senior, Regular, Stiff",
+        "left": true
       },
       {
         "name": "TaylorMade P·UDI utility iron",
@@ -579,9 +604,11 @@
         "type": "Hybrids & utility irons",
         "from": 229,
         "img": "taylormade-p-udi",
-        "specs": "2, 3 or 4 iron (17° to 22°) · Recoil Dart · Stiff"
+        "specs": "2, 3 or 4 iron (17° to 22°) · Recoil Dart · Stiff",
+        "left": true
       }
-    ]
+    ],
+    "_leftSource": "Left-handed counts and prices: ACTIVE left-handed products in the Shopify custom-fit collections, 23 Nov 2026 (right-handed counts are the live builder's)."
   },
   "productDetail": {
     "m5-gps-dhc": {

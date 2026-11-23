@@ -323,3 +323,6 @@ main { grid-template-columns: minmax(0, 1fr); }
 
 /* cookie choices with equal weight (ICO: rejecting as easy as accepting) */
 .p-cookie button + button { background: var(--green); color: #fff; }
+/* current section in the nav */
+.p-nav__item a[aria-current="page"] { color: var(--green); font-weight: 700; box-shadow: inset 0 -2px 0 var(--green); }
+#p-menu a[aria-current="page"] { color: var(--green); }
