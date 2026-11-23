@@ -137,11 +137,11 @@ const brands = () => {
 
 /* Shop the hole: a tee-to-green route into the range (static mockup shows "Off the tee" selected) */
 const ZONES = [
-  { id: "tee", n: 1, name: "Off the tee", what: "Drivers", x: 17.9, y: 71.4 },
-  { id: "fairway", n: 2, name: "From the fairway", what: "Woods, hybrids and irons", x: 35.7, y: 48 },
-  { id: "approach", n: 3, name: "Into the green", what: "Wedges and rangefinders", x: 67.2, y: 30.8 },
-  { id: "green", n: 4, name: "On the green", what: "Putters", x: 78.9, y: 24.1 },
-  { id: "walk", n: 5, name: "Getting round", what: "Motocaddy trolleys, bags and GPS", x: 24.2, y: 81.1 },
+  { id: "tee", n: 1, name: "Off the tee", what: "Drivers", x: 17.8, y: 56.4 },
+  { id: "fairway", n: 2, name: "From the fairway", what: "Woods, hybrids and irons", x: 38.9, y: 42.4 },
+  { id: "approach", n: 3, name: "Into the green", what: "Wedges and rangefinders", x: 69.6, y: 53.0 },
+  { id: "green", n: 4, name: "On the green", what: "Putters", x: 81.1, y: 56.4 },
+  { id: "walk", n: 5, name: "Getting round", what: "Motocaddy trolleys, bags and GPS", x: 26, y: 76 },
 ];
 export const holeMap = () => `<svg class="h-map" viewBox="0 0 1000 320" aria-hidden="true" focusable="false">
   <rect width="1000" height="320" rx="0" fill="#f3f5f4"/>

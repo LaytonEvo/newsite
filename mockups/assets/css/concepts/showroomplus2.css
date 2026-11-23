@@ -588,3 +588,15 @@ main:not(.v) { gap: 0; padding: 0; }
   .mv-c__tbl thead th { width: 28%; }
 }
 
+
+/* ---------- shop the hole: the illustration runs sideways, tee left to green right, so the picks sit higher ---------- */
+.h-course--photo, .h .h-course--photo { aspect-ratio: 1600 / 594; max-width: 1000px; margin-top: 20px; }
+@media (max-width: 899px) { .h-course--photo, .h .h-course--photo { aspect-ratio: 1600 / 594; margin-top: 16px; } }
+@media (max-width: 899px) {
+  .h-stops { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; margin: 12px calc(-1 * var(--g)) 0; padding: 2px var(--g); }
+  .h-stops::-webkit-scrollbar { display: none; }
+  .h-stop { flex: none; scroll-snap-align: start; min-height: 48px; padding: 6px 14px 6px 8px; border-radius: 999px; gap: 8px; font-size: 15px; white-space: nowrap; }
+  .h-stop small { display: none; }
+  .h-stop b { width: 30px; height: 30px; }
+}
+@media (min-width: 900px) { .h-pick, .h-pick a { min-width: 0; } .h-pick__img { aspect-ratio: 4 / 3; width: 100%; min-width: 0; box-sizing: border-box; overflow: hidden; } .h-pick__img img { width: auto; max-width: 100%; height: 88%; min-height: 0; } }
