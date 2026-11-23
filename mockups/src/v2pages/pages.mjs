@@ -29,13 +29,15 @@ const featsOf = (f) => { const s = S(f); return [s.gps && "GPS", s.dhc && "Downh
 const batteryOpts = (f) => [holesOf(f).includes("18 holes") && "18 holes", holesOf(f).some((h) => h.startsWith("36")) && "36 holes"].filter(Boolean);
 const stockLabel = { in: "In stock", order: "Available to order", out: "Out of stock" };
 const tags = (f) => ({
-  brand: [f.brand], features: featsOf(f), battery: batteryOpts(f), weight: [weightBand(S(f).weight)],
+  brand: [f.brand], features: [...featsOf(f), ...(holesOf(f).includes("18 holes") ? ["18-hole battery option"] : [])], battery: batteryOpts(f), weight: [weightBand(S(f).weight)],
   price: [priceBand(S(f).price)], availability: [stockLabel[S(f).stock.state]],
 });
 // price and availability first: on a £479 to £1,299 range they are what people filter by first (CRO review, round 1)
-const GROUPS = [["availability", "Availability"], ["price", "Price"], ["features", "Features"], ["battery", "Battery range"], ["brand", "Brand"]]; // weight returns once every model has one
+// declutter review: availability is the "In stock only" switch; "36 holes" matched every trolley, so the
+// 18-hole option lives under Features; weight returns once every model has one
+const GROUPS = [["price", "Price"], ["features", "Features"], ["brand", "Brand"]];
 const ORDER = {
-  brand: [...new Set(trolleys.map((f) => f.brand))], features: ["GPS", "Downhill control", "Remote", "Follow"], battery: ["18 holes", "36 holes"],
+  brand: [...new Set(trolleys.map((f) => f.brand))], features: ["GPS", "Downhill control", "Remote", "Follow", "18-hole battery option"], battery: ["18 holes", "36 holes"],
   weight: ["Under 10.5kg", "10.5 to 11kg", "Over 11kg", "Not listed"], price: ["Under £600", "£600 to £900", "£900 to £1,200", "Over £1,200"],
   availability: ["In stock", "Available to order", "Out of stock"],
 };
@@ -49,13 +51,12 @@ const card = (f, i) => {
   return html`<li class="v-card v-card--${s.stock.state}" data-card ${data} data-price-n="${s.price}" data-weight-n="${s.weight ?? ""}" data-rating-n="${r.count ? r.avg : 0}" data-year="${f.year ?? 0}" data-rank="${i}" data-stock="${s.stock.state}" data-bat-stock="${esc(f.variants.map((v) => `${v.holes.startsWith("36") ? "36 holes" : v.holes}:${vStock(v)}`).join("|"))}">
     <a href="${f.href}" class="v-card__link">
       <span class="v-card__img"><img src="${cut(f.image, 400)}" alt="" width="400" height="400" loading="lazy"></span>
-      <span class="v-card__brand">${esc(f.brand)}${f.year === 2026 ? " · 2026" : ""}</span>
+      <span class="v-card__brand">${esc(f.brand)}</span>
       <h3 class="v-card__name">${esc(f.name)}</h3>
-      <span class="v-card__feat">${esc(t.features.length ? t.features.join(" · ") : "Essential controls")}</span>
-      <span class="v-card__bat">Battery: ${esc(f.variants.map((v) => `${v.battery.replace(" lithium", "")} (${v.holes})`).join(" or "))}</span>
-      ${s.weight ? `<span class="v-card__bat">Weight: ${s.weight}kg</span>` : ""}
+      <span class="v-card__feat">${esc(featsOf(f).length ? featsOf(f).join(" · ") : "Essential controls")}</span>
+      <span class="v-card__bat">${esc([...new Set(holesOf(f).map((h) => h.replace(" holes", "")))].join(" or "))} holes${s.weight ? ` · ${s.weight}kg` : ""}</span>
       <span class="v-card__price">${s.priceFrom ? "<small>From</small> " : ""}${gbp(s.price)}</span>
-      <span class="v-card__stock">${stockWord(s.stock)}${s.stock.detail ? ` · ${esc(s.stock.detail)}` : ""}</span>
+      <span class="v-card__stock">${stockWord(s.stock)}</span>
       ${r.count ? `<span class="v-card__rate"><span aria-hidden="true">★</span> ${r.avg.toFixed(1)} · ${r.count} review${r.count > 1 ? "s" : ""}</span>` : ""}
     </a>
   </li>`;
@@ -66,14 +67,13 @@ const radio = (name, value, label, on) => `<label><input type="radio" name="${na
 const finder = () => {
   // starts unanswered; every answer narrows the grid and in-stock models rank first (site.js)
   return html`<section class="v-finder" id="finder" aria-labelledby="v-fd" data-finder-box>
-  <div class="v-finder__head"><h2 id="v-fd">Which trolley is right for me?</h2><p>Four quick questions, then we’ll show the trolleys that fit.</p>
-    <button type="button" class="p-btn v-finder__open" aria-expanded="false" aria-controls="v-finder-q" data-finder-open>Answer 4 questions</button></div>
+  <div class="v-finder__head"><h2 id="v-fd">Help me choose</h2><p>Answer any of these and the list below narrows as you go.</p></div>
   <form class="v-finder__q" id="v-finder-q" action="#grid" data-finder>
     <fieldset><legend>Course maps?</legend>${radio("gps", "GPS", "GPS")}${radio("gps", "", "Not needed")}</fieldset>
     <fieldset><legend>Hilly course?</legend>${radio("dhc", "Downhill control", "Downhill control")}${radio("dhc", "", "Not needed")}</fieldset>
     <fieldset><legend>Steering?</legend>${radio("rem", "", "Handle")}${radio("rem", "Remote", "Remote")}${radio("rem", "Follow", "Follow")}</fieldset>
     <fieldset><legend>How much golf?</legend>${radio("bat", "18 holes", "18 holes")}${radio("bat", "36 holes", "36 holes")}</fieldset>
-    <div class="v-finder__go"><button type="submit" class="p-btn" data-finder-go>Show all ${trolleys.length} trolleys</button>${L("Compare side by side")}</div>
+    <div class="v-finder__go"><button type="button" class="v-clear" data-finder-close>Done</button></div>
   </form>
 </section>`;
 };
@@ -84,22 +84,17 @@ export const collection = ({ drawer = false } = {}) => {
   ${crumbs([["Home", to("Home")], ["Trolleys", to("Trolleys")], ["Electric trolleys", "#"]])}
   <header class="v-head">
     <h1>Electric golf trolleys</h1>
-    <p class="v-head__sub">${trolleys.length} models from Motocaddy, NAVEE and Powerbug. Most Motocaddy models come with a choice of battery: Standard for 18 holes or Ultra for 36.</p>
-    <ul class="v-promise">
-      <li>${ic.truck}<span>Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))}, order by ${esc(val("delivery.nextDayCutoff"))}</span></li>
-      <li><span class="v-promise__eg" aria-hidden="true">EG</span><span>Annual members: ${q("membership.memberDiscountPercent")}% off one order a month, ${gbp(s.net, { pence: true })} better off on an M5 GPS DHC</span></li>
-      <li><span class="v-promise__eg" aria-hidden="true">£</span><span>${esc(facts.pricePromise.short)} · ${q("finance.short")}</span></li>
-    </ul>
+    <p class="v-head__sub">${trolleys.length} models from Motocaddy, NAVEE and Powerbug. Choose a Standard (18-hole) or Ultra (36-hole) battery.</p>
   </header>
-  ${finder()}
   <div class="v-bar" id="grid">
+    <button type="button" class="v-bar__help" aria-expanded="false" aria-controls="finder" data-finder-open>Help me choose</button>
     <p class="v-bar__n" aria-live="polite"><strong data-count>${trolleys.length}</strong> trolleys</p>
     <button type="button" class="v-bar__filter" data-open-filters aria-controls="v-filter-sheet">Filters<span data-filter-n></span></button>
     <label class="v-sort"><span>Sort</span><select data-sort><option value="rec">Recommended</option><option value="low">Price, low to high</option><option value="high">Price, high to low</option><option value="new">Newest</option><option value="rated">Best rated</option></select></label>
     <label class="v-toggle"><input type="checkbox" data-instock> In stock only</label>
-    <p class="v-bar__note">Out-of-stock models always show last.</p>
     <div class="v-chips" data-chips aria-label="Filters applied"></div>
   </div>
+  ${finder()}
   <div class="v-layout">
     <aside class="v-filters" aria-label="Filter trolleys" data-filters>${filtersHtml()}</aside>
     <div>
@@ -108,10 +103,7 @@ export const collection = ({ drawer = false } = {}) => {
       <p class="v-empty" data-empty hidden>No trolleys match all of those filters. <button type="button" class="v-clear" data-clear>Clear filters</button></p>
     </div>
   </div>
-  <section class="v-after">
-    <div><h2>Not sure yet?</h2><p>Talk to our team on ${phone()}, or read the trolley buying guide.</p><p class="p-links p-links--left">${L("Electric trolley buying guide")}${L("Contact us")}</p></div>
-    <div><h2>Looking for a push trolley?</h2><p>Lighter, simpler, no battery to charge.</p><p class="p-links p-links--left">${L("Shop push trolleys")}${L("Trolley accessories")}</p></div>
-  </section>
+  <p class="v-after">Not sure? Call ${phone()} · ${L("Electric trolley buying guide")}${L("Push trolleys")}</p>
 </main>
 ${drawer !== false ? html`<div class="v-drawer" id="v-filter-sheet" role="dialog" aria-modal="true" aria-labelledby="v-dr"${drawer === "hidden" ? " hidden" : ""} data-sheet><div class="v-drawer__panel">
   <div class="v-drawer__top"><h2 id="v-dr">Filters</h2><button type="button" class="v-x" aria-label="Close filters" data-close-filters>×</button></div>
@@ -178,40 +170,36 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
       </fieldset>
 
       <div class="v-price">
-        <p class="v-price__now" data-price>${gbp(first.price, { pence: true })}</p>
-        ${out ? "" : html`<p class="v-price__mem"><span class="v-promise__eg" aria-hidden="true">EG</span><span>Annual members: <strong data-member>${gbp(member(first.price), { pence: true })}</strong> using your monthly ${q("membership.memberDiscountPercent")}% off. ${L("Join for £36")}</span></p>
+        <p class="v-price__now" data-price>${gbp(first.price)}</p>
+        ${out ? "" : html`<p class="v-price__mem"><span>Annual members: <strong data-member>${gbp(member(first.price), { pence: true })}</strong> using your monthly ${q("membership.memberDiscountPercent")}% off. ${L("Join for £36")}</span></p>
         <p class="v-price__fin">Or 3 interest-free payments of <span data-third>${gbp(pence(first.price / 3), { pence: true })}</span> with Klarna or Clearpay. <span class="q" title="To be confirmed: finance wording must use the providers’ approved text">Wording to be confirmed with providers</span>.</p>`}
       </div>
 
 
-      ${giftOn && !out ? html`<fieldset class="v-gift v-gift--compact"><legend>Your free accessory</legend>
-        ${["Gift option 1", "Gift option 2", "Gift option 3"].map((g, i) => `<label class="v-gift__opt${i === 0 ? " is-on" : ""}"><input type="radio" name="gift" value="${g}"${i === 0 ? ' checked=""' : ""}><span class="q" title="To be confirmed: gift list comes from the free-gift app">${g}</span></label>`).join("")}
-        <p class="v-fnote">${q("offers.trolleyGift")}</p>
+      ${giftOn && !out ? html`<fieldset class="v-gift v-gift--compact"><legend>Your free accessory ${qt("(list TBC)", "Gift list per trolley comes from the free-gift app")}</legend>
+        ${["Gift option 1", "Gift option 2", "Gift option 3"].map((g, i) => `<label class="v-gift__opt${i === 0 ? " is-on" : ""}"><input type="radio" name="gift" value="${g}"${i === 0 ? ' checked=""' : ""}><span>${g}</span></label>`).join("")}
       </fieldset>` : ""}
-      <div class="v-actions"><button type="button" class="p-btn v-atb" data-add>${vStock(first) === "out" ? "Email me when it’s back" : "Add to basket"}</button><button type="button" class="v-collect" data-add="collect">Or click and collect from our Hampshire showroom</button></div>
+      <div class="v-actions"><button type="button" class="p-btn v-atb" data-add>${vStock(first) === "out" ? "Email me when it’s back" : "Add to basket"}</button></div>
       <p class="v-added" data-added role="status" hidden></p>
 
       ${out ? similarInStock(f) : ""}
 
       <ul class="v-assure">
-        ${s.stock.state === "in" ? `<li>${ic.truck}<span>${freeNext ? "<strong>Free next-day UK delivery.</strong>" : `<strong>Next-day UK delivery</strong> ${gbp(val("delivery.nextDayPrice"), { pence: true })}, free over ${gbp(val("delivery.nextDayFreeThreshold"))}.`} Order by ${esc(val("delivery.nextDayCutoff"))} on a weekday<span data-cutoff></span>.</span></li>`
-          : s.stock.state === "order" ? `<li>${ic.truck}<span><strong>Available to order.</strong> Dispatch time ${qt("to be confirmed", "Supplier dispatch time for items available to order")}; free UK delivery over ${gbp(val("delivery.guestFreeThreshold"))}.</span></li>` : ""}
-        ${f.warranty ? `<li><span class="v-promise__eg" aria-hidden="true">✓</span><span><strong>Warranty:</strong> ${esc(f.warranty)}.</span></li>` : ""}
-        <li><span class="v-promise__eg" aria-hidden="true">↩</span><span><strong>Returns:</strong> ${qt("policy for every customer to be confirmed", "Owner to supply the standard returns policy for all customers (today only the Annual member perk is written down)")}.</span></li>
-        <li><span class="v-promise__eg" aria-hidden="true">£</span><span><strong>${esc(facts.pricePromise.short)}.</strong> ${L("How it works")}</span></li>
+        ${s.stock.state === "in" ? `<li>${freeNext ? "Free next-day UK delivery" : `Next-day UK delivery ${gbp(val("delivery.nextDayPrice"), { pence: true })}, free over ${gbp(val("delivery.nextDayFreeThreshold"))}`}, order by ${esc(val("delivery.nextDayCutoff"))} on a weekday<span data-cutoff></span> · <button type="button" class="v-collect" data-add="collect">or click and collect</button></li>`
+          : s.stock.state === "order" ? `<li>Available to order: dispatch time ${qt("to be confirmed", "Supplier dispatch time for items available to order")}, free UK delivery over ${gbp(val("delivery.guestFreeThreshold"))}</li>` : ""}
+        ${f.warranty ? `<li>Warranty: ${esc(f.warranty)}</li>` : ""}
+        ${out ? "" : `<li>Returns: ${qt("policy to be confirmed", "Owner to supply the standard returns policy for all customers (today only the Annual member perk is written down)")} · ${L(facts.pricePromise.short, to(facts.pricePromise.short))}</li>`}
       </ul>
 
-      ${d.bundle ? html`<div class="v-bundle">
-        <p class="v-bundle__h">Ready-made bundle</p>
-        <div class="v-bundle__row"><img src="${cut(d.bundle.image, 400)}" alt="" width="400" height="400"><div><strong>${esc(d.bundle.name)}</strong><span>Bought separately ${gbp(d.bundle.items.reduce((n, [, p]) => n + p, 0))} · bundle price ${qt("TBC", "bundle price to be set")}</span></div></div>
-        ${L("Add the bundle")}
-      </div>` : ""}
     </section>
   </div>
 
   ${d.highlights.length ? html`<section class="v-sec" aria-labelledby="v-hl"><h2 id="v-hl">Highlights</h2>
     <ul class="v-hl">${d.highlights.map(([h, p, img]) => `<li><img src="${cut(img, 400)}" alt="" width="400" height="400" loading="lazy"><h3>${esc(h)}</h3><p>${esc(p)}</p></li>`).join("")}</ul>
-    <div class="v-video" role="img" aria-label="Product video placeholder"><span aria-hidden="true">▶</span><span class="q" title="To be confirmed: product video">Product video: the ${esc(f.name)} on the course</span></div>
+  </section>` : ""}
+
+  ${d.bundle ? html`<section class="v-sec v-set" aria-labelledby="v-st"><h2 id="v-st">Complete the set</h2>
+    <div class="v-bundle__row"><img src="${cut(d.bundle.image, 400)}" alt="" width="400" height="400" loading="lazy"><div><strong>${esc(d.bundle.name)}</strong><span>Bought separately ${gbp(d.bundle.items.reduce((n, [, p]) => n + p, 0))} · bundle price ${qt("TBC", "bundle price to be set")}</span>${L("Add the bundle")}</div></div>
   </section>` : ""}
 
   <section class="v-sec v-specs-wrap" aria-labelledby="v-sp"><h2 id="v-sp">Specifications</h2>
@@ -239,10 +227,10 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
   </section>
 
   <section class="v-sec v-help" aria-labelledby="v-qu"><h2 id="v-qu">Questions about this trolley?</h2>
-    <p>Call ${phone()} or email ${email()}.</p><p class="p-links p-links--left">${L("Complete your kit: custom clubs built online", to("Custom clubs"))}${L("Near Ringwood? See it in the showroom")}</p>
+    <p>Call ${phone()} or email ${email()}.</p>
   </section>
 </main>
-<div class="v-sticky${firstScreen ? " v-sticky--live" : ""}" role="region" aria-label="Quick add to basket" data-sticky><div><strong>${esc(f.name)} · <span data-s-battery>${esc(first.battery)}</span></strong><span data-s-line>${gbp(first.price)} · ${vStockWord[vStock(first)].replace(" · email me", "")}</span>${giftOn && !out ? `<span data-s-gift>Free accessory: Gift option 1</span>` : ""}</div><button type="button" class="p-btn" data-add>Add to basket</button></div>`);
+<div class="v-sticky${firstScreen ? " v-sticky--live" : ""}" role="region" aria-label="Quick add to basket" data-sticky><div><strong>${esc(f.name)} · <span data-s-battery>${esc(first.battery)}</span></strong><span data-s-line>${gbp(first.price)} · ${vStockWord[vStock(first)].replace(" · email me", "")}</span></div><button type="button" class="p-btn" data-add>Add to basket</button></div>`);
 };
 
 /* ---------- test-site pages: basket, checkout, not in this preview, 404 ---------- */
@@ -260,7 +248,7 @@ export const basket = () => page("Your basket | Evolution Golf", html`<main id="
     <li><span class="v-promise__eg" aria-hidden="true">£</span><span><strong>${esc(facts.pricePromise.short)}.</strong> Found it cheaper? We’ll look at matching it.</span></li>
     <li><span class="v-promise__eg" aria-hidden="true">✓</span><span><strong>Secure checkout</strong> with cards, Apple Pay, Google Pay, PayPal, Shop Pay, Klarna and Clearpay.</span></li>
   </ul>
-  <p class="p-links p-links--left">${L("Continue shopping", to("Electric trolleys"))}</p>
+  <p class="p-links p-links--left">${L("Continue shopping", to("Electric trolleys"))}${L("Complete your kit: custom clubs built online", to("Custom clubs"))}</p>
   ${previewNote}
 </main>`);
 

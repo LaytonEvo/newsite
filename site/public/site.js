@@ -63,7 +63,7 @@
     const word = { in: "In stock", order: "Available to order", out: "Out of stock" };
     const update = () => {
       const v = current(); if (!v) return;
-      $("[data-price]").textContent = gbp(v.price, true);
+      $("[data-price]").textContent = gbp(v.price);
       const mem = $("[data-member]"); if (mem) mem.textContent = gbp(v.member, true);
       const thr = $("[data-third]"); if (thr) thr.textContent = gbp(v.third, true);
       $$(".v-opt__card").forEach((c) => c.classList.toggle("is-on", $("input", c).checked));
@@ -150,7 +150,8 @@
       let n = 0;
       cards.forEach((c) => {
         const ok = Object.entries(sel).every(([k, vals]) => vals.some((v) => c.dataset[k].split("|").includes(v)))
-          && need.every(([k, v]) => c.dataset[k].split("|").includes(v));
+          && need.every(([k, v]) => c.dataset[k].split("|").includes(v))
+          && (!$("[data-instock]")?.checked || c.dataset.stock === "in");
         c.hidden = !ok; if (ok) n++;
       });
       $$("[data-count]").forEach((e) => (e.textContent = n));
@@ -158,11 +159,11 @@
       const active = Object.values(sel).flat().length;
       const fn = $("[data-filter-n]"); if (fn) fn.textContent = active ? ` (${active})` : "";
       // in-stock switch mirrors the Availability "In stock" option; chips list what's applied
-      const ins = $("[data-instock]"); if (ins) ins.checked = (sel.availability || []).includes("In stock");
       const chips = $("[data-chips]");
       const finderChips = finder ? ["gps", "dhc", "rem", "bat"].map((k) => [k, new FormData(finder).get(k)]).filter(([, v]) => v) : [];
       if (chips) chips.innerHTML = Object.entries(sel).flatMap(([k, vals]) => vals.map((v) => `<button type="button" class="v-chip" data-chip-f="${k}" data-chip-v="${esc(v)}">${esc(v)} <span aria-hidden="true">×</span><span class="sr"> remove filter</span></button>`)).join("")
-        + finderChips.map(([k, v]) => `<button type="button" class="v-chip" data-chip-q="${k}">${esc(v)} <span aria-hidden="true">×</span><span class="sr"> remove finder answer</span></button>`).join("");
+        + finderChips.map(([k, v]) => `<button type="button" class="v-chip" data-chip-q="${k}">${esc(v)} <span aria-hidden="true">×</span><span class="sr"> remove answer</span></button>`).join("")
+        + ($("[data-instock]")?.checked ? `<button type="button" class="v-chip" data-chip-instock>In stock only <span aria-hidden="true">×</span><span class="sr"> remove filter</span></button>` : "");
       if (chips) chips.setAttribute("role", "group");
       const empty = $("[data-empty]");
       if (empty && !n) empty.firstChild.textContent = finderChips.length ? "No trolley matches all of those answers. Remove one of the answers above, or " : "No trolleys match all of those filters. ";
@@ -205,14 +206,13 @@
         $$(`input[data-f="${i.dataset.f}"]`).forEach((o) => { if (o.value === i.value) o.checked = i.checked; });
         apply();
       } else if (i.matches("[data-sort-sheet]")) { $("[data-sort]").value = i.value; apply(); }
-      else if (i.matches("[data-instock]")) {
-        $$('input[data-f="availability"]').forEach((o) => { if (o.value === "In stock") o.checked = i.checked; });
-        apply();
-      } else if (i.matches("[data-sort]") || i.closest("[data-finder]")) apply();
+      else if (i.matches("[data-instock]")) apply();
+      else if (i.matches("[data-sort]") || i.closest("[data-finder]")) apply();
     });
     finder?.addEventListener("submit", (e) => { e.preventDefault(); apply(); $("#grid").scrollIntoView({ behavior: "smooth" }); });
     $$("[data-clear]").forEach((b) => b.addEventListener("click", () => {
       $$("input[data-f]").forEach((i) => (i.checked = false));
+      const ins = $("[data-instock]"); if (ins) ins.checked = false;
       finder?.reset();
       apply();
       const cnt = $(".v-bar__n"); cnt.tabIndex = -1; if (sheet?.hidden !== false) cnt.focus();
@@ -234,16 +234,19 @@
     });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && sheet && !sheet.hidden) close(); });
     document.addEventListener("click", (e) => {
-      const c = e.target.closest("[data-chip-f], [data-chip-q]"); if (!c) return;
-      if (c.dataset.chipQ) $$(`[data-finder] input[name="${c.dataset.chipQ}"]`).forEach((o) => (o.checked = false));
+      const c = e.target.closest("[data-chip-f], [data-chip-q], [data-chip-instock]"); if (!c) return;
+      if (c.hasAttribute("data-chip-instock")) $("[data-instock]").checked = false;
+      else if (c.dataset.chipQ) $$(`[data-finder] input[name="${c.dataset.chipQ}"]`).forEach((o) => (o.checked = false));
       else $$(`input[data-f="${c.dataset.chipF}"]`).forEach((o) => { if (o.value === c.dataset.chipV) o.checked = false; });
       apply(); ($("[data-chips] .v-chip") || $("[data-sort]")).focus();
     });
     // phones: the finder is a compact card that opens in place
     const fbox = $("[data-finder-box]"), fopen = $("[data-finder-open]");
     const openFinder = () => { fbox.classList.add("is-open"); fopen.setAttribute("aria-expanded", "true"); $("input", fbox)?.focus(); };
-    fopen?.addEventListener("click", openFinder);
-    if (location.hash === "#finder" && fopen && getComputedStyle(fopen).display !== "none") openFinder();
+    const closeFinder = () => { fbox.classList.remove("is-open"); fopen.setAttribute("aria-expanded", "false"); fopen.focus(); };
+    fopen?.addEventListener("click", () => (fbox.classList.contains("is-open") ? closeFinder() : openFinder()));
+    $("[data-finder-close]")?.addEventListener("click", closeFinder);
+    if (location.hash === "#finder" && fopen) openFinder();
     // ?brand=Motocaddy preselects a brand (links from product pages)
     const brand = new URLSearchParams(location.search).get("brand");
     if (brand) $$(`input[data-f="brand"]`).forEach((i) => (i.checked = i.value === brand));
@@ -398,8 +401,13 @@
 /* desktop sticky bar: only while the main Add to basket is out of view */
 (() => {
   const atb = document.querySelector(".v-atb"), bar = document.querySelector("[data-sticky]");
-  if (!atb || !bar || !("IntersectionObserver" in window)) return;
-  new IntersectionObserver(([e]) => bar.classList.toggle("is-needed", !e.isIntersecting)).observe(atb);
+  if (!atb || !bar) return;
+  // only once the shopper has scrolled past the main button (declutter review); a scroll check rather than
+  // an IntersectionObserver, which misses fast scrolls that jump straight past the button
+  const check = () => bar.classList.toggle("is-needed", atb.getBoundingClientRect().bottom < 0);
+  addEventListener("scroll", check, { passive: true });
+  addEventListener("resize", check);
+  check();
 })();
 
 /* custom clubs: the hand choice is read when a builder link is used (so Back/forward cache can't

@@ -21,7 +21,7 @@ export const ic = {
 const builder = catalogue.clubBuilder;
 const area = facts.membership.area;
 
-const NAV = ["Trolleys", "Custom clubs", "Clubs", "Membership", "Bags", "Balls & GPS", "Used", "Sale"];
+const NAV = ["Trolleys", "Custom clubs", "Clubs", "Bags", "Balls & GPS", "Used", "Sale"];
 export const nav = () => html`<header class="p-nav"><nav aria-label="Main"><ul>
   <li><a class="p-mark" href="${to("Home")}" aria-label="Evolution Golf, home"><span aria-hidden="true">EG</span></a></li>
   ${NAV.map((n) => `<li class="p-nav__item"><a href="${to(n)}">${esc(n)}</a></li>`)}
@@ -29,20 +29,13 @@ export const nav = () => html`<header class="p-nav"><nav aria-label="Main"><ul>
   <li><a class="p-members" href="${site.routes.Members ?? "#members"}" aria-label="Members’ area">${ic.user}<span>Members</span></a></li>
   <li><a href="${to("Basket")}" class="p-basket" aria-label="Basket, 0 items" data-basket>${ic.bag}<span class="p-basket__n" data-basket-n hidden></span></a></li><li class="p-nav__menu"><button type="button" class="p-nav__btn" aria-label="Menu" aria-expanded="false" aria-controls="p-menu" data-menu>${ic.menu}</button></li>
 </ul><ul class="p-menu" id="p-menu" hidden>${NAV.map((n) => `<li><a href="${to(n)}">${esc(n)}</a></li>`).join("")}</ul></nav></header>
-<p class="p-ribbon" role="region" aria-label="Delivery offer">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))}, order by ${esc(val("delivery.nextDayCutoff"))}<span class="p-ribbon__more">. Annual members get free delivery from £${q("delivery.annualMemberThreshold")}. ${L("See membership", site.routes.Members ?? "#members")}</span></p>`;
+<p class="p-ribbon" role="region" aria-label="Delivery offer">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))} · order by ${esc(val("delivery.nextDayCutoff"))}</p>`;
 
 const hero = () => html`<section class="p-tile p-tile--hero" aria-labelledby="p-h1">
   <div class="p-copy">
-    <p class="p-kicker">Evolution Golf · delivering across the UK</p>
     <h1 id="p-h1">Motocaddy trolleys.<br>Clubs built for you.</h1>
-    <p class="p-sub">The 2026 Motocaddy range, custom clubs from six brands built online, and an Annual membership that can pay for itself on one big order.</p>
-    <p class="p-hero__cta"><a class="p-btn p-btn--l" href="${site.routes["Electric trolleys"] ?? "#compare"}">Shop electric trolleys</a><span>from ${gbp(Math.min(...allTrolleys().map((f) => spec(f).price)))}</span></p>
-    <p class="p-links">${L("Build your clubs", "#build")}${L("Membership", "#members")}</p>
-    <ul class="p-trust" aria-label="Why buy from us">
-      <li>${ic.truck}<span>Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))}</span></li>
-      <li><span class="p-trust__i" aria-hidden="true">£</span><span>${esc(facts.pricePromise.short)}</span></li>
-      <li><span class="p-trust__i" aria-hidden="true">★</span><span>${q("trustpilot.rating")} on Trustpilot from ${q("trustpilot.reviewCount")} reviews</span></li>
-    </ul>
+    <p class="p-sub">The 2026 Motocaddy range from ${gbp(Math.min(...allTrolleys().map((f) => spec(f).price)))}, and custom clubs built online. Delivered across the UK.</p>
+    <p class="p-hero__cta"><a class="p-btn p-btn--l" href="${site.routes["Electric trolleys"] ?? "#compare"}">Shop electric trolleys</a>${L("Build your clubs", "#build")}</p>
   </div>
   <div class="p-media p-hero2">
     <img class="p-hero2__t" src="${cut("m5-gps-dhc-highangle")}" alt="Motocaddy M5 GPS DHC electric trolley" width="800" height="800" fetchpriority="high">
@@ -53,14 +46,14 @@ const hero = () => html`<section class="p-tile p-tile--hero" aria-labelledby="p-
 const compare = () => {
   const ids = ["se", "m1", "m5-gps-dhc", "m7-gps-remote"];
   return html`<section class="p-tile p-tile--grey p-compare" id="compare" aria-labelledby="p-cp">
-  <div class="p-copy"><h2 id="p-cp">Which Motocaddy is right for you?</h2><p class="p-sub">Four of the eight 2026 models, side by side. ${q("offers.trolleyGift")}</p></div>
+  <div class="p-copy"><h2 id="p-cp">Which Motocaddy is right for you?</h2><p class="p-sub">Four of the eight 2026 Motocaddy models, side by side.</p></div>
   <p class="p-cmp__hint" aria-hidden="true">Swipe to compare all four</p>
   <div class="p-cmp" tabindex="0" role="region" aria-label="Four Motocaddy trolleys compared, scrolls sideways on small screens">${ids.map((id) => { const f = fam(id); const s = spec(f); return html`<article class="p-cmp__col">
     <img src="${cut(f.image, 400)}" alt="Motocaddy ${esc(f.name)}" width="400" height="400" loading="lazy">
     <h3>${esc(f.name)}</h3>
     <p class="p-cmp__price">${s.priceFrom ? "From " : ""}${gbp(s.price)}</p>
     <p class="p-cmp__stock p-st--${s.stock.state}">${stockWord(s.stock)}${s.stock.detail ? ` · ${esc(s.stock.detail)}` : ""}</p>
-    <p class="p-cmp__go"><a class="p-btn p-btn--s" href="${f.href}#buy">${s.stock.state === "out" ? "View" : "Buy"}<span class="sr"> the ${esc(f.name)}</span></a></p>
+    <p class="p-cmp__go"><a class="p-btn p-btn--s p-btn--ghost" href="${f.href}#buy">${s.stock.state === "out" ? "View" : "Buy"}<span class="sr"> the ${esc(f.name)}</span></a></p>
     <dl>
       <div><dt>GPS</dt><dd>${dot(s.gps, "GPS")}</dd></div>
       <div><dt>Downhill control</dt><dd>${dot(s.dhc, "Downhill control")}</dd></div>
@@ -68,7 +61,7 @@ const compare = () => {
       <div><dt>Battery</dt><dd>${esc(s.batteries.map((b) => b.holes.replace(" holes", "")).join(" or "))} holes</dd></div>
     </dl>
   </article>`; })}</div>
-  <p class="p-links">${L(`See all ${allTrolleys().length} electric trolleys`, site.routes["Electric trolleys"] ?? "#")}${L("Which trolley? Four quick questions", site.routes.Finder ?? "#")}</p>
+  <p class="p-links">${L(`See all ${allTrolleys().length} electric trolleys, including NAVEE and Powerbug`, site.routes["Electric trolleys"] ?? "#")}</p>
 </section>`;
 };
 
@@ -77,45 +70,27 @@ const build = () => {
   const total = builder.types.reduce((n, t) => n + t.models, 0);
   return html`<section class="p-build" id="build" aria-labelledby="p-bd">
   <div class="p-copy p-copy--dark"><p class="p-kicker">Custom club builder</p><h2 id="p-bd">Build your clubs online.</h2>
-    <p class="p-sub">Pick the club, the brand and the model, then set it up your way. ${total} buildable models from Wilson, Srixon, Mizuno and more, built to order and delivered across the UK. Custom builds take ${q("leadTimes.customBuild")}.</p></div>
-  <ol class="p-steps2" aria-label="Builder steps">${builder.steps.map((s, i) => `<li><b>${i + 1}</b>${esc(s)}</li>`).join("")}</ol>
+    <p class="p-sub">Pick the club, the brand and the model, then set it up your way. ${total} models from six brands, built to order in ${q("leadTimes.customBuild")}.</p></div>
   <div class="p-build__grid">
     <ul class="p-types" aria-label="Start with a club type">${builder.types.map((t) => html`<li><a href="${builder.url}?type=${t.name.toLowerCase().replace(/[^a-z]+/g, "-").replace(/-$/, "")}">
       <span class="p-types__n">${t.models}<small> models</small></span><strong>${esc(t.name)}</strong><span>${esc(t.line)}</span>${t.img ? `<img src="${cut(t.img, 400)}" alt="" width="400" height="400" loading="lazy">` : ""}</a></li>`)}</ul>
-    <aside class="p-spec" aria-labelledby="p-ex">
+    <div class="p-spec">
       <p class="p-spec__tag">Example build</p>
       <h3 id="p-ex">${esc(ex.brand)} ${esc(ex.model)}</h3>
       <img src="${cut(ex.cut, 400)}" alt="" width="400" height="400" loading="lazy">
-      <dl>
-        <div><dt>Hand</dt><dd>Right or left</dd></div>
-        ${ex.specs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v.split(/\s*\/\s*|,\s*/).join(" or "))}</dd></div>`).join("")}
-        <div><dt>Lie, length, grip</dt><dd class="p-spec__dim">Set in the builder</dd></div>
-      </dl>
       <p class="p-spec__price">From ${gbp(ex.from)}</p>
       <a class="p-btn" href="${builder.url}">Start building</a>
-    </aside>
+    </div>
   </div>
-  <div class="p-help">
-    <p class="p-help__h">Not sure of your specs?</p>
-    <ul>
-      <li>${L("Custom or standard? 30-second check")}</li>
-      <li>${L("Ask our fitting team")}<span>${phone()} · ${email()}</span></li>
-      <li>${L("How custom builds work", site.routes["Custom clubs"] ?? "#")}</li>
-      <li>${L("Prefer an in-person fitting? Free at our Hampshire showroom")}</li>
-    </ul>
-  </div>
+  <p class="p-links p-build__more">${L("How custom builds work", site.routes["Custom clubs"] ?? "#")}${L("Not sure of your specs? Ask our team", site.routes["Custom clubs"] ? site.routes["Custom clubs"] + "#c-hp" : "#")}</p>
 </section>`;
 };
 
 const members = () => { const s = saving(); return html`<section class="p-tile p-tile--grey p-members-sec" id="members" aria-labelledby="p-me">
   <div class="p-copy"><p class="p-kicker">${q("membership.name")}</p><h2 id="p-me">Members get more.</h2>
     <p class="p-sub">${esc(facts.membership.oneLiner)}</p>
-    <p class="p-links">${L("Join free")}${L("Join Annual for " + gbp(s.fee))}${L("Log in to the members’ area")}</p></div>
+    <p class="p-hero__cta"><a class="p-btn" href="#">Join Annual for ${gbp(s.fee)}</a>${L("Join free")}</p></div>
   <div class="p-mem2">
-    <div class="p-portal" aria-labelledby="p-po">
-      <p class="p-portal__bar"><span class="p-mark" aria-hidden="true"><span>EG</span></span><span id="p-po">Inside the members’ area</span><span class="p-portal__url">members.evolutiongolf.co.uk</span></p>
-      <ul>${area.features.map(([h, d]) => `<li><strong>${esc(h)}</strong><span>${esc(d)}</span></li>`).join("")}</ul>
-    </div>
     <div class="p-mem2__side">
       <table class="p-sum"><caption class="sr">Worked saving</caption>
         <tr><th>${esc(s.product)}, ${esc(s.battery)}</th><td>${gbp(s.price, { pence: true })}</td></tr>
@@ -159,43 +134,18 @@ export const holeMap = () => `<svg class="h-map" viewBox="0 0 1000 320" aria-hid
   <line x1="872" y1="96" x2="872" y2="44" stroke="#16201b" stroke-width="3"/><path d="M872 44 L904 54 L872 64Z" fill="#0e4d35"/>
 </svg>`;
 
-const hole = () => {
-  const cards = [
-    { kind: "buy", brand: "Wilson", name: "Staff DYNAPWR Max+ driver", img: "wilson-dynapwr-max-plus", price: 349, stock: "In stock", opts: "9° · 10.5° · 12° · Senior, Regular, Stiff" },
-    { kind: "buy", brand: "Mizuno", name: "JPX ONE driver", img: "mizuno-jpx-one-driver", price: 379, stock: "In stock", opts: "9° · 10.5° · 12° · Regular, Stiff" },
-  ];
-  const drivers = catalogue.clubBuilder.types.find((t) => t.name === "Drivers");
-  return html`<section class="h" id="hole" aria-labelledby="h-t">
+const HOLE_LINKS = { tee: "Drivers", fairway: "Fairway woods & hybrids", approach: "Wedges & rangefinders", green: "Putters", walk: "Electric trolleys" };
+const hole = () => html`<section class="h" id="hole" aria-labelledby="h-t">
   <div class="p-copy"><p class="p-kicker">Only at Evolution Golf</p><h2 id="h-t">Shop the hole.</h2>
-    <p class="p-sub">Pick a shot, from the tee to the green, and see the clubs for it. Buy them ready to play or build them to your specs.</p></div>
-  <div class="h-course">
+    <p class="p-sub">From the tee to the green: pick a shot and see what you’d use there.</p></div>
+  <div class="h-course" aria-hidden="true">
     ${holeMap()}
-    ${ZONES.map((z) => `<button type="button" class="h-pin" style="left:${z.x}%;top:${z.y}%" aria-pressed="${z.id === "tee"}" aria-label="${z.n}. ${esc(z.name)}: ${esc(z.what)}">${z.n}</button>`).join("")}
+    ${ZONES.map((z) => `<span class="h-pin" style="left:${z.x}%;top:${z.y}%">${z.n}</span>`).join("")}
   </div>
-  <div class="h-stops" role="group" aria-label="Choose a shot">
-    ${ZONES.map((z) => `<button type="button" aria-pressed="${z.id === "tee"}"><b>${z.n}</b><span>${esc(z.name)}<small>${esc(z.what)}</small></span></button>`).join("")}
-  </div>
-  <div class="h-zone">
-    <div class="h-zone__head"><h3>Off the tee: drivers</h3>${L("See all drivers")}</div>
-    <ul class="h-cards">
-      ${cards.map((c) => html`<li class="h-card"><a href="#">
-        <span class="h-card__img"><img src="${cut(c.img, 400)}" alt="" width="400" height="400" loading="lazy"></span>
-        <span class="h-card__brand">${esc(c.brand)}</span><strong>${esc(c.name)}</strong>
-        <span class="h-card__opts">${esc(c.opts)}</span>
-        <span class="h-card__price">${gbp(c.price)} <em>${esc(c.stock)}</em></span>
-        <span class="h-card__mem">Members: 15% off members’-area deals, or your monthly ${q("membership.memberDiscountPercent")}% off</span>
-      </a></li>`)}
-      <li class="h-card h-card--build"><a href="${catalogue.clubBuilder.url}">
-        <span class="h-card__n">${drivers.models}<small> drivers</small></span>
-        <strong>Build a driver to your specs</strong>
-        <span class="h-card__opts">Choose head, loft, shaft, flex, length and grip. Built to order in ${q("leadTimes.customBuild")}.</span>
-        <span class="p-btn">Start building</span>
-      </a></li>
-    </ul>
-    <p class="h-note">Getting round? Stop 5 takes you to Motocaddy trolleys, bags and GPS. ${L("Compare trolleys", "#compare")}</p>
-  </div>
+  <ul class="h-stops" aria-label="Shop by shot">
+    ${ZONES.map((z) => `<li><a href="${to(HOLE_LINKS[z.id])}"><b aria-hidden="true">${z.n}</b><span>${esc(z.name)}<small>${esc(z.what)}</small></span></a></li>`).join("")}
+  </ul>
 </section>`;
-};
 
 const fit = () => html`<section class="p-near" id="fit" aria-labelledby="p-ft">
   <div class="p-near__ph" role="img" aria-label="Photo to come: the fitting bay in Ringwood"><span class="q" title="To be confirmed: photography not yet taken">The fitting bay in Ringwood</span></div>
@@ -211,13 +161,13 @@ const fit = () => html`<section class="p-near" id="fit" aria-labelledby="p-ft">
 const more = () => html`<section class="p-more" aria-labelledby="p-mo">
   <h2 id="p-mo">Also in the shop</h2>
   <ul>${secondary.filter((c) => c.name !== "Approved used").map((c) => `<li><a href="#">${c.img ? `<img src="${cut(c.img, 400)}" alt="" width="400" height="400" loading="lazy">` : `<span class="p-more__blank" aria-hidden="true"></span>`}<span>${esc(c.name)}</span></a></li>`).join("")}</ul>
-  <p class="p-more__note">Rated ${q("trustpilot.rating")} on Trustpilot from ${q("trustpilot.reviewCount")} reviews. ${L("Read reviews")}${L("Buying guides")}</p>
+  <p class="p-more__note">Rated ${q("trustpilot.rating")} on Trustpilot from ${q("trustpilot.reviewCount")} reviews. ${L("Read reviews")}</p>
 </section>`;
 
 export const footer = () => html`<footer class="p-foot">
   <div class="p-foot__top">
     <div class="p-foot__brand"><span class="p-mark p-mark--inv" aria-hidden="true"><span>EG</span></span><p>Motocaddy trolleys, custom-built clubs and a members’ club, delivered across the UK.</p></div>
-    ${[["Shop", ["Electric trolleys", "Build custom clubs", "Golf clubs", "Bags", "Balls, GPS & accessories", "Approved used", "Clothing & shoes"]], ["Members", ["Join free", "Annual membership", "Members’ area log-in", "Prize draw T&Cs", "Trade-in"]], ["Help", ["Delivery & returns", "Contact us", "Help & FAQs", facts.pricePromise.short, "Klarna & Clearpay", "Custom fitting in Ringwood", "About us"]]].map(([h, items]) => `<div><h2>${h}</h2><ul>${items.map((x) => `<li><a href="${to(x)}">${esc(x)}</a></li>`).join("")}</ul></div>`).join("")}
+    ${[["Shop", ["Electric trolleys", "Build custom clubs", "Golf clubs", "Bags", "Balls, GPS & accessories", "Approved used", "Clothing & shoes"]], ["Members", ["Join free", "Annual membership", "Members’ area log-in", "Prize draw T&Cs", "Trade-in"]], ["Help", ["Delivery & returns", "Contact us", "Help & FAQs", facts.pricePromise.short, "Klarna & Clearpay", "Custom fitting in Hampshire", "Buying guides", "About us"]]].map(([h, items]) => `<details class="p-foot__col" open><summary><h2>${h}</h2></summary><ul>${items.map((x) => `<li><a href="${to(x)}">${esc(x)}</a></li>`).join("")}</ul></details>`).join("")}
     <form class="p-news" action="#"><h2>Newsletter</h2><p>New-season launches and member offers. Monthly at most.</p><label class="sr" for="p-e">Email address</label><div><input id="p-e" type="email" placeholder="Email address" autocomplete="email"><button type="submit">Sign up</button></div><label class="p-check"><input type="checkbox"> Email me news and offers. Unsubscribe any time.</label></form>
   </div>
   <div class="p-foot__base"><p>Showroom and fitting centre: ${q("business.address")} · ${hours().join(" · ")} · ${phone()} · ${email()}</p><p>${companyLine()} · ${q("dealers.motocaddy")} · Pay with ${payments.join(", ")}</p><p><a href="#">Privacy</a> · <a href="#">Cookies</a> · <a href="#">Terms</a> · <a href="#">Accessibility</a></p><p>${placeholderNote} Finance wording to be confirmed with Klarna and Clearpay.</p></div>
@@ -264,8 +214,8 @@ export const showroomplus2 = {
     scores: { trolley: 5, fitting: 3, membership: 5, premium: 5, build: "Medium", photo: "Low: one fitting-bay photo" },
   },
   specimens() {
-    this.sheet.components[0].html = `<div class="p" style="background:#16201b;padding:16px">${build().match(/<div class="p-build__grid">[\s\S]*?<\/aside>\s*<\/div>/)[0]}</div>`;
-    this.sheet.components[1].html = `<div class="p">${members().match(/<div class="p-portal"[\s\S]*?<\/ul>\s*<\/div>/)[0]}</div>`;
+    this.sheet.components[0].html = `<div class="p" style="background:#16201b;padding:16px">${build().match(/<div class="p-build__grid">[\s\S]*?<p class="p-links p-build__more">/)[0].replace(/<p class="p-links p-build__more">$/, "")}</div>`;
+    this.sheet.components[1].html = `<div class="p">${members().match(/<table class="p-sum"[\s\S]*?<\/table>/)[0]}</div>`;
     this.sheet.components[2].html = `<div class="p">${nav()}</div>`;
   },
   render() {

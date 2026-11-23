@@ -68,5 +68,73 @@ Expected heights after all changes:
 
 Every cut has a stated new home (see the reviewer's "nothing is lost" mapping).
 
-## Status
-Awaiting owner direction on three judgement calls; see the session notes.
+## Owner decisions on the three judgement calls
+
+- **Homepage headline:** keep both pillars ("Motocaddy trolleys. Clubs built for you."); cut everything else around it.
+- **Membership entry point:** keep the green Members button; drop "Membership" from the nav; remove the members sentence from the ribbon and the hero link.
+- **Shop the hole:** shrink to a teaser. The hole drawing stays, and the five stops link into the shop.
+
+## What was done
+
+All 12 ranked changes and the four bugs, except where noted.
+
+### Header
+
+- "Membership" removed from the nav; the green Members button is the single entry.
+- The ribbon carries delivery only: 32px on phones, 40px on desktop.
+
+### Homepage
+
+- **Hero:** eyebrow and trust row cut; one lede line, "Shop electric trolleys" plus "Build your clubs ›"; trolley image in the first screen.
+- **Compare:** the gift placeholder is gone from the lede; one link, "See all 12 electric trolleys, including NAVEE and Powerbug"; outlined "Buy" pills.
+- **Build:**
+  - stepper and spec table cut
+  - two links: "How custom builds work" and "Not sure of your specs? Ask our team"
+  - lead time shown once
+- **Members:** benefits grid and log-in link cut; one button ("Join Annual for £36") and "Join free ›"; the worked saving and two tier cards sit side by side.
+- **Shop the hole:** now a teaser (drawing plus 5 stop links); the product cards and the duplicate builder card are gone.
+- **Trustpilot:** one line at the end, with no star.
+- **Footer:** link columns collapse on phones.
+
+### Collection
+
+- **Head:** trust row cut; the lede explains the battery choice.
+- **Finder:** now a "Help me choose" button in the toolbar that opens the questions above the grid.
+- **Filters:**
+  - Availability is handled by the "In stock only" switch (with a removable chip)
+  - "36 holes" filter cut; "18-hole battery option" sits under Features
+- **Toolbar:** the note is cut; the toolbar sticks below the header on phones (bug fixed).
+- **Cards:** brand only; one muted spec line ("18 or 36 holes · 11.2kg"); "In stock" with no battery clause.
+- **Help:** a single row replaces the two "after" boxes.
+
+### Product page
+
+- **Price and members:** one price format (£969); members line without the badge, in muted text; no divider rules.
+- **Gift:** a single segmented control with one "(list TBC)" placeholder.
+- **Under the button:** three plain lines. Delivery includes an inline "or click and collect"; then warranty; then returns plus the price match link. Returns and price match are hidden on out-of-stock pages.
+- **Bundle:** moved below the highlights as "Complete the set".
+- **Video:** the empty video panel is cut; the gallery's video thumbnail stays.
+- **Help:** "Questions about this trolley?" is now contact details only; "Complete your kit" moved to the basket.
+- **Sticky bar:** appears only after you scroll past the main button (phone and desktop), and is two lines.
+
+### System
+
+- one hairline grey and two text greys
+- the low-contrast #9aa29e removed
+- weight 800 dropped
+- three corner radii (12, 20 and pill)
+- one container width (1,280px)
+- one heading scale for H1 and section H2 across all pages
+
+## Result (390 / 1440)
+
+| | Before | After |
+|---|---|---|
+| Homepage height | 10,119 / 7,263 | 6,494 / 5,585 |
+| Collection height | 5,453 / 3,866 | 3,892 / 3,329 |
+| Product page height | 7,129 / 4,371 | 5,830 / 3,905 |
+| Homepage links in main | 37 | 29 |
+| Homepage font sizes in main | 19 | 11 |
+| Homepage dotted placeholders in main | 15 | 9 |
+
+axe is clean on every page at 320, 390 and 1440. There is no sideways scrolling, and the earlier journey tests still pass.
