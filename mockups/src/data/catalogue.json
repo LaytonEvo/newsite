@@ -704,8 +704,12 @@
     }
   },
   "holePhoto": {
-    "src": null,
-    "alt": "Aerial view of a golf hole from tee to green",
-    "note": "Owner to supply a licensed aerial photo (see docs/briefs/shop-the-hole-photo.md). Pin positions in ZONES may need nudging to match it."
+    "src": "assets/img/scenes/hole-illustration-1600.webp",
+    "srcSmall": "assets/img/scenes/hole-illustration-800.webp",
+    "w": 1600,
+    "h": 1109,
+    "alt": "Illustration of a golf hole from the tee to the green",
+    "placeholder": true,
+    "note": "Owner-supplied illustration used as a placeholder; swap for a licensed aerial photo (docs/briefs/shop-the-hole-photo.md) and re-place the pins."
   }
 }

@@ -495,6 +495,12 @@ main:not(.v) { gap: 0; padding: 0; }
 /* original darker brand green (#0a3a28): hover lifts to a lighter green so it stays visible */
 .p-btn:hover { background: #146142; }
 .p-btn--ghost:hover { background: var(--mist); color: var(--green); }
+/* shop the hole: the owner's illustration (placeholder for a photo), shown whole on white */
+.h-course--photo { aspect-ratio: 1600 / 1109; background: #fff; border: 0; }
+.h-course--photo .h-photo { object-fit: contain; }
+.h-cap { max-width: var(--wrap); margin: 6px auto 0; text-align: right; font-size: 13px; color: var(--slate); }
+@media (max-width: 899px) { .h-course--photo { aspect-ratio: 1600 / 1109; } }
+@media (max-width: 899px) { .h-course--photo .h-pin { display: grid; width: 26px; height: 26px; font-size: 13px; } }
 
 /* ===== v2 page templates: collection + product (appended to showroomplus2.css) ===== */
 .v { display: block; padding: 0 var(--g); max-width: 1440px; margin: 0 auto; }

@@ -125,11 +125,11 @@ const brands = () => {
 
 /* Shop the hole: a tee-to-green route into the range (static mockup shows "Off the tee" selected) */
 const ZONES = [
-  { id: "tee", n: 1, name: "Off the tee", what: "Drivers", x: 9, y: 70 },
-  { id: "fairway", n: 2, name: "From the fairway", what: "Woods, hybrids and irons", x: 41, y: 58 },
-  { id: "approach", n: 3, name: "Into the green", what: "Wedges and rangefinders", x: 67, y: 46 },
-  { id: "green", n: 4, name: "On the green", what: "Putters", x: 86, y: 30 },
-  { id: "walk", n: 5, name: "Getting round", what: "Motocaddy trolleys, bags and GPS", x: 52, y: 90 },
+  { id: "tee", n: 1, name: "Off the tee", what: "Drivers", x: 13.2, y: 78.4 },
+  { id: "fairway", n: 2, name: "From the fairway", what: "Woods, hybrids and irons", x: 41.5, y: 46.1 },
+  { id: "approach", n: 3, name: "Into the green", what: "Wedges and rangefinders", x: 63.8, y: 33.5 },
+  { id: "green", n: 4, name: "On the green", what: "Putters", x: 81.3, y: 21.4 },
+  { id: "walk", n: 5, name: "Getting round", what: "Motocaddy trolleys, bags and GPS", x: 30, y: 80 },
 ];
 export const holeMap = () => `<svg class="h-map" viewBox="0 0 1000 320" aria-hidden="true" focusable="false">
   <rect width="1000" height="320" rx="0" fill="#f3f5f4"/>
@@ -149,10 +149,11 @@ const hole = () => html`<section class="h" id="hole" aria-labelledby="h-t">
     <p class="p-sub">From the tee to the green: pick a shot and see what you’d use there.</p></div>
   <div class="h-course h-course--photo">
     ${catalogue.holePhoto.src
-      ? `<img class="h-photo" src="${catalogue.holePhoto.src}" alt="${esc(catalogue.holePhoto.alt)}" width="2400" height="1200" loading="lazy">`
+      ? `<img class="h-photo" src="${site.base}${catalogue.holePhoto.src}" srcset="${site.base}${catalogue.holePhoto.srcSmall} 800w, ${site.base}${catalogue.holePhoto.src} 1600w" sizes="(min-width: 1360px) 1280px, 94vw" alt="${esc(catalogue.holePhoto.alt)}" width="${catalogue.holePhoto.w}" height="${catalogue.holePhoto.h}" loading="lazy">`
       : `<div class="h-photo h-photo--todo" role="img" aria-label="Photo to come: aerial view of a golf hole"><span class="q" title="To be confirmed: ${esc(catalogue.holePhoto.note)}">Aerial photo of a golf hole, tee to green: to be supplied</span></div>`}
     ${ZONES.map((z) => `<span class="h-pin" style="left:${z.x}%;top:${z.y}%" aria-hidden="true">${z.n}</span>`).join("")}
   </div>
+  ${catalogue.holePhoto.placeholder ? `<p class="h-cap">${qt("Illustration for now", catalogue.holePhoto.note)}</p>` : ""}
   <ul class="h-stops" aria-label="Shop by shot">
     ${ZONES.map((z) => `<li><a href="${to(HOLE_LINKS[z.id])}"><b aria-hidden="true">${z.n}</b><span>${esc(z.name)}<small>${esc(z.what)}</small></span></a></li>`).join("")}
   </ul>
