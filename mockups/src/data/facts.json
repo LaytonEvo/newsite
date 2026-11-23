@@ -244,9 +244,29 @@
       "value": "Spread the cost with Klarna or Clearpay",
       "tbc": true,
       "note": "Wording to be confirmed with provider"
+    },
+    "payIn3Max": {
+      "value": 1000,
+      "tbc": true,
+      "note": "Highest basket value Klarna and Clearpay will split into three for this store; confirm with both providers"
     }
   },
   "cookies": {
     "text": "We use essential cookies to run the site. With your permission we’d also like to use analytics and marketing cookies to improve it."
+  },
+  "warrantyHandling": {
+    "value": "Warranty claims handled by us: bring or send it to Ringwood, not the manufacturer",
+    "tbc": true,
+    "note": "Owner to confirm the store handles warranty claims and repairs for trolleys it sold"
+  },
+  "showroom": {
+    "value": "See it and try it at our Ringwood centre",
+    "tbc": true,
+    "note": "Owner to confirm trolleys are on display to try, and whether to book"
+  },
+  "specialist": {
+    "value": "Ask for our trolley specialist",
+    "tbc": true,
+    "note": "Owner to supply a named person and role for trolley questions (with permission to show their name and photo)"
   }
 }

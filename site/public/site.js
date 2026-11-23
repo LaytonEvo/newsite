@@ -66,6 +66,8 @@
       $("[data-price]").textContent = gbp(v.price);
       const mem = $("[data-member]"); if (mem) mem.textContent = gbp(v.member, true);
       const thr = $("[data-third]"); if (thr) thr.textContent = gbp(v.third, true);
+      const net = $("[data-member-net]"); if (net && v.net) net.textContent = v.net;
+      const fin = $("[data-fin]"); if (fin) fin.hidden = !v.fin;
       $$(".v-opt__card").forEach((c) => c.classList.toggle("is-on", $("input", c).checked));
       const out = v.stock === "out";
       $$("[data-add]").forEach((b) => {

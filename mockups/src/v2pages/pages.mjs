@@ -119,13 +119,24 @@ const vStockWord = { in: "In stock", order: "Available to order", out: "Out of s
 const pence = (n) => Math.round(n * 100) / 100;
 /** Detail for families without a hand-written entry: only facts we hold, no invented copy. */
 const autoDetail = (f) => {
-  const near = trolleys.filter((o) => o.id !== f.id && o.brand === f.brand)
-    .sort((a, b) => Math.abs(S(a).from - S(f).from) - Math.abs(S(b).from - S(f).from)).slice(0, 3);
+  const dist = (o) => Math.abs(S(o).from - S(f).from) + (S(o).stock.state === "out" ? 400 : 0);
+  const near = trolleys.filter((o) => o.id !== f.id).sort((a, b) => dist(a) - dist(b)).slice(0, 3);
   const specs = [["Battery options", f.variants.map((v) => `${v.battery} (${v.holes})`).join(" or ")], ["Features", featsOf(f).join(", ") || "Essential controls"]];
   if (f.weightKg) specs.push(["Weight", `${f.weightKg}kg`]);
   if (f.warranty) specs.push(["Warranty", f.warranty]);
   return { gallery: [f.image], intro: null, highlights: [], specs, compare: [f.id, ...near.map((o) => o.id)], bundle: null };
 };
+
+/** Spec rows from the per-trolley fact sheet (taken from each product's own description) */
+const specsOf = (f) => {
+  const tf = catalogue.trolleyFacts?.[f.id];
+  const own = tf?.rows ?? [["Features", featsOf(f).join(", ") || "Essential controls"]];
+  const rows = [...(own.some(([k]) => k === "Battery") ? [] : [["Battery", f.variants.map((v) => `${v.battery}, up to ${v.holes}`).join(" or ")]]), ...own];
+  if (f.weightKg && !rows.some(([k]) => k === "Weight")) rows.push(["Weight", `${f.weightKg}kg`]);
+  if (f.warranty) rows.push(["Warranty", f.warranty]);
+  return rows;
+};
+const PHOTO_TODO = [["Folded", "folded, to show its size"], ["In a car boot", "folded in a car boot"], ["On the course", "on the course with a bag"], ["Handle", "close-up of the handle and controls"], ["Wheels", "close-up of the wheels and tyres"]];
 
 /** out-of-stock product pages: the closest trolleys by price that can ship now (CRO round 1, #2) */
 const similarInStock = (f) => {
@@ -143,11 +154,16 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
   const first = f.variants.find((v) => vStock(v) === "in") ?? f.variants.find((v) => v.available) ?? f.variants[0];
   const pct = val("membership.memberDiscountPercent");
   const member = (p) => pence((p * (100 - pct)) / 100);
+  const fee = saving().fee;
+  const netText = (p) => { const n = pence((p * pct) / 100 - fee); return n > 0 ? `${gbp(n, { pence: true })} better off on this order, even after the ${gbp(fee)} fee` : `this order alone covers ${gbp(pence((p * pct) / 100), { pence: true })} of the ${gbp(fee)} fee`; };
+  const finMax = val("finance.payIn3Max");
+  const tf = catalogue.trolleyFacts?.[id];
+  const hours = `${facts.business.hours[0].days}, ${facts.business.hours[0].time}`;
   const cmp = d.compare.map(fam);
   const isThis = (c) => (c.id === f.id ? "is-this" : "");
   const giftOn = f.brand === "Motocaddy";
   const freeNext = first.price >= val("delivery.nextDayFreeThreshold");
-  const vjson = (v) => esc(JSON.stringify({ battery: v.battery, holes: v.holes, price: v.price, member: member(v.price), third: pence(v.price / 3), stock: vStock(v), max: v.stock > 0 ? v.stock : null, handle: v.handle }));
+  const vjson = (v) => esc(JSON.stringify({ battery: v.battery, holes: v.holes, price: v.price, member: member(v.price), net: netText(v.price), fin: v.price <= finMax, third: pence(v.price / 3), stock: vStock(v), max: v.stock > 0 ? v.stock : null, handle: v.handle }));
   const out = s.stock.state === "out";
   const listHref = to("Electric trolleys") === "#" ? "v2-trolleys.html" : to("Electric trolleys");
   return page(`${full} electric golf trolley | Evolution Golf`, html`<main id="v-main" class="v" data-product="${f.id}" data-name="${esc(full)}" data-image="${cut(f.image, 400)}">
@@ -157,7 +173,7 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
       <div class="v-gallery__main"><img src="${cut(d.gallery[0])}" alt="${esc(full)} electric trolley" width="800" height="800" fetchpriority="high" data-main-img></div>
       <ul class="v-gallery__thumbs">
         ${d.gallery.map((g, i) => `<li><button type="button" aria-label="Image ${i + 1} of ${d.gallery.length}"${i === 0 ? ' aria-current="true"' : ""} data-thumb="${cut(g)}"><img src="${cut(g, 400)}" alt="" width="400" height="400"></button></li>`).join("")}
-        <li><button type="button" class="v-gallery__vid" aria-label="Play product video"><span aria-hidden="true">▶</span><span class="q" title="To be confirmed: product video (Motocaddy supplies one per model)">Video</span></button></li>
+        ${PHOTO_TODO.slice(0, Math.max(0, 6 - d.gallery.length)).map(([t, n]) => `<li><span class="v-gallery__todo" title="Photo to come: ${n}"><span class="sr">Photo to come: </span>${t}</span></li>`).join("")}
       </ul>
     </section>
     <section class="v-buy" id="buy" aria-labelledby="v-h1">
@@ -166,14 +182,15 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
       ${r.count ? `<p class="v-buy__rate"><a href="#reviews"><span aria-hidden="true">★★★★★</span> ${r.avg.toFixed(1)} · ${r.count} review${r.count > 1 ? "s" : ""} of this trolley</a></p>` : ""}
       ${d.intro ? `<p class="v-buy__intro">${esc(d.intro)}</p>` : ""}
 
-      <fieldset class="v-opt"><legend>Battery</legend>
+      ${f.variants.length === 1 ? `<p class="v-opt1"><input type="radio" name="bat" value="${esc(f.variants[0].battery)}" checked="" hidden data-variant="${vjson(f.variants[0])}">Battery: <strong>${esc(f.variants[0].battery)}${/lithium|Wh/i.test(f.variants[0].battery) ? "" : " lithium"}</strong>, up to ${esc(f.variants[0].holes)}</p>` : html`<fieldset class="v-opt"><legend>Battery</legend>
         ${f.variants.map((v) => { const st = vStock(v); const on = v === first; return `<label class="v-opt__card${on ? " is-on" : ""}${st === "out" ? " is-out" : ""}"><input type="radio" name="bat" value="${esc(v.battery)}"${on ? ' checked=""' : ""} data-variant="${vjson(v)}"><span><strong>${esc(v.battery)}${/lithium|Wh/i.test(v.battery) ? "" : " lithium"}</strong><small>Up to ${esc(v.holes)}</small></span><span class="v-opt__p">${gbp(v.price)}<small${st === "in" ? ' class="p-st--in"' : ""}>${vStockWord[st]}</small></span></label>`; }).join("")}
       </fieldset>
+      ${new Set(holesOf(f)).size > 1 ? `<p class="v-opt__help">Which battery? The longer-range one suits you if you play two rounds between charges, or would rather charge less often.</p>` : ""}`}
 
       <div class="v-price">
         <p class="v-price__now" data-price>${gbp(first.price)}</p>
-        ${out ? "" : html`<p class="v-price__mem"><span>Annual members: <strong data-member>${gbp(member(first.price), { pence: true })}</strong> using your monthly ${q("membership.memberDiscountPercent")}% off. ${L("Join for £36")}</span></p>
-        <p class="v-price__fin">Or 3 interest-free payments of <span data-third>${gbp(pence(first.price / 3), { pence: true })}</span> with Klarna or Clearpay. <span class="q" title="To be confirmed: finance wording must use the providers’ approved text">Wording to be confirmed with providers</span>.</p>`}
+        ${out ? "" : html`<p class="v-price__mem"><span>Annual members pay <strong data-member>${gbp(member(first.price), { pence: true })}</strong> with the monthly ${q("membership.memberDiscountPercent")}% off: <span data-member-net>${netText(first.price)}</span>. ${L("Join for £36")}</span></p>
+        <p class="v-price__fin" data-fin${first.price > finMax ? " hidden" : ""}>Or 3 interest-free payments of <span data-third>${gbp(pence(first.price / 3), { pence: true })}</span> with Klarna or Clearpay. <span class="q" title="To be confirmed: finance wording must use the providers’ approved text">Wording to be confirmed with providers</span>.</p>`}
       </div>
 
 
@@ -191,13 +208,31 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
         ${s.stock.state === "in" ? `<li>${freeNext ? "Free next-day UK delivery" : `Next-day UK delivery ${gbp(val("delivery.nextDayPrice"), { pence: true })}, free over ${gbp(val("delivery.nextDayFreeThreshold"))}`}, order by ${esc(val("delivery.nextDayCutoff"))} on a weekday<span data-cutoff></span></li>`
           : s.stock.state === "order" ? `<li>Available to order: dispatch time ${qt("to be confirmed", "Supplier dispatch time for items available to order")}, free UK delivery over ${gbp(val("delivery.guestFreeThreshold"))}</li>` : ""}
         ${f.warranty ? `<li>Warranty: ${esc(f.warranty)}</li>` : ""}
-        ${out ? "" : `<li>Returns: ${qt("policy to be confirmed", "Owner to supply the standard returns policy for all customers (today only the Annual member perk is written down)")} · ${L(facts.pricePromise.short, to(facts.pricePromise.short))}</li>`}
       </ul>
+
+      <section class="v-why" aria-labelledby="v-wy"><h2 id="v-wy">Why buy it from Evolution Golf</h2>
+        <ul>
+          ${f.brand === "Motocaddy" ? `<li>${q("dealers.motocaddy")}</li>` : ""}
+          <li>${q("warrantyHandling")}</li>
+          <li>${q("showroom")}, ${esc(hours)}</li>
+          <li>Returns: ${qt("policy to be confirmed", "Owner to supply the standard returns policy for all customers (today only the Annual member perk is written down)")}</li>
+          <li>${L(facts.pricePromise.short, to(facts.pricePromise.short))}</li>
+        </ul>
+      </section>
 
     </section>
   </div>
 
+  ${tf ? html`<section class="v-sec v-fit" aria-labelledby="v-ft"><h2 id="v-ft">Is the ${esc(f.name)} right for you?</h2>
+    <div class="v-fit__grid">
+      <div class="v-fit__col"><h3>Good for</h3><ul class="v-tick">${tf.suits.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>
+        ${tf.consider.map(([ask, oid, why]) => { const o = fam(oid); return `<p class="v-fit__alt"><strong>${esc(ask)}</strong> The <a href="${o.href}">${esc(o.brand)} ${esc(o.name)}</a> ${esc(why)}, from ${gbp(S(o).from)}.</p>`; }).join("")}</div>
+      <div class="v-fit__col v-fit__box"><h3>In the box</h3><ul class="v-tick">${tf.box.map(([t, n]) => `<li>${n ? qt(t, n) : esc(t)}</li>`).join("")}</ul></div>
+    </div>
+  </section>` : ""}
+
   ${desc ? html`<section class="v-sec v-about" aria-labelledby="v-ab"><h2 id="v-ab">About the ${esc(full)}</h2>
+    <p class="v-about__src">Product description from ${esc(f.brand)}</p>
     <div class="v-prose">${desc.intro}</div>
     ${desc.more ? html`<details class="v-about__more"><summary><span class="v-about__open">Read the full description</span><span class="v-about__close">Show less</span></summary><div class="v-prose">${desc.more}</div></details>` : ""}
   </section>` : ""}
@@ -211,7 +246,7 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
   </section>` : ""}
 
   <section class="v-sec v-specs-wrap" aria-labelledby="v-sp"><h2 id="v-sp">Specifications</h2>
-    <dl class="v-specs">${d.specs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
+    <dl class="v-specs">${specsOf(f).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
   </section>
 
   ${cmp.length > 1 ? html`<section class="v-sec" aria-labelledby="v-cm"><h2 id="v-cm">Compare with similar trolleys</h2>
@@ -229,13 +264,12 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
     </table></div>
   </section>` : ""}
 
-  <section class="v-sec v-rev" id="reviews" aria-labelledby="v-rv">
-    <div class="v-rev__sum"><h2 id="v-rv">Reviews of this trolley</h2>${r.count ? `<p class="v-rev__n">${r.avg.toFixed(1)}</p><p>from ${r.count} verified review${r.count > 1 ? "s" : ""} of the ${esc(f.name)} on Judge.me. Store-wide Trustpilot reviews are kept separate.</p>` : `<p>No reviews of the ${esc(f.name)} yet.</p>`}${L("Write a review")}</div>
-    ${r.count ? `<ul class="v-rev__list">${[1, 2].slice(0, r.count).map(() => `<li><p class="v-rev__stars" aria-hidden="true">★★★★★</p><p><span class="q" title="To be confirmed: real Judge.me review text for this product">The customer’s review of the ${esc(f.name)} appears here, word for word.</span></p><p class="v-rev__by">Name · Verified buyer</p></li>`).join("")}</ul>` : ""}
-  </section>
+  ${r.count ? html`<section class="v-sec v-rev" id="reviews" aria-labelledby="v-rv">
+    <div class="v-rev__sum"><h2 id="v-rv">Reviews of this trolley</h2><p class="v-rev__n">${r.avg.toFixed(1)}</p><p>from ${r.count} verified review${r.count > 1 ? "s" : ""} of the ${esc(f.name)} on Judge.me.</p>${L(`Read the review${r.count > 1 ? "s" : ""}`)}</div>
+  </section>` : ""}
 
-  <section class="v-sec v-help" aria-labelledby="v-qu"><h2 id="v-qu">Questions about this trolley?</h2>
-    <p>Call ${phone()} or email ${email()}.</p>
+  <section class="v-sec v-help" aria-labelledby="v-qu"><h2 id="v-qu">Talk to a trolley specialist</h2>
+    <p>${q("specialist")} on ${phone()} or email ${email()}, ${esc(hours)}. Or come and see the range in Ringwood before you buy.</p>
   </section>
 </main>
 <div class="v-sticky${firstScreen ? " v-sticky--live" : ""}" role="region" aria-label="Quick add to basket" data-sticky><div><strong>${esc(f.name)} · <span data-s-battery>${esc(first.battery)}</span></strong><span data-s-line>${gbp(first.price)} · ${vStockWord[vStock(first)].replace(" · email me", "")}</span></div><button type="button" class="p-btn" data-add>Add to basket</button></div>`);

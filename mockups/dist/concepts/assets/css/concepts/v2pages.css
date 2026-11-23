@@ -1106,3 +1106,24 @@ html { scroll-padding-top: 72px; scroll-padding-bottom: 120px; }
 .v-about__more[open] summary::after { transform: translateY(2px) rotate(-135deg); }
 .v-about__more .v-about__close, .v-about__more[open] .v-about__open { display: none; }
 .v-about__more[open] .v-about__close { display: inline; }
+
+/* ---------- product page round 5: photo slots, battery help, reasons to buy here, is it right for you ---------- */
+.v-gallery__todo { display: grid; place-items: center; width: 100%; aspect-ratio: 1; padding: 4px; border-radius: 12px; border: 1.5px dashed var(--hair); background: repeating-linear-gradient(135deg, #fff 0 8px, var(--mist) 8px 16px); color: var(--slate); font-size: 12px; line-height: 1.2; text-align: center; }
+.v-opt1 { margin: 4px 0 0; font-size: 16px; }
+.v-opt__help { margin: -4px 0 0; font-size: 14px; color: var(--slate); }
+.v-why { margin-top: 20px; padding: 20px 22px; border-radius: 16px; background: var(--mist); }
+.v-why h2 { font: 750 19px/1.2 var(--h); letter-spacing: -0.01em; margin: 0 0 12px; }
+.v-why ul { display: grid; gap: 10px; list-style: none; padding: 0; margin: 0; font-size: 15px; }
+.v-why li { position: relative; padding-left: 26px; }
+.v-why li::before, .v-tick li::before { content: ""; position: absolute; left: 2px; top: 6px; width: 12px; height: 7px; border-left: 2px solid var(--green); border-bottom: 2px solid var(--green); transform: rotate(-45deg); }
+.v-why .p-l { min-height: 24px; }
+.v-fit__grid { display: grid; gap: 28px; }
+.v-fit__col h3 { font: 750 20px/1.2 var(--h); margin: 0 0 12px; }
+.v-tick { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; font-size: 17px; }
+.v-tick li { position: relative; padding-left: 28px; }
+.v-fit__alt { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--hair); font-size: 16px; }
+.v-fit__alt strong { display: block; }
+.v-fit__alt a { color: var(--green); font-weight: 700; }
+.v-fit__box { padding: 20px 22px; border-radius: 16px; border: 1.5px solid var(--hair); align-self: start; }
+.v-about__src { margin: -12px 0 16px; font-size: 14px; color: var(--slate); }
+@media (min-width: 900px) { .v-fit__grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 48px; } }
