@@ -22,10 +22,10 @@
 
   /* ---------- links to pages that aren't in this round ---------- */
   document.addEventListener("click", (e) => {
-    const a = e.target.closest('a[href="#"]');
+    const a = e.target.closest('a[href="#"], a[href^="/pages/"]');
     if (!a) return;
     e.preventDefault();
-    const name = (a.getAttribute("aria-label") || a.textContent || "This page").trim().replace(/\s+/g, " ");
+    const name = (a.getAttribute("aria-label") || a.querySelector("strong")?.textContent || a.textContent || "This page").trim().replace(/\s+/g, " ");
     location.href = "/not-in-preview/?page=" + encodeURIComponent(name);
   });
   const pn = $("[data-page-name]");
@@ -58,8 +58,8 @@
     const update = () => {
       const v = current(); if (!v) return;
       $("[data-price]").textContent = gbp(v.price, true);
-      $("[data-member]").textContent = gbp(v.member, true);
-      $("[data-third]").textContent = gbp(v.third, true);
+      const mem = $("[data-member]"); if (mem) mem.textContent = gbp(v.member, true);
+      const thr = $("[data-third]"); if (thr) thr.textContent = gbp(v.third, true);
       $$(".v-opt__card").forEach((c) => c.classList.toggle("is-on", $("input", c).checked));
       const out = v.stock === "out";
       $$("[data-add]").forEach((b) => {
@@ -70,7 +70,10 @@
       const sl = $("[data-s-line]"); if (sl) sl.textContent = `${gbp(v.price)} · ${word[v.stock]}`;
     };
     $$("[data-variant]").forEach((r) => r.addEventListener("change", update));
-    $$(".v-gift__opt input").forEach((r) => r.addEventListener("change", () => $$(".v-gift__opt").forEach((o) => o.classList.toggle("is-on", $("input", o).checked))));
+    $$(".v-gift__opt input").forEach((r) => r.addEventListener("change", () => {
+      $$(".v-gift__opt").forEach((o) => o.classList.toggle("is-on", $("input", o).checked));
+      const sg = $("[data-s-gift]"); if (sg) sg.textContent = `Free accessory: ${r.value}`;
+    }));
     $$("[data-thumb]").forEach((t) => t.addEventListener("click", () => {
       $("[data-main-img]").src = t.dataset.thumb;
       $$("[data-thumb]").forEach((o) => o.removeAttribute("aria-current"));
@@ -89,18 +92,28 @@
       const items = basket();
       const key = `${pdp.dataset.product}|${v.battery}|${gift}|${collect}`;
       const hit = items.find((i) => i.key === key);
-      if (hit) hit.qty += 1;
-      else items.push({ key, id: pdp.dataset.product, name: pdp.dataset.name, battery: v.battery, holes: v.holes, price: v.price, stock: v.stock, gift, collect, image: pdp.dataset.image, href: location.pathname, qty: 1 });
-      saveBasket(items);
+      const max = v.max || 3;
+      const already = items.filter((i) => i.id === pdp.dataset.product && i.battery === v.battery).reduce((t, i) => t + i.qty, 0);
       msg.hidden = false;
-      msg.innerHTML = `Added: ${esc(pdp.dataset.name)}, ${esc(v.battery)} battery${collect ? ", click and collect in Ringwood" : ""}. <a href="/basket/">View basket and check out</a>`;
-      $("a", msg)?.focus();
+      if (already >= max) {
+        msg.innerHTML = `You already have all ${max} we have in stock in your basket. <a href="/basket/">View basket</a>`;
+      } else {
+        if (hit) hit.qty += 1;
+        else items.push({ key, id: pdp.dataset.product, name: pdp.dataset.name, battery: v.battery, holes: v.holes, price: v.price, stock: v.stock, max, gift, collect, image: pdp.dataset.image, href: location.pathname, qty: 1 });
+        saveBasket(items);
+        const n = already + 1;
+        msg.innerHTML = `Added: ${esc(pdp.dataset.name)}, ${esc(v.battery)} battery${collect ? ", click and collect" : ""}${n > 1 ? ` (${n} in your basket)` : ""}. <a href="/basket/">View basket and check out</a>`;
+      }
+      if (b.closest("[data-sticky]")) {
+        b.outerHTML = `<a class="p-btn" href="/basket/">Added ✓ View basket</a>`;
+      } else $("a", msg)?.focus({ preventScroll: true });
     }));
     // delivery cut-off: only claim a countdown when dispatch really is today
     const cut = $("[data-cutoff]");
     if (cut) {
-      const now = new Date(), day = now.getDay(), mins = 13 * 60 - (now.getHours() * 60 + now.getMinutes());
-      if (day >= 1 && day <= 5 && mins > 0) cut.textContent = ` (${Math.floor(mins / 60)}h ${mins % 60}m left today)`;
+      const parts = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", weekday: "short", hour: "numeric", minute: "numeric", hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+      const mins = 13 * 60 - (Number(parts.hour) * 60 + Number(parts.minute));
+      if (!["Sat", "Sun"].includes(parts.weekday) && mins > 0) cut.textContent = ` (${Math.floor(mins / 60)}h ${mins % 60}m left today)`;
     }
     update();
   }
@@ -111,6 +124,7 @@
     const cards = $$("[data-card]", grid);
     const rankStock = { in: 0, order: 1, out: 2 };
     const finder = $("[data-finder]");
+    const sheet = $("[data-sheet]"), opener = $("[data-open-filters]");
     const finderOn = () => {
       if (!finder) return [];
       const f = new FormData(finder);
@@ -140,7 +154,12 @@
       // in-stock switch mirrors the Availability "In stock" option; chips list what's applied
       const ins = $("[data-instock]"); if (ins) ins.checked = (sel.availability || []).includes("In stock");
       const chips = $("[data-chips]");
-      if (chips) chips.innerHTML = Object.entries(sel).flatMap(([k, vals]) => vals.map((v) => `<button type="button" class="v-chip" data-chip-f="${k}" data-chip-v="${esc(v)}">${esc(v)} <span aria-hidden="true">×</span><span class="sr"> remove filter</span></button>`)).join("");
+      const finderChips = finder ? ["gps", "dhc", "rem", "bat"].map((k) => [k, new FormData(finder).get(k)]).filter(([, v]) => v) : [];
+      if (chips) chips.innerHTML = Object.entries(sel).flatMap(([k, vals]) => vals.map((v) => `<button type="button" class="v-chip" data-chip-f="${k}" data-chip-v="${esc(v)}">${esc(v)} <span aria-hidden="true">×</span><span class="sr"> remove filter</span></button>`)).join("")
+        + finderChips.map(([k, v]) => `<button type="button" class="v-chip" data-chip-q="${k}">${esc(v)} <span aria-hidden="true">×</span><span class="sr"> remove finder answer</span></button>`).join("");
+      if (chips) chips.setAttribute("role", "group");
+      const empty = $("[data-empty]");
+      if (empty && !n) empty.firstChild.textContent = finderChips.length ? "No trolley matches all of those answers. Remove one of the answers above, or " : "No trolleys match all of those filters. ";
       const go = $("[data-finder-go]");
       if (go) go.textContent = need.length ? `Show ${n} trolley${n === 1 ? "" : "s"}` : `Show all ${cards.length} trolleys`;
       sort();
@@ -158,7 +177,14 @@
         light: (a, b) => (num(a, "weightN") || 99) - (num(b, "weightN") || 99),
       }[by];
       // out-of-stock always last; within that, the chosen order
-      [...cards].sort((a, b) => rankStock[a.dataset.stock] - rankStock[b.dataset.stock] || cmp(a, b)).forEach((c) => grid.append(c));
+      const bat = finder ? new FormData(finder).get("bat") : null;
+      const eff = (c) => {
+        if (!bat) return c.dataset.stock;
+        const states = c.dataset.batStock.split("|").filter((x) => x.startsWith(bat + ":")).map((x) => x.split(":")[1]);
+        return states.sort((x, y) => rankStock[x] - rankStock[y])[0] || c.dataset.stock;
+      };
+      const rank = by === "rec" ? rankStock : { in: 0, order: 0, out: 1 };
+      [...cards].sort((a, b) => rank[eff(a)] - rank[eff(b)] || cmp(a, b)).forEach((c) => grid.append(c));
     };
     // keep sidebar and sheet checkboxes in step
     document.addEventListener("change", (e) => {
@@ -177,16 +203,28 @@
       $$("input[data-f]").forEach((i) => (i.checked = false));
       finder?.reset();
       apply();
+      const cnt = $(".v-bar__n"); cnt.tabIndex = -1; if (sheet?.hidden !== false) cnt.focus();
     }));
-    const sheet = $("[data-sheet]"), opener = $("[data-open-filters]");
-    const close = () => { sheet.hidden = true; document.body.style.overflow = ""; opener.focus(); };
-    opener?.addEventListener("click", () => { sheet.hidden = false; document.body.style.overflow = "hidden"; $(".v-x", sheet).focus(); });
+
+    // everything except the sheet becomes inert while it's open (the sheet lives inside .p)
+    const setInert = (on) => $$(".p > *, body > *").forEach((el) => { if (el !== sheet && !el.contains(sheet) && el.tagName !== "SCRIPT") el.inert = on; });
+    const close = () => { sheet.hidden = true; document.body.style.overflow = ""; setInert(false); opener.focus(); };
+    opener?.addEventListener("click", () => { sheet.hidden = false; document.body.style.overflow = "hidden"; setInert(true); $(".v-x", sheet).focus(); });
     $$("[data-close-filters]").forEach((b) => b.addEventListener("click", close));
     sheet?.addEventListener("click", (e) => { if (e.target === sheet) close(); });
+    // keep Tab inside the open sheet (wraps at both ends)
+    sheet?.addEventListener("keydown", (e) => {
+      if (e.key !== "Tab") return;
+      const f = $$("button, select, input, a[href]", sheet).filter((x) => !x.disabled && x.offsetParent !== null);
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && sheet && !sheet.hidden) close(); });
     document.addEventListener("click", (e) => {
-      const c = e.target.closest("[data-chip-f]"); if (!c) return;
-      $$(`input[data-f="${c.dataset.chipF}"]`).forEach((o) => { if (o.value === c.dataset.chipV) o.checked = false; });
+      const c = e.target.closest("[data-chip-f], [data-chip-q]"); if (!c) return;
+      if (c.dataset.chipQ) $$(`[data-finder] input[name="${c.dataset.chipQ}"]`).forEach((o) => (o.checked = false));
+      else $$(`input[data-f="${c.dataset.chipF}"]`).forEach((o) => { if (o.value === c.dataset.chipV) o.checked = false; });
       apply(); ($("[data-chips] .v-chip") || $("[data-sort]")).focus();
     });
     // phones: the finder is a compact card that opens in place
@@ -201,13 +239,15 @@
   }
 
   /* ---------- delivery options (basket + checkout) ---------- */
-  const deliveryOpts = (rates, sub, allCollect) => {
+  const deliveryOpts = (rates, sub, allCollect, allInStock = true) => {
     const opts = [
       { id: "standard", label: `Standard delivery, ${rates.standardDays}`, price: sub >= rates.standardFree ? 0 : rates.standard },
       { id: "nextday", label: `Next working day (order by ${rates.cutoff})`, price: sub >= rates.nextDayFree ? 0 : rates.nextDay },
       { id: "collect", label: "Click and collect, Ringwood showroom", price: 0 },
     ];
-    return allCollect ? [opts[2]] : opts;
+    if (allCollect) return [opts[2]];
+    if (!allInStock) { opts[0].label = "Standard delivery, sent when your order is ready (dispatch time to be confirmed)"; opts.splice(1, 1); }
+    return opts;
   };
   const priceWord = (p) => (p ? gbp(p, true) : "Free");
 
@@ -225,9 +265,9 @@
       const sub = items.reduce((t, i) => t + i.price * i.qty, 0);
       const toFreeNext = rates.nextDayFree - sub;
       list.innerHTML = `<ul class="v-bl">${items.map((i, n) => `<li class="v-bl__row">
-          <a href="${esc(i.href)}"><img src="${esc(i.image)}" alt="" width="96" height="96"></a>
-          <div><a href="${esc(i.href)}"><strong>${esc(i.name)}</strong></a><span>${esc(i.battery)} battery, ${esc(i.holes)}</span>${i.gift ? `<span>Free accessory: ${esc(i.gift)} (to be confirmed)</span>` : ""}${i.collect ? "<span>Click and collect, Ringwood</span>" : ""}</div>
-          <label class="v-qty"><span class="sr">Quantity of ${esc(i.name)}</span><select data-qty="${n}">${[1, 2, 3].map((q) => `<option${q === i.qty ? " selected" : ""}>${q}</option>`).join("")}</select></label>
+          <a href="${esc(i.href)}" tabindex="-1" aria-hidden="true"><img src="${esc(i.image)}" alt="" width="96" height="96"></a>
+          <div><a href="${esc(i.href)}"><strong>${esc(i.name)}</strong></a><span>${esc(i.battery)} battery, ${esc(i.holes)}</span>${i.gift ? `<label class="v-bl__gift">Free accessory:<select data-gift="${n}">${["Gift option 1", "Gift option 2", "Gift option 3"].map((g) => `<option${g === i.gift ? " selected" : ""}>${g}</option>`).join("")}</select></label>` : ""}${i.collect ? "<span>Click and collect, Ringwood</span>" : ""}</div>
+          <label class="v-qty"><span class="sr">Quantity of ${esc(i.name)}</span><select data-qty="${n}">${[1, 2, 3].slice(0, Math.max(1, Math.min(3, i.max || 3))).map((q) => `<option${q === i.qty ? " selected" : ""}>${q}</option>`).join("")}</select></label>
           <strong class="v-bl__p">${gbp(i.price * i.qty)}</strong>
           <button type="button" class="v-clear" data-remove="${n}">Remove<span class="sr"> ${esc(i.name)}</span></button>
         </li>`).join("")}</ul>
@@ -238,13 +278,24 @@
         </div>`;
     };
     list.addEventListener("change", (e) => {
+      const g = e.target.closest("[data-gift]");
+      if (g) { const items = basket(); items[+g.dataset.gift].gift = g.value; saveBasket(items); return; }
       const s = e.target.closest("[data-qty]"); if (!s) return;
-      const items = basket(); items[+s.dataset.qty].qty = +s.value; saveBasket(items); render();
+      const idx = s.dataset.qty;
+      const items = basket(); items[+idx].qty = +s.value; saveBasket(items); render();
+      $(`[data-qty="${idx}"]`, list)?.focus();
+      say(`Quantity updated. Subtotal ${gbp(basket().reduce((t, i) => t + i.price * i.qty, 0), true)}.`);
     });
     list.addEventListener("click", (e) => {
       const r = e.target.closest("[data-remove]"); if (!r) return;
-      const items = basket(); items.splice(+r.dataset.remove, 1); saveBasket(items); render(); $("h1").focus?.();
+      const idx = +r.dataset.remove;
+      const items = basket(); const gone = items.splice(idx, 1)[0]; saveBasket(items); render();
+      const next = $$("[data-remove]", list)[Math.min(idx, items.length - 1)];
+      if (next) next.focus(); else { const h = $("h1"); h.tabIndex = -1; h.focus(); }
+      say(`${gone.name} removed.${items.length ? ` Subtotal ${gbp(items.reduce((t, i) => t + i.price * i.qty, 0), true)}.` : " Your basket is empty."}`);
     });
+    const live = document.createElement("p"); live.className = "sr"; live.setAttribute("aria-live", "polite"); bp.append(live);
+    const say = (t) => { live.textContent = ""; setTimeout(() => (live.textContent = t), 50); };
     render();
   }
 
@@ -255,35 +306,63 @@
     const items = basket();
     if (!items.length) { location.replace("/basket/"); return; }
     const sub = items.reduce((t, i) => t + i.price * i.qty, 0);
-    const opts = deliveryOpts(rates, sub, items.every((i) => i.collect));
+    const opts = deliveryOpts(rates, sub, items.every((i) => i.collect), items.every((i) => i.stock === "in"));
     const fs = $("[data-methods]");
-    fs.insertAdjacentHTML("beforeend", opts.map((o, i) => `<label class="v-opt__card${i === 0 ? " is-on" : ""}"><input type="radio" name="delivery" value="${o.id}"${i === 0 ? " checked" : ""}><span><strong>${esc(o.label)}</strong></span><span class="v-opt__p">${priceWord(o.price)}</span></label>`).join(""));
+    const nd = opts.find((o) => o.id === "nextday");
+    const pick = nd && nd.price === 0 ? "nextday" : opts[0].id; // fastest free option first
+    fs.insertAdjacentHTML("beforeend", opts.map((o) => `<label class="v-opt__card${o.id === pick ? " is-on" : ""}"><input type="radio" name="delivery" value="${o.id}"${o.id === pick ? " checked" : ""}><span><strong>${esc(o.label)}</strong></span><span class="v-opt__p">${priceWord(o.price)}</span></label>`).join(""));
     const sum = $("[data-summary]");
     const renderSum = () => {
       const o = opts.find((x) => x.id === new FormData($("[data-checkout-form]")).get("delivery")) || opts[0];
       $$(".v-opt__card", fs).forEach((c) => c.classList.toggle("is-on", $("input", c).checked));
-      sum.innerHTML = `<h2>Order summary</h2><ul>${items.map((i) => `<li><span>${i.qty} × ${esc(i.name)} (${esc(i.battery)})</span><span>${gbp(i.price * i.qty)}</span></li>`).join("")}</ul>
-        <p><span>Delivery</span><span>${priceWord(o.price)}</span></p><p class="v-co__total"><span>Total</span><strong>${gbp(sub + o.price, true)}</strong></p><p class="v-fnote">Prices include VAT.</p>`;
+      sum.innerHTML = `<h2>Order summary</h2><ul>${items.map((i) => `<li><span>${i.qty} × ${esc(i.name)} (${esc(i.battery)})${i.gift ? `<br><small>Free accessory: ${esc(i.gift)}</small>` : ""}${i.collect ? "<br><small>Click and collect</small>" : ""}</span><span>${gbp(i.price * i.qty)}</span></li>`).join("")}</ul>
+        <p><span>${esc(o.label.split(",")[0])}</span><span>${priceWord(o.price)}</span></p><p class="v-co__total"><span>Total</span><strong>${gbp(sub + o.price, true)}</strong></p><p class="v-fnote">Prices include VAT.</p>`;
+      const ti = $("[data-total-inline]"); if (ti) ti.innerHTML = `<span>Total to pay</span><span>${gbp(sub + o.price, true)}</span>`;
     };
     fs.addEventListener("change", renderSum);
     renderSum();
     const form = $("[data-checkout-form]");
     // the address fields only matter for delivery
     const addr = $$('input[name="address1"], input[name="town"], input[name="postcode"]', form);
-    fs.addEventListener("change", () => addr.forEach((i) => (i.required = new FormData(form).get("delivery") !== "collect")));
+    const addrSet = addr[0].closest("fieldset");
+    const setRequired = () => {
+      const collect = new FormData(form).get("delivery") === "collect";
+      addr.forEach((i) => (i.required = !collect));
+      addrSet.querySelector("legend").textContent = collect ? "Your name" : "Delivery address";
+      addr.forEach((i) => (i.closest("label").hidden = collect));
+      const tel = $('input[name="tel"]', form); if (tel) tel.closest("label").hidden = collect;
+    };
+    fs.addEventListener("change", setRequired);
+    setRequired();
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const bad = $$("input[required]", form).filter((i) => !i.value.trim() || (i.type === "email" && !/^\S+@\S+\.\S+$/.test(i.value)));
-      $$("input", form).forEach((i) => i.removeAttribute("aria-invalid"));
+      const problem = (i) => {
+        const v = i.value.trim(), label = i.closest("label").querySelector("span").textContent.toLowerCase();
+        if (!i.required && !v) return "";
+        if (!v) return `Enter your ${label}.`;
+        if (i.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "Enter an email address like name@example.com.";
+        if (i.name === "postcode" && !/^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i.test(v)) return "Enter a full UK postcode, like BH24 1AB.";
+        return "";
+      };
+      const fields = $$("input:not([type=checkbox]):not([type=radio])", form);
+      const bad = [];
+      fields.forEach((i) => {
+        let m = i.parentElement.querySelector(".v-field__err");
+        if (!m) { m = document.createElement("span"); m.className = "v-field__err"; m.id = `err-${i.name}`; i.after(m); }
+        const msg = problem(i);
+        m.textContent = msg;
+        if (msg) { i.setAttribute("aria-invalid", "true"); i.setAttribute("aria-describedby", m.id); bad.push(i); }
+        else { i.removeAttribute("aria-invalid"); i.removeAttribute("aria-describedby"); }
+      });
       const err = $("[data-error]");
       if (bad.length) {
-        bad.forEach((i) => i.setAttribute("aria-invalid", "true"));
         err.hidden = false;
-        err.textContent = `Please fill in: ${bad.map((i) => i.closest("label").querySelector("span").textContent.toLowerCase()).join(", ")}.`;
+        err.textContent = bad.length === 1 ? "There’s one thing to fix before you can place the order." : `There are ${bad.length} things to fix before you can place the order.`;
         bad[0].focus();
         return;
       }
       err.hidden = true;
+      $("[data-recap]").innerHTML = sum.innerHTML.replace("<h2>Order summary</h2>", "<h3>Your order</h3>");
       saveBasket([]);
       $("[data-co]").hidden = true;
       const done = $("[data-done]"); done.hidden = false; done.focus();
@@ -302,4 +381,11 @@
     if (open) menu.querySelector("a")?.focus();
   });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !menu.hidden) { menu.hidden = true; btn.setAttribute("aria-expanded", "false"); btn.focus(); } });
+})();
+
+/* desktop sticky bar: only while the main Add to basket is out of view */
+(() => {
+  const atb = document.querySelector(".v-atb"), bar = document.querySelector("[data-sticky]");
+  if (!atb || !bar || !("IntersectionObserver" in window)) return;
+  new IntersectionObserver(([e]) => bar.classList.toggle("is-needed", !e.isIntersecting)).observe(atb);
 })();

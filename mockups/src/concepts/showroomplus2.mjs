@@ -29,7 +29,7 @@ export const nav = () => html`<header class="p-nav"><nav aria-label="Main"><ul>
   <li><a class="p-members" href="${site.routes.Members ?? "#members"}" aria-label="Members’ area">${ic.user}<span>Members</span></a></li>
   <li><a href="${to("Basket")}" class="p-basket" aria-label="Basket, 0 items" data-basket>${ic.bag}<span class="p-basket__n" data-basket-n hidden></span></a></li><li class="p-nav__menu"><button type="button" class="p-nav__btn" aria-label="Menu" aria-expanded="false" aria-controls="p-menu" data-menu>${ic.menu}</button></li>
 </ul><ul class="p-menu" id="p-menu" hidden>${NAV.map((n) => `<li><a href="${to(n)}">${esc(n)}</a></li>`).join("")}</ul></nav></header>
-<p class="p-ribbon">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))}, order by ${esc(val("delivery.nextDayCutoff"))}<span class="p-ribbon__more">. Annual members get free delivery from £${q("delivery.annualMemberThreshold")}. ${L("See membership", site.routes.Members ?? "#members")}</span></p>`;
+<p class="p-ribbon" role="region" aria-label="Delivery offer">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))}, order by ${esc(val("delivery.nextDayCutoff"))}<span class="p-ribbon__more">. Annual members get free delivery from £${q("delivery.annualMemberThreshold")}. ${L("See membership", site.routes.Members ?? "#members")}</span></p>`;
 
 const hero = () => html`<section class="p-tile p-tile--hero" aria-labelledby="p-h1">
   <div class="p-copy">

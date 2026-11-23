@@ -46,7 +46,7 @@ const filtersHtml = () => filterGroups().map(([k, h, opts]) => `<fieldset class=
 const card = (f, i) => {
   const s = S(f); const r = s.rating; const t = tags(f);
   const data = Object.entries(t).map(([k, v]) => `data-${k}="${esc(v.join("|"))}"`).join(" ");
-  return html`<li class="v-card v-card--${s.stock.state}" data-card ${data} data-price-n="${s.price}" data-weight-n="${s.weight ?? ""}" data-rating-n="${r.count ? r.avg : 0}" data-year="${f.year ?? 0}" data-rank="${i}" data-stock="${s.stock.state}">
+  return html`<li class="v-card v-card--${s.stock.state}" data-card ${data} data-price-n="${s.price}" data-weight-n="${s.weight ?? ""}" data-rating-n="${r.count ? r.avg : 0}" data-year="${f.year ?? 0}" data-rank="${i}" data-stock="${s.stock.state}" data-bat-stock="${esc(f.variants.map((v) => `${v.holes.startsWith("36") ? "36 holes" : v.holes}:${vStock(v)}`).join("|"))}">
     <a href="${f.href}" class="v-card__link">
       <span class="v-card__img"><img src="${cut(f.image, 400)}" alt="" width="400" height="400" loading="lazy"></span>
       <span class="v-card__brand">${esc(f.brand)}${f.year === 2026 ? " · 2026" : ""}</span>
@@ -140,7 +140,7 @@ const similarInStock = (f) => {
   const near = trolleys.filter((o) => o.id !== f.id && S(o).stock.state === "in")
     .sort((a, b) => Math.abs(S(a).price - S(f).from) - Math.abs(S(b).price - S(f).from)).slice(0, 3);
   if (!near.length) return "";
-  return html`<section class="v-sec v-similar" aria-labelledby="v-si"><h2 id="v-si">In stock now, and similar</h2>
+  return html`<section class="v-similar" aria-labelledby="v-si"><h2 id="v-si">In stock now, and similar</h2>
     <ul class="v-grid v-grid--3">${near.map((o) => { const so = S(o); return `<li class="v-card v-card--in"><a href="${o.href}" class="v-card__link"><span class="v-card__img"><img src="${cut(o.image, 400)}" alt="" width="400" height="400" loading="lazy"></span><span class="v-card__brand">${esc(o.brand)}</span><h3 class="v-card__name">${esc(o.name)}</h3><span class="v-card__feat">${esc(featsOf(o).join(" · ") || "Essential controls")}</span><span class="v-card__price">${gbp(so.price)}</span><span class="v-card__stock">In stock${so.stock.detail ? ` · ${esc(so.stock.detail)}` : ""}</span></a></li>`; }).join("")}</ul>
   </section>`;
 };
@@ -155,7 +155,8 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
   const isThis = (c) => (c.id === f.id ? "is-this" : "");
   const giftOn = f.brand === "Motocaddy";
   const freeNext = first.price >= val("delivery.nextDayFreeThreshold");
-  const vjson = (v) => esc(JSON.stringify({ battery: v.battery, holes: v.holes, price: v.price, member: member(v.price), third: pence(v.price / 3), stock: vStock(v), handle: v.handle }));
+  const vjson = (v) => esc(JSON.stringify({ battery: v.battery, holes: v.holes, price: v.price, member: member(v.price), third: pence(v.price / 3), stock: vStock(v), max: v.stock > 0 ? v.stock : null, handle: v.handle }));
+  const out = s.stock.state === "out";
   const listHref = to("Electric trolleys") === "#" ? "v2-trolleys.html" : to("Electric trolleys");
   return page(`${full} electric golf trolley | Evolution Golf`, html`<main id="v-main" class="v" data-product="${f.id}" data-name="${esc(full)}" data-image="${cut(f.image, 400)}">
   ${crumbs([["Home", to("Home")], ["Trolleys", to("Trolleys")], ["Electric trolleys", listHref], [full, "#"]])}
@@ -179,21 +180,23 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
 
       <div class="v-price">
         <p class="v-price__now" data-price>${gbp(first.price, { pence: true })}</p>
-        <p class="v-price__mem"><span class="v-promise__eg" aria-hidden="true">EG</span><span>Annual members: <strong data-member>${gbp(member(first.price), { pence: true })}</strong> using your monthly ${q("membership.memberDiscountPercent")}% off. ${L("Join for £36")}</span></p>
-        <p class="v-price__fin">Or 3 interest-free payments of <span data-third>${gbp(pence(first.price / 3), { pence: true })}</span> with Klarna or Clearpay. <span class="q" title="To be confirmed: finance wording must use the providers’ approved text">Wording to be confirmed with providers</span>.</p>
+        ${out ? "" : html`<p class="v-price__mem"><span class="v-promise__eg" aria-hidden="true">EG</span><span>Annual members: <strong data-member>${gbp(member(first.price), { pence: true })}</strong> using your monthly ${q("membership.memberDiscountPercent")}% off. ${L("Join for £36")}</span></p>
+        <p class="v-price__fin">Or 3 interest-free payments of <span data-third>${gbp(pence(first.price / 3), { pence: true })}</span> with Klarna or Clearpay. <span class="q" title="To be confirmed: finance wording must use the providers’ approved text">Wording to be confirmed with providers</span>.</p>`}
       </div>
 
 
-      <div class="v-actions"><button type="button" class="p-btn v-atb" data-add>${vStock(first) === "out" ? "Email me when it’s back" : "Add to basket"}</button><button type="button" class="v-collect" data-add="collect">Or click and collect from our Hampshire showroom</button></div>
-      <p class="v-added" data-added role="status" hidden></p>
-
-      ${giftOn ? html`<fieldset class="v-gift"><legend>Choose your free accessory</legend>
+      ${giftOn && !out ? html`<fieldset class="v-gift v-gift--compact"><legend>Your free accessory</legend>
         ${["Gift option 1", "Gift option 2", "Gift option 3"].map((g, i) => `<label class="v-gift__opt${i === 0 ? " is-on" : ""}"><input type="radio" name="gift" value="${g}"${i === 0 ? ' checked=""' : ""}><span class="q" title="To be confirmed: gift list comes from the free-gift app">${g}</span></label>`).join("")}
         <p class="v-fnote">${q("offers.trolleyGift")}</p>
       </fieldset>` : ""}
+      <div class="v-actions"><button type="button" class="p-btn v-atb" data-add>${vStock(first) === "out" ? "Email me when it’s back" : "Add to basket"}</button><button type="button" class="v-collect" data-add="collect">Or click and collect from our Hampshire showroom</button></div>
+      <p class="v-added" data-added role="status" hidden></p>
+
+      ${out ? similarInStock(f) : ""}
 
       <ul class="v-assure">
-        <li>${ic.truck}<span>${freeNext ? "<strong>Free next-day UK delivery.</strong>" : `<strong>Next-day UK delivery</strong> ${gbp(val("delivery.nextDayPrice"), { pence: true })}, free over ${gbp(val("delivery.nextDayFreeThreshold"))}.`} Order by ${esc(val("delivery.nextDayCutoff"))} on a weekday<span data-cutoff></span>.</span></li>
+        ${s.stock.state === "in" ? `<li>${ic.truck}<span>${freeNext ? "<strong>Free next-day UK delivery.</strong>" : `<strong>Next-day UK delivery</strong> ${gbp(val("delivery.nextDayPrice"), { pence: true })}, free over ${gbp(val("delivery.nextDayFreeThreshold"))}.`} Order by ${esc(val("delivery.nextDayCutoff"))} on a weekday<span data-cutoff></span>.</span></li>`
+          : s.stock.state === "order" ? `<li>${ic.truck}<span><strong>Available to order.</strong> Dispatch time ${qt("to be confirmed", "Supplier dispatch time for items available to order")}; free UK delivery over ${gbp(val("delivery.guestFreeThreshold"))}.</span></li>` : ""}
         ${f.warranty ? `<li><span class="v-promise__eg" aria-hidden="true">✓</span><span><strong>Warranty:</strong> ${esc(f.warranty)}.</span></li>` : ""}
         <li><span class="v-promise__eg" aria-hidden="true">↩</span><span><strong>Returns:</strong> ${qt("policy for every customer to be confirmed", "Owner to supply the standard returns policy for all customers (today only the Annual member perk is written down)")}.</span></li>
         <li><span class="v-promise__eg" aria-hidden="true">£</span><span><strong>${esc(facts.pricePromise.short)}.</strong> ${L("How it works")}</span></li>
@@ -207,8 +210,6 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
     </section>
   </div>
 
-  ${s.stock.state === "out" ? similarInStock(f) : ""}
-
   ${d.highlights.length ? html`<section class="v-sec" aria-labelledby="v-hl"><h2 id="v-hl">Highlights</h2>
     <ul class="v-hl">${d.highlights.map(([h, p, img]) => `<li><img src="${cut(img, 400)}" alt="" width="400" height="400" loading="lazy"><h3>${esc(h)}</h3><p>${esc(p)}</p></li>`).join("")}</ul>
     <div class="v-video" role="img" aria-label="Product video placeholder"><span aria-hidden="true">▶</span><span class="q" title="To be confirmed: product video">Product video: the ${esc(f.name)} on the course</span></div>
@@ -216,14 +217,13 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
 
   <section class="v-sec v-specs-wrap" aria-labelledby="v-sp"><h2 id="v-sp">Specifications</h2>
     <dl class="v-specs">${d.specs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
-    ${catalogue.productDetail[id] ? "" : `<p class="v-fnote">Full specifications for this model still need adding to the product data.</p>`}
   </section>
 
   ${cmp.length > 1 ? html`<section class="v-sec" aria-labelledby="v-cm"><h2 id="v-cm">Compare with similar trolleys</h2>
     <div class="v-cmp-wrap" tabindex="0" role="region" aria-label="Comparison table, scrolls sideways"><table class="v-cmp">
       <thead><tr><th scope="col"><span class="sr">Spec</span></th>${cmp.map((c) => `<th scope="col" class="${isThis(c)}"><img src="${cut(c.image, 400)}" alt="" width="400" height="400" loading="lazy">${c.id === f.id ? `<span>${esc(c.name)}</span>` : `<a href="${c.href}"><span>${esc(c.name)}</span></a>`}<small>${c.id === f.id ? "This trolley" : "&nbsp;"}</small></th>`).join("")}</tr></thead>
       <tbody>
-        <tr><th scope="row">From</th>${cmp.map((c) => `<td class="${isThis(c)}">${gbp(S(c).from)}</td>`).join("")}</tr>
+        <tr><th scope="row">Price</th>${cmp.map((c) => `<td class="${isThis(c)}">${S(c).priceFrom ? "From " : ""}${gbp(S(c).price)}</td>`).join("")}</tr>
         <tr><th scope="row">GPS</th>${cmp.map((c) => `<td class="${isThis(c)}">${dot(S(c).gps, "GPS")}</td>`).join("")}</tr>
         <tr><th scope="row">Downhill control</th>${cmp.map((c) => `<td class="${isThis(c)}">${dot(S(c).dhc, "Downhill control")}</td>`).join("")}</tr>
         <tr><th scope="row">Remote</th>${cmp.map((c) => `<td class="${isThis(c)}">${dot(S(c).remote, "Remote")}</td>`).join("")}</tr>
@@ -243,7 +243,7 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
     <p>Call ${phone()} or email ${email()}.</p><p>${L("Near Ringwood? See it in the showroom")}</p>
   </section>
 </main>
-<div class="v-sticky${firstScreen ? " v-sticky--live" : ""}" role="region" aria-label="Quick add to basket" data-sticky><div><strong>${esc(f.name)} · <span data-s-battery>${esc(first.battery)}</span></strong><span data-s-line>${gbp(first.price)} · ${vStockWord[vStock(first)].replace(" · email me", "")}</span></div><button type="button" class="p-btn" data-add>Add to basket</button></div>`);
+<div class="v-sticky${firstScreen ? " v-sticky--live" : ""}" role="region" aria-label="Quick add to basket" data-sticky><div><strong>${esc(f.name)} · <span data-s-battery>${esc(first.battery)}</span></strong><span data-s-line>${gbp(first.price)} · ${vStockWord[vStock(first)].replace(" · email me", "")}</span>${giftOn && !out ? `<span data-s-gift>Free accessory: Gift option 1</span>` : ""}</div><button type="button" class="p-btn" data-add>Add to basket</button></div>`);
 };
 
 /* ---------- test-site pages: basket, checkout, not in this preview, 404 ---------- */
@@ -256,6 +256,12 @@ const previewNote = `<p class="v-preview">Test site: nothing you enter here is s
 export const basket = () => page("Your basket | Evolution Golf", html`<main id="v-main" class="v v-narrow" data-basket-page data-delivery="${delivery()}">
   <header class="v-head"><h1>Your basket</h1></header>
   <div data-basket-list><p>Loading your basket…</p></div>
+  <ul class="v-assure v-assure--basket">
+    <li><span class="v-promise__eg" aria-hidden="true">↩</span><span><strong>Returns:</strong> ${qt("policy for every customer to be confirmed", "Owner to supply the standard returns policy for all customers")}.</span></li>
+    <li><span class="v-promise__eg" aria-hidden="true">£</span><span><strong>${esc(facts.pricePromise.short)}.</strong> Found it cheaper? We’ll look at matching it.</span></li>
+    <li><span class="v-promise__eg" aria-hidden="true">✓</span><span><strong>Secure checkout</strong> with cards, Apple Pay, Google Pay, PayPal, Shop Pay, Klarna and Clearpay.</span></li>
+  </ul>
+  <p class="p-links p-links--left">${L("Continue shopping", to("Electric trolleys"))}</p>
   ${previewNote}
 </main>`);
 
@@ -280,11 +286,13 @@ export const checkout = () => page("Checkout | Evolution Golf", html`<main id="v
         <p class="v-fnote">On the real site this step is Shopify Checkout (cards, Apple Pay, Google Pay, PayPal, Shop Pay, Klarna, Clearpay). The test site stops here.</p>
       </fieldset>
       <p class="v-error" data-error role="alert" hidden></p>
+      <p class="v-co__pay" data-total-inline></p>
       <button type="submit" class="p-btn v-atb">Place order (test only)</button>
     </form>
     <aside class="v-co__sum" aria-label="Order summary" data-summary></aside>
   </div>
-  <section class="v-done" data-done hidden tabindex="-1" aria-labelledby="v-dn"><h2 id="v-dn">Order placed (test only)</h2><p>Thanks. On the real site you’d now get an order confirmation email. Nothing was sent and no payment was taken.</p><p>${L("Back to electric trolleys", to("Electric trolleys"))}</p></section>
+  <section class="v-done" data-done hidden tabindex="-1" aria-labelledby="v-dn"><h2 id="v-dn">Order placed (test only)</h2><p>Thanks. On the real site you’d now get an order confirmation email. Nothing was sent and no payment was taken.</p><div class="v-co__sum" data-recap></div>
+    <h3>While you wait</h3><p class="p-links p-links--left">${L("Build your clubs online", catalogue.clubBuilder.url)}${L("See membership", to("Members"))}${L("Back to electric trolleys", to("Electric trolleys"))}</p></section>
 </main>`);
 
 export const notInPreview = () => page("Not in this preview | Evolution Golf", html`<main id="v-main" class="v v-narrow">

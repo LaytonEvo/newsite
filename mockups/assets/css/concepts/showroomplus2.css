@@ -320,3 +320,6 @@ main { display: grid; gap: 12px; padding-top: 12px; }
 main { grid-template-columns: minmax(0, 1fr); }
 .p-cmp { min-width: 0; }
 .p-cmp__col { position: relative; } /* keeps the visually-hidden "Buy the …" text inside the scroller */
+
+/* cookie choices with equal weight (ICO: rejecting as easy as accepting) */
+.p-cookie button + button { background: var(--green); color: #fff; }

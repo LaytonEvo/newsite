@@ -269,3 +269,51 @@ html { scroll-padding-bottom: 96px; }
 /* desktop buy box: tighter so Add to basket sits above the fold */
 @media (min-width: 1000px) { .v-buy { gap: 12px; } .v-opt__card { min-height: 58px; padding: 10px 16px; } .v-price { padding: 12px 0; } }
 .v-gift { margin-top: 4px; }
+
+/* ===== review round 2b (CRO re-check) ===== */
+.v-giftnote { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; }
+.v-similar { display: grid; gap: 12px; padding: 16px; border-radius: 20px; background: var(--mist); }
+.v-similar h2 { font: 750 22px var(--h); }
+.v-similar .v-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.v-similar .v-card__img { padding: 4px; background: #fff; border-radius: 14px; }
+.v-similar .v-card__name { font-size: 16px; }
+.v-similar .v-card__feat { display: none; }
+.v-similar .v-card__price { font-size: 16px; }
+.v-sticky [data-s-gift] { display: block; font-size: 13px; }
+.v-sticky a.p-btn { text-decoration: none; }
+.v-assure--basket { margin: 24px 0 8px; }
+.v-co__pay { display: flex; justify-content: space-between; font: 750 19px var(--h); }
+.v-co__pay:empty { display: none; }
+.v-done h3 { font: 750 20px var(--h); margin-top: 12px; }
+.v-done .v-co__sum { position: static; max-width: 520px; }
+.v-bl__gift select { min-height: 36px; border-radius: 8px; border: 1.5px solid #cfd8d3; font: 400 14px var(--b); margin-left: 4px; }
+/* anchored landings clear the sticky header (#buy, #grid, #finder) */
+[id] { scroll-margin-top: 72px; }
+@media (min-width: 900px) { .v-co__pay { display: none; } }
+
+/* ===== review round 2c (UX re-check) ===== */
+.v-crumbs a, .v-crumbs span { min-height: 44px; }
+html { scroll-padding-top: 72px; scroll-padding-bottom: 120px; }
+.v-gift--compact { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.v-gift--compact .v-gift__opt { min-height: 48px; padding: 6px; font-size: 14px; }
+.v-gift--compact legend { margin-bottom: 6px; }
+.v-bl__row .v-clear { min-height: 44px; }
+.v-field__err { color: #b3261e; font-size: 14px; font-weight: 700; }
+.v-field__err:empty { display: none; }
+.v-status { font-size: 15px; color: var(--slate); }
+/* desktop buy box: gift sits above the button again, so tighten to keep Add to basket in the first screen */
+@media (min-width: 1000px) {
+  .v-pdp { padding-top: 4px; }
+  .v-buy { gap: 10px; }
+  .v-buy h1 { font-size: clamp(30px, 2.8vw, 40px); }
+  .v-buy__intro { font-size: 16px; line-height: 1.45; }
+  .v-opt__card { min-height: 52px; padding: 8px 16px; }
+  .v-opt legend, .v-gift legend { margin-bottom: 6px; }
+  .v-price { gap: 6px; padding: 10px 0; }
+  .v-price__now { font-size: 32px; }
+  .v-gift--compact .v-gift__opt { min-height: 44px; }
+}
+/* desktop: the sticky bar appears only while the main Add to basket is off screen */
+@media (min-width: 1000px) {
+  .v-sticky.is-needed { display: flex; justify-content: center; gap: 24px; }
+}
