@@ -135,10 +135,10 @@ export const holeMap = () => `<svg class="h-map" viewBox="0 0 1000 320" aria-hid
   <rect width="1000" height="320" rx="0" fill="#f3f5f4"/>
   <path d="M30 300 C260 292 470 304 690 284 S930 270 990 280" fill="none" stroke="#e3e8e5" stroke-width="10" stroke-linecap="round"/>
   <path d="M40 236 C140 170 300 214 430 186 C560 158 620 200 720 170 C800 146 830 96 890 80 C960 64 990 130 950 170 C900 214 820 196 740 224 C620 266 500 222 400 248 C280 276 140 282 70 266 C34 258 24 248 40 236Z" fill="#a7e3c3"/>
-  <ellipse cx="864" cy="98" rx="74" ry="46" fill="#0e4d35"/>
+  <ellipse cx="864" cy="98" rx="74" ry="46" fill="#0a3a28"/>
   <ellipse cx="770" cy="236" rx="46" ry="15" fill="#fff" stroke="#e3e8e5" stroke-width="2"/>
   <ellipse cx="958" cy="60" rx="26" ry="11" fill="#fff" stroke="#e3e8e5" stroke-width="2"/>
-  <rect x="62" y="216" width="46" height="26" rx="6" fill="#0e4d35"/>
+  <rect x="62" y="216" width="46" height="26" rx="6" fill="#0a3a28"/>
   <path d="M90 224 C220 150 330 180 410 186 S620 150 670 148 S820 100 860 96" fill="none" stroke="#16201b" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
   <line x1="872" y1="96" x2="872" y2="44" stroke="#fff" stroke-width="3"/><path d="M872 44 L904 54 L872 64Z" fill="#fff"/>
 </svg>`;
@@ -195,7 +195,7 @@ export const showroomplus2 = {
     rationale: "Owner feedback: fitting was over-weighted for a business that sells across the UK from one bay in Ringwood, and next year’s big pushes are the custom club builder and the members’ area. So v2 keeps Showroom+’s calm, light, one-idea-per-screen structure but changes what the ideas are. The hero names Motocaddy and ‘clubs built for you’ and says ‘delivering across the UK’, not Ringwood. A full dark section sells the online builder with its real steps and live model counts (33 drivers, 21 fairways, 22 hybrids and utility irons, 47 irons), an example build with real spec options, and three routes for anyone unsure of their specs. The members’ section becomes a preview of the members’ area itself, using the perks published on the current members page. Fitting moves to a compact ‘Near Ringwood? Get fitted for free’ band, positioned as one of the ways to get your specs for the builder.",
     structure: "Hero (three links: Motocaddy, build your clubs, join) → Motocaddy compare row → custom club builder (dark, the big push) → members’ area preview with the worked saving and both tiers → Shop the hole (replaces the brand grid: five shots from tee to green, each with buy-or-build) → near-Ringwood fitting band → rest of the shop → footer with a Members column.",
     palette: [
-      { name: "Evolution green", hex: "#0e4d35", use: "EG mark, buttons, footer, step numbers." },
+      { name: "Evolution green", hex: "#0a3a28", use: "EG mark, buttons, footer, step numbers." },
       { name: "Link green", hex: "#0b6b47", use: "Text links (6.6:1 on white)." },
       { name: "Mist", hex: "#f3f5f4", use: "Light tiles." },
       { name: "Ink", hex: "#16201b", use: "Text; the builder section and one grid cell." },

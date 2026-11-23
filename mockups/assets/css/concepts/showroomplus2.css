@@ -4,7 +4,7 @@
 @font-face { font-family: "Atkinson"; src: url("../../fonts/concepts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 @font-face { font-family: "Atkinson"; src: url("../../fonts/concepts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2-variations"); font-weight: 400; unicode-range: U+0030-0039; font-display: swap; }
 @font-face { font-family: "Atkinson"; src: url("../../fonts/concepts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2-variations"); font-weight: 700; unicode-range: U+0030-0039; font-display: swap; } /* Schibsted figures: Atkinson's slashed zero reads oddly in prices and specs */
-:root { --green: #0e4d35; --link: #0b6b47; --mist: #f3f5f4; --ink: #16201b; --slate: #56605b; --fern: #a7e3c3; --h: "Schibsted", "Helvetica Neue", Arial, sans-serif; --b: "Atkinson", Verdana, Arial, sans-serif; --g: 20px; --hair: #e3e8e5; --wrap: 1280px; }
+:root { --green: #0a3a28; --link: #0b6b47; --mist: #f3f5f4; --ink: #16201b; --slate: #56605b; --fern: #a7e3c3; --h: "Schibsted", "Helvetica Neue", Arial, sans-serif; --b: "Atkinson", Verdana, Arial, sans-serif; --g: 20px; --hair: #e3e8e5; --wrap: 1280px; }
 @media (min-width: 900px) { :root { --g: 48px; } }
 * { box-sizing: border-box; }
 body { margin: 0; background: #fff; color: var(--ink); font: 400 17px/1.5 var(--b); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
@@ -233,9 +233,9 @@ main { display: grid; gap: 12px; padding-top: 12px; }
 .h { background: #fff; padding: 64px var(--g) 56px; }
 .h-course { position: relative; max-width: 1180px; margin: 32px auto 0; border-radius: 20px; overflow: hidden; border: 1px solid var(--hair); }
 .h-map { display: block; width: 100%; height: auto; }
-.h-pin { position: absolute; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; border: 2.5px solid #fff; background: var(--green); color: #fff; font: 750 17px/1 var(--h); display: grid; place-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(14,77,53,0.25); transition: transform 150ms; }
+.h-pin { position: absolute; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; border: 2.5px solid #fff; background: var(--green); color: #fff; font: 750 17px/1 var(--h); display: grid; place-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(10,58,40,0.25); transition: transform 150ms; }
 .h-pin:hover { transform: translate(-50%, -50%) scale(1.08); }
-.h-pin[aria-pressed="true"] { background: #fff; color: var(--green); border-color: var(--green); box-shadow: 0 0 0 6px rgba(14,77,53,0.18); }
+.h-pin[aria-pressed="true"] { background: #fff; color: var(--green); border-color: var(--green); box-shadow: 0 0 0 6px rgba(10,58,40,0.18); }
 .h-stops { display: grid; gap: 8px; max-width: 1180px; margin: 16px auto 0; }
 .h-stops button { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 14px; border: 1.5px solid var(--hair); border-radius: 20px; background: #fff; text-align: left; font: 700 16px var(--b); color: var(--ink); cursor: pointer; }
 .h-stops b { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--mist); color: var(--green); font: 750 15px var(--h); }
@@ -492,3 +492,6 @@ main:not(.v) { gap: 0; padding: 0; }
 .h-course--photo .h-pin { background: #fff; color: var(--green); border: 0; box-shadow: 0 6px 18px rgba(0,0,0,0.28); }
 @media (max-width: 899px) { .h-course--photo { aspect-ratio: 3 / 2; } }
 .h-photo--todo { place-items: start; text-align: left; }
+/* original darker brand green (#0a3a28): hover lifts to a lighter green so it stays visible */
+.p-btn:hover { background: #146142; }
+.p-btn--ghost:hover { background: var(--mist); color: var(--green); }
