@@ -242,7 +242,7 @@
     });
     // phones: the finder is a compact card that opens in place
     const fbox = $("[data-finder-box]"), fopen = $("[data-finder-open]");
-    const openFinder = () => { fbox.classList.add("is-open"); fopen.setAttribute("aria-expanded", "true"); $("input", fbox)?.focus(); };
+    const openFinder = () => { fbox.classList.add("is-open"); fopen.setAttribute("aria-expanded", "true"); fbox.scrollIntoView({ block: "start", behavior: "smooth" }); $("input", fbox)?.focus({ preventScroll: true }); };
     const closeFinder = () => { fbox.classList.remove("is-open"); fopen.setAttribute("aria-expanded", "false"); fopen.focus(); };
     fopen?.addEventListener("click", () => (fbox.classList.contains("is-open") ? closeFinder() : openFinder()));
     $("[data-finder-close]")?.addEventListener("click", closeFinder);
@@ -404,7 +404,7 @@
   if (!atb || !bar) return;
   // only once the shopper has scrolled past the main button (declutter review); a scroll check rather than
   // an IntersectionObserver, which misses fast scrolls that jump straight past the button
-  const check = () => bar.classList.toggle("is-needed", atb.getBoundingClientRect().bottom < 0);
+  const check = () => { const r = atb.getBoundingClientRect(); bar.classList.toggle("is-needed", r.bottom < 0 || r.top > innerHeight); };
   addEventListener("scroll", check, { passive: true });
   addEventListener("resize", check);
   check();

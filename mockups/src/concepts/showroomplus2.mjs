@@ -8,7 +8,7 @@ import {
 
 export const chev = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>';
 export const L = (t, href = to(t)) => `<a class="p-l" href="${href}">${t}${chev}</a>`;
-export const dot = (on, label) => on ? `<span class="p-on" aria-label="${label}: yes">●</span>` : `<span class="p-off" aria-label="${label}: no">–</span>`;
+export const dot = (on, label) => on ? `<span class="p-on" aria-hidden="true">●</span><span class="sr">${label}: yes</span>` : `<span class="p-off" aria-hidden="true">–</span><span class="sr">${label}: no</span>`;
 export const ic = {
   search: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5"/></svg>',
   bag: '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 7h11l-.8 10H5.3L4.5 7Z M7.5 7V5.5a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
@@ -26,7 +26,7 @@ export const nav = () => html`<header class="p-nav"><nav aria-label="Main"><ul>
   <li><a class="p-mark" href="${to("Home")}" aria-label="Evolution Golf, home"><span aria-hidden="true">EG</span></a></li>
   ${NAV.map((n) => `<li class="p-nav__item"><a href="${to(n)}">${esc(n)}</a></li>`)}
   <li class="p-nav__push"><a href="#" aria-label="Search">${ic.search}</a></li>
-  <li><a class="p-members" href="${site.routes.Members ?? "#members"}" aria-label="Members’ area">${ic.user}<span>Members</span></a></li>
+  <li><a class="p-members" href="${site.routes.Members ?? "#members"}" aria-label="Membership and members’ area">${ic.user}<span>Members</span></a></li>
   <li><a href="${to("Basket")}" class="p-basket" aria-label="Basket, 0 items" data-basket>${ic.bag}<span class="p-basket__n" data-basket-n hidden></span></a></li><li class="p-nav__menu"><button type="button" class="p-nav__btn" aria-label="Menu" aria-expanded="false" aria-controls="p-menu" data-menu>${ic.menu}</button></li>
 </ul><ul class="p-menu" id="p-menu" hidden>${NAV.map((n) => `<li><a href="${to(n)}">${esc(n)}</a></li>`).join("")}</ul></nav></header>
 <p class="p-ribbon" role="region" aria-label="Delivery offer">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))} · order by ${esc(val("delivery.nextDayCutoff"))}</p>`;
@@ -36,6 +36,7 @@ const hero = () => html`<section class="p-tile p-tile--hero" aria-labelledby="p-
     <h1 id="p-h1">Motocaddy trolleys.<br>Clubs built for you.</h1>
     <p class="p-sub">The 2026 Motocaddy range from ${gbp(Math.min(...allTrolleys().map((f) => spec(f).price)))}, and custom clubs built online. Delivered across the UK.</p>
     <p class="p-hero__cta"><a class="p-btn p-btn--l" href="${site.routes["Electric trolleys"] ?? "#compare"}">Shop electric trolleys</a>${L("Build your clubs", "#build")}</p>
+    <p class="p-hero__proof">Rated ${q("trustpilot.rating")} on Trustpilot from ${q("trustpilot.reviewCount")} reviews · ${L("Read reviews")}</p>
   </div>
   <div class="p-media p-hero2">
     <img class="p-hero2__t" src="${cut("m5-gps-dhc-highangle")}" alt="Motocaddy M5 GPS DHC electric trolley" width="800" height="800" fetchpriority="high">
@@ -98,7 +99,7 @@ const members = () => { const s = saving(); return html`<section class="p-tile p
         <tr><th>Annual membership</th><td>+${gbp(s.fee, { pence: true })}</td></tr>
         <tr class="p-sum__t"><th>Better off on one order</th><td>${gbp(s.net, { pence: true })}</td></tr>
       </table>
-      <div class="p-tiers">${tiers.map((t) => html`<div><h3>${esc(t.name)} <span>${t.price ? esc(t.priceLabel) + " a year" : "Free"}</span></h3><ul>${t.perks.map((p) => `<li>${perk(p.text)}</li>`)}</ul></div>`)}</div>
+      <div class="p-tiers">${tiers.map((t) => html`<div><h3>${esc(t.name)} <span>${t.price ? esc(t.priceLabel) + " a year" : "£0, no fee"}</span></h3><ul>${t.perks.map((p) => `<li>${perk(p.text)}</li>`)}</ul></div>`)}</div>
     </div>
   </div>
 </section>`; };
@@ -161,13 +162,12 @@ const fit = () => html`<section class="p-near" id="fit" aria-labelledby="p-ft">
 const more = () => html`<section class="p-more" aria-labelledby="p-mo">
   <h2 id="p-mo">Also in the shop</h2>
   <ul>${secondary.filter((c) => c.name !== "Approved used").map((c) => `<li><a href="#">${c.img ? `<img src="${cut(c.img, 400)}" alt="" width="400" height="400" loading="lazy">` : `<span class="p-more__blank" aria-hidden="true"></span>`}<span>${esc(c.name)}</span></a></li>`).join("")}</ul>
-  <p class="p-more__note">Rated ${q("trustpilot.rating")} on Trustpilot from ${q("trustpilot.reviewCount")} reviews. ${L("Read reviews")}</p>
 </section>`;
 
 export const footer = () => html`<footer class="p-foot">
   <div class="p-foot__top">
     <div class="p-foot__brand"><span class="p-mark p-mark--inv" aria-hidden="true"><span>EG</span></span><p>Motocaddy trolleys, custom-built clubs and a members’ club, delivered across the UK.</p></div>
-    ${[["Shop", ["Electric trolleys", "Build custom clubs", "Golf clubs", "Bags", "Balls, GPS & accessories", "Approved used", "Clothing & shoes"]], ["Members", ["Join free", "Annual membership", "Members’ area log-in", "Prize draw T&Cs", "Trade-in"]], ["Help", ["Delivery & returns", "Contact us", "Help & FAQs", facts.pricePromise.short, "Klarna & Clearpay", "Custom fitting in Hampshire", "Buying guides", "About us"]]].map(([h, items]) => `<details class="p-foot__col" open><summary><h2>${h}</h2></summary><ul>${items.map((x) => `<li><a href="${to(x)}">${esc(x)}</a></li>`).join("")}</ul></details>`).join("")}
+    ${[["Shop", ["Electric trolleys", "Build custom clubs", "Golf clubs", "Bags", "Balls, GPS & accessories", "Approved used", "Clothing & shoes"]], ["Members", ["Join free", "Annual membership", "Members’ area log-in", "Prize draw T&Cs", "Trade-in"]], ["Help", ["Delivery & returns", "Contact us", "Help & FAQs", facts.pricePromise.short, "Klarna & Clearpay", "Custom fitting in Hampshire", "Buying guides", "About us"]]].map(([h, items]) => `<details class="p-foot__col${h === "Help" ? " p-foot__col--keep" : ""}" open><summary><span class="p-foot__h">${h}</span><span class="p-foot__i" aria-hidden="true"></span></summary><ul>${items.map((x) => `<li><a href="${to(x)}">${esc(x)}</a></li>`).join("")}</ul></details>`).join("")}
     <form class="p-news" action="#"><h2>Newsletter</h2><p>New-season launches and member offers. Monthly at most.</p><label class="sr" for="p-e">Email address</label><div><input id="p-e" type="email" placeholder="Email address" autocomplete="email"><button type="submit">Sign up</button></div><label class="p-check"><input type="checkbox"> Email me news and offers. Unsubscribe any time.</label></form>
   </div>
   <div class="p-foot__base"><p>Showroom and fitting centre: ${q("business.address")} · ${hours().join(" · ")} · ${phone()} · ${email()}</p><p>${companyLine()} · ${q("dealers.motocaddy")} · Pay with ${payments.join(", ")}</p><p><a href="#">Privacy</a> · <a href="#">Cookies</a> · <a href="#">Terms</a> · <a href="#">Accessibility</a></p><p>${placeholderNote} Finance wording to be confirmed with Klarna and Clearpay.</p></div>

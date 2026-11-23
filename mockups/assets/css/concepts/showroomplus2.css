@@ -372,3 +372,13 @@ main { grid-template-columns: minmax(0, 1fr); }
 .p-sub { font-size: clamp(17px, 1.3vw, 19px); }
 .p-more__note { display: block !important; text-align: center; }
 .p-more__note .p-l { display: inline-flex; min-height: 32px; margin-left: 6px; }
+
+.p-hero__proof { margin-top: 14px; font-size: 15px; color: var(--slate); }
+.p-hero__proof .p-l { display: inline-flex; min-height: 32px; font-size: 15px; }
+
+.p-foot__h { font: 700 14px var(--b); color: var(--fern); }
+.p-foot__col summary::after { content: none !important; }
+.p-foot__i::before { content: "+"; color: var(--fern); font-size: 22px; }
+.p-foot__col[open] .p-foot__i::before { content: "–"; }
+@media (min-width: 900px) { .p-foot__i { display: none; } }
+@media (min-width: 900px) { .p-foot__col summary { min-height: 28px; } }

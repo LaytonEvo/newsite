@@ -373,6 +373,16 @@ main { grid-template-columns: minmax(0, 1fr); }
 .p-more__note { display: block !important; text-align: center; }
 .p-more__note .p-l { display: inline-flex; min-height: 32px; margin-left: 6px; }
 
+.p-hero__proof { margin-top: 14px; font-size: 15px; color: var(--slate); }
+.p-hero__proof .p-l { display: inline-flex; min-height: 32px; font-size: 15px; }
+
+.p-foot__h { font: 700 14px var(--b); color: var(--fern); }
+.p-foot__col summary::after { content: none !important; }
+.p-foot__i::before { content: "+"; color: var(--fern); font-size: 22px; }
+.p-foot__col[open] .p-foot__i::before { content: "–"; }
+@media (min-width: 900px) { .p-foot__i { display: none; } }
+@media (min-width: 900px) { .p-foot__col summary { min-height: 28px; } }
+
 /* ===== v2 page templates: collection + product (appended to showroomplus2.css) ===== */
 .v { display: block; padding: 0 var(--g); max-width: 1440px; margin: 0 auto; }
 .v-crumbs ol { display: flex; flex-wrap: wrap; gap: 4px 8px; list-style: none; padding: 16px 0 0; font-size: 14px; color: var(--slate); }
@@ -849,3 +859,14 @@ html { scroll-padding-top: 72px; scroll-padding-bottom: 120px; }
 .v-gift--compact .v-gift__opt:first-of-type { border-radius: 12px 0 0 12px; }
 .v-gift--compact .v-gift__opt:last-of-type { border-radius: 0 12px 12px 0; }
 .v-gift--compact .v-gift__opt:has(input:checked) { border-color: var(--green); }
+
+/* review round 4 (conversion re-check) */
+.v-giftlink { margin-top: -4px; font-size: 15px; }
+.v-giftlink .p-l { min-height: 32px; }
+/* the chosen gift reads as a selection, not a second main button */
+.v-gift--compact .v-gift__opt:has(input:checked) { background: var(--mist); color: var(--ink); border-color: var(--green); box-shadow: inset 0 0 0 1px var(--green); font-weight: 700; }
+
+/* review round 4 (UX re-check) */
+@media (max-width: 999px) { .v-bar { position: static; } } /* a sticky multi-row toolbar covered up to 46% of a phone screen */
+.v-collect--line { display: inline-flex; align-items: center; min-height: 44px; justify-self: start; }
+.v-cmp-wrap { position: relative; } /* keeps the visually-hidden yes/no text inside the scroller */

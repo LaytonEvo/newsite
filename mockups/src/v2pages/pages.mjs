@@ -56,7 +56,7 @@ const card = (f, i) => {
       <span class="v-card__feat">${esc(featsOf(f).length ? featsOf(f).join(" · ") : "Essential controls")}</span>
       <span class="v-card__bat">${esc([...new Set(holesOf(f).map((h) => h.replace(" holes", "")))].join(" or "))} holes${s.weight ? ` · ${s.weight}kg` : ""}</span>
       <span class="v-card__price">${s.priceFrom ? "<small>From</small> " : ""}${gbp(s.price)}</span>
-      <span class="v-card__stock">${stockWord(s.stock)}</span>
+      <span class="v-card__stock">${stockWord(s.stock)}${s.stock.state === "in" && f.variants.length > 1 && f.variants.some((v) => !(v.available && v.stock > 0)) ? ` (${f.variants.filter((v) => v.available && v.stock > 0).map((v) => v.holes.replace(" holes", "-hole")).join(", ")})` : ""}</span>
       ${r.count ? `<span class="v-card__rate"><span aria-hidden="true">★</span> ${r.avg.toFixed(1)} · ${r.count} review${r.count > 1 ? "s" : ""}</span>` : ""}
     </a>
   </li>`;
@@ -84,14 +84,15 @@ export const collection = ({ drawer = false } = {}) => {
   ${crumbs([["Home", to("Home")], ["Trolleys", to("Trolleys")], ["Electric trolleys", "#"]])}
   <header class="v-head">
     <h1>Electric golf trolleys</h1>
-    <p class="v-head__sub">${trolleys.length} models from Motocaddy, NAVEE and Powerbug. Choose a Standard (18-hole) or Ultra (36-hole) battery.</p>
+    <p class="v-head__sub">${trolleys.length} models from Motocaddy, NAVEE and Powerbug. Most Motocaddy models offer a Standard (18-hole) or Ultra (36-hole) battery.</p>
   </header>
   <div class="v-bar" id="grid">
     <button type="button" class="v-bar__help" aria-expanded="false" aria-controls="finder" data-finder-open>Help me choose</button>
     <p class="v-bar__n" aria-live="polite"><strong data-count>${trolleys.length}</strong> trolleys</p>
     <button type="button" class="v-bar__filter" data-open-filters aria-controls="v-filter-sheet">Filters<span data-filter-n></span></button>
-    <label class="v-sort"><span>Sort</span><select data-sort><option value="rec">Recommended</option><option value="low">Price, low to high</option><option value="high">Price, high to low</option><option value="new">Newest</option><option value="rated">Best rated</option></select></label>
+    <label class="v-sort"><span>Sort</span><select data-sort aria-describedby="v-sortnote"><option value="rec">Recommended</option><option value="low">Price, low to high</option><option value="high">Price, high to low</option><option value="new">Newest</option><option value="rated">Best rated</option></select></label>
     <label class="v-toggle"><input type="checkbox" data-instock> In stock only</label>
+    <p class="sr" id="v-sortnote">Out-of-stock models are listed last in every sort order.</p>
     <div class="v-chips" data-chips aria-label="Filters applied"></div>
   </div>
   ${finder()}
@@ -176,16 +177,18 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
       </div>
 
 
-      ${giftOn && !out ? html`<fieldset class="v-gift v-gift--compact"><legend>Your free accessory ${qt("(list TBC)", "Gift list per trolley comes from the free-gift app")}</legend>
+      ${giftOn && !out ? html`<fieldset class="v-gift v-gift--compact"><legend>Your free accessory</legend>
         ${["Gift option 1", "Gift option 2", "Gift option 3"].map((g, i) => `<label class="v-gift__opt${i === 0 ? " is-on" : ""}"><input type="radio" name="gift" value="${g}"${i === 0 ? ' checked=""' : ""}><span>${g}</span></label>`).join("")}
       </fieldset>` : ""}
+      ${giftOn && !out ? `<p class="v-giftlink">Gift list ${qt("to be confirmed", "Gift list per trolley comes from the free-gift app")}${d.bundle ? ` · <a class="p-l" href="#complete">Or see the bag bundle</a>` : ""}</p>` : ""}
       <div class="v-actions"><button type="button" class="p-btn v-atb" data-add>${vStock(first) === "out" ? "Email me when it’s back" : "Add to basket"}</button></div>
+      ${s.stock.state === "in" ? `<button type="button" class="v-collect v-collect--line" data-add="collect">Or add to basket for click and collect in Ringwood</button>` : ""}
       <p class="v-added" data-added role="status" hidden></p>
 
       ${out ? similarInStock(f) : ""}
 
       <ul class="v-assure">
-        ${s.stock.state === "in" ? `<li>${freeNext ? "Free next-day UK delivery" : `Next-day UK delivery ${gbp(val("delivery.nextDayPrice"), { pence: true })}, free over ${gbp(val("delivery.nextDayFreeThreshold"))}`}, order by ${esc(val("delivery.nextDayCutoff"))} on a weekday<span data-cutoff></span> · <button type="button" class="v-collect" data-add="collect">or click and collect</button></li>`
+        ${s.stock.state === "in" ? `<li>${freeNext ? "Free next-day UK delivery" : `Next-day UK delivery ${gbp(val("delivery.nextDayPrice"), { pence: true })}, free over ${gbp(val("delivery.nextDayFreeThreshold"))}`}, order by ${esc(val("delivery.nextDayCutoff"))} on a weekday<span data-cutoff></span></li>`
           : s.stock.state === "order" ? `<li>Available to order: dispatch time ${qt("to be confirmed", "Supplier dispatch time for items available to order")}, free UK delivery over ${gbp(val("delivery.guestFreeThreshold"))}</li>` : ""}
         ${f.warranty ? `<li>Warranty: ${esc(f.warranty)}</li>` : ""}
         ${out ? "" : `<li>Returns: ${qt("policy to be confirmed", "Owner to supply the standard returns policy for all customers (today only the Annual member perk is written down)")} · ${L(facts.pricePromise.short, to(facts.pricePromise.short))}</li>`}
@@ -198,7 +201,7 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
     <ul class="v-hl">${d.highlights.map(([h, p, img]) => `<li><img src="${cut(img, 400)}" alt="" width="400" height="400" loading="lazy"><h3>${esc(h)}</h3><p>${esc(p)}</p></li>`).join("")}</ul>
   </section>` : ""}
 
-  ${d.bundle ? html`<section class="v-sec v-set" aria-labelledby="v-st"><h2 id="v-st">Complete the set</h2>
+  ${d.bundle ? html`<section class="v-sec v-set" id="complete" aria-labelledby="v-st"><h2 id="v-st">Complete the set</h2>
     <div class="v-bundle__row"><img src="${cut(d.bundle.image, 400)}" alt="" width="400" height="400" loading="lazy"><div><strong>${esc(d.bundle.name)}</strong><span>Bought separately ${gbp(d.bundle.items.reduce((n, [, p]) => n + p, 0))} · bundle price ${qt("TBC", "bundle price to be set")}</span>${L("Add the bundle")}</div></div>
   </section>` : ""}
 

@@ -127,7 +127,7 @@ ${site.head}
 <body>
 ${body}
 <script>
-(function(){if(innerWidth<900)document.querySelectorAll('details.p-foot__col').forEach(function(d){d.open=false});if(/shot=1/.test(location.search))document.documentElement.classList.add('is-shot');var c=document.getElementById('cookie');if(!c)return;if(/consent=1/.test(location.search)){c.remove();return;}
+(function(){if(matchMedia('(max-width: 699px)').matches)document.querySelectorAll('details.p-foot__col:not(.p-foot__col--keep)').forEach(function(d){d.open=false});if(/shot=1/.test(location.search))document.documentElement.classList.add('is-shot');var c=document.getElementById('cookie');if(!c)return;if(/consent=1/.test(location.search)){c.remove();return;}
 c.addEventListener('click',function(e){if(e.target.closest('[data-cookie]'))c.remove();});})();
 </script>
 ${site.bodyEnd}

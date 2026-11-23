@@ -474,3 +474,14 @@ html { scroll-padding-top: 72px; scroll-padding-bottom: 120px; }
 .v-gift--compact .v-gift__opt:first-of-type { border-radius: 12px 0 0 12px; }
 .v-gift--compact .v-gift__opt:last-of-type { border-radius: 0 12px 12px 0; }
 .v-gift--compact .v-gift__opt:has(input:checked) { border-color: var(--green); }
+
+/* review round 4 (conversion re-check) */
+.v-giftlink { margin-top: -4px; font-size: 15px; }
+.v-giftlink .p-l { min-height: 32px; }
+/* the chosen gift reads as a selection, not a second main button */
+.v-gift--compact .v-gift__opt:has(input:checked) { background: var(--mist); color: var(--ink); border-color: var(--green); box-shadow: inset 0 0 0 1px var(--green); font-weight: 700; }
+
+/* review round 4 (UX re-check) */
+@media (max-width: 999px) { .v-bar { position: static; } } /* a sticky multi-row toolbar covered up to 46% of a phone screen */
+.v-collect--line { display: inline-flex; align-items: center; min-height: 44px; justify-self: start; }
+.v-cmp-wrap { position: relative; } /* keeps the visually-hidden yes/no text inside the scroller */

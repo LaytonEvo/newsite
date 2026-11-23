@@ -138,3 +138,47 @@ All 12 ranked changes and the four bugs, except where noted.
 | Homepage dotted placeholders in main | 15 | 9 |
 
 axe is clean on every page at 320, 390 and 1440. There is no sideways scrolling, and the earlier journey tests still pass.
+
+## Round 4: both original reviewers re-checked the declutter
+
+Both agreed the pages are calmer. Their keep list:
+- "Help me choose" (correct `aria-expanded`; focus moves in and returns)
+- the in-stock switch with its chip
+- the segmented gift control above the button
+- the short hero
+- three plain lines under Add to basket on desktop
+- cards higher on the collection page (first card now at 441px on phones, was 731px)
+- clean axe results
+
+They also found regressions and new problems, all fixed:
+
+| Problem | Found by | Fix |
+|---|---|---|
+| On phones, no price or Add to basket on the product page's first screen (sticky bar only after scrolling past the button) | Both (high) | The bar shows whenever the main button is off screen, above or below; it hides only while the button is visible |
+| "or click and collect" looked like a link but added the trolley in one tap | Both (high) | Now its own 44px line under the button: "Or add to basket for click and collect in Ringwood" |
+| Sticky collection toolbar covered up to 46% of a phone screen and hid focus | UX (high) | Not sticky below 1000px; the header alone stays sticky |
+| Cards said "In stock" when only one battery was | Both | "In stock (18-hole)" / "In stock (36-hole)" when only one battery is in stock |
+| Lede overstated the battery choice | UX | Back to "Most Motocaddy models offer…" |
+| National proof gone from the hero | Both | The single Trustpilot line now sits under the hero buttons, not at the bottom |
+| Bundle 1,100px below the button | CRO | Quiet "Or see the bag bundle" link beside the gift-list note; the bundle itself stays in one place |
+| Selected gift looked like a second filled button | CRO | Outline with a light tint |
+| Opening "Help me choose" didn't bring the questions into view | CRO | Scrolls to them |
+| Footer disclosures: heading inside summary, "+" read aloud, tablets closed | UX | Plain text in the summary, icon `aria-hidden`; closed only below 700px; Help stays open |
+| Comparison dots announced as "black circle" / "en dash" (12 axe items) | UX | Symbols hidden; "GPS: yes / no" read instead |
+| Out-of-stock always last with no explanation | UX | Sort control described by "Out-of-stock models are listed last in every sort order." |
+| Members pill named "Members' area" but lands on marketing | UX | Accessible name "Membership and members' area" |
+| Tier heading read "Free Free" | UX | "Free · £0, no fee" |
+| "(list TBC)" spoken as part of the gift group's name | UX | Moved to a line under the options |
+
+Two issues caught in my own checks of these fixes, also fixed:
+- **Product page scrolled sideways on phones.** The new hidden yes/no text sat outside the compare table's scroller.
+- **Desktop footer summaries were too small as tap targets.**
+
+Result: axe clean, with no sideways scrolling, on six pages at 320, 390, 768 and 1440. The journey tests still pass.
+
+**Still open**
+- **Compare tray.** The Compare checkboxes came off the cards earlier; they return with a working tray.
+- **"From" prices.** Two-price models don't say "From" on cards, because the card shows the in-stock price.
+- **A/B tests suggested.**
+  - Sticky bar: always available against only after scrolling past the button.
+  - "Help me choose": a toolbar button against a one-line card above the grid.
