@@ -159,6 +159,25 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
   const finMax = val("finance.payIn3Max");
   const tf = catalogue.trolleyFacts?.[id];
   const hours = `${facts.business.hours[0].days}, ${facts.business.hours[0].time}`;
+  const allSpecs = specsOf(f);
+  const foldRow = allSpecs.find(([k]) => k === "Folded size");
+  const weight = allSpecs.find(([k]) => k === "Weight")?.[1];
+  const specRest = allSpecs.filter(([k]) => k !== "Folded size" && k !== "Weight");
+  const keySpecs = specRest.slice(0, 4), restSpecs = specRest.slice(4);
+  const glance = (tf?.rows ?? []).filter(([k]) => k !== "Folded size" && k !== "Weight").slice(0, 6);
+  const folded = d.gallery.find((g) => /fold/.test(g)) ?? null;
+  const story = d.highlights.filter(([, , img]) => !/fold/.test(img));
+  const holes = [...new Set(holesOf(f))];
+  const faq = [
+    ["Which battery should I choose?", f.variants.length > 1
+      ? `<p>${f.variants.map((v) => `${esc(v.battery)}: up to ${esc(v.holes)}, ${gbp(v.price)}`).join(". ")}.</p>${holes.length > 1 ? "<p>The longer-range battery suits you if you play two rounds between charges, or would rather charge less often.</p>" : ""}`
+      : `<p>It comes with the ${esc(f.variants[0].battery)} battery, good for up to ${esc(f.variants[0].holes)}.</p>`],
+    ["When will it arrive?", s.stock.state === "in"
+      ? `<p>In stock: order by ${esc(val("delivery.nextDayCutoff"))} on a weekday for next-day UK delivery, ${first.price >= val("delivery.nextDayFreeThreshold") ? "free on this trolley" : `${gbp(val("delivery.nextDayPrice"), { pence: true })}, free over ${gbp(val("delivery.nextDayFreeThreshold"))}`}.</p>`
+      : `<p>${s.stock.state === "order" ? `Available to order: dispatch time ${qt("to be confirmed", "Supplier dispatch time for items available to order")}.` : "Out of stock right now. Choose “Email me when it’s back” and we’ll let you know."}</p>`],
+    ...(s.stock.state === "in" ? [["Can I collect it instead?", `<p>Yes. Choose click and collect at checkout and pick it up from Ringwood, ${esc(hours)}.</p>`]] : []),
+    ["What warranty does it have?", `<p>${f.warranty ? `${esc(f.warranty)}. ` : ""}${q("warrantyHandling")}.</p>`],
+  ];
   const cmp = d.compare.map(fam);
   const isThis = (c) => (c.id === f.id ? "is-this" : "");
   const giftOn = f.brand === "Motocaddy";
@@ -197,7 +216,7 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
       ${giftOn && !out ? html`<fieldset class="v-gift v-gift--compact"><legend>Your free accessory</legend>
         ${["Gift option 1", "Gift option 2", "Gift option 3"].map((g, i) => `<label class="v-gift__opt${i === 0 ? " is-on" : ""}"><input type="radio" name="gift" value="${g}"${i === 0 ? ' checked=""' : ""}><span>${g}</span></label>`).join("")}
       </fieldset>` : ""}
-      ${giftOn && !out ? `<p class="v-giftlink">Gift list ${qt("to be confirmed", "Gift list per trolley comes from the free-gift app")}${d.bundle ? ` · <a class="p-l" href="#complete">Or see the bag bundle</a>` : ""}</p>` : ""}
+      ${giftOn && !out ? `<p class="v-giftlink">Gift list ${qt("to be confirmed", "Gift list per trolley comes from the free-gift app")}</p>` : ""}
       <div class="v-actions"><button type="button" class="p-btn v-atb" data-add>${vStock(first) === "out" ? "Email me when it’s back" : "Add to basket"}</button></div>
       ${s.stock.state === "in" ? `<button type="button" class="v-collect v-collect--line" data-add="collect">Or add to basket for click and collect in Ringwood</button>` : ""}
       <p class="v-added" data-added role="status" hidden></p>
@@ -211,17 +230,22 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
       </ul>
 
       <section class="v-why" aria-labelledby="v-wy"><h2 id="v-wy">Why buy it from Evolution Golf</h2>
-        <ul>
-          ${f.brand === "Motocaddy" ? `<li>${q("dealers.motocaddy")}</li>` : ""}
-          <li>${q("warrantyHandling")}</li>
-          <li>${q("showroom")}, ${esc(hours)}</li>
-          <li>Returns: ${qt("policy to be confirmed", "Owner to supply the standard returns policy for all customers (today only the Annual member perk is written down)")}</li>
-          <li>${L(facts.pricePromise.short, to(facts.pricePromise.short))}</li>
-        </ul>
+        ${[
+          f.brand === "Motocaddy" ? [q("dealers.motocaddy"), `We sell the ${esc(f.brand)} range as a dealer, so you get the full manufacturer warranty.`] : null,
+          ["Warranty handled by us", `${q("warrantyHandling")}. ${f.warranty ? `Cover: ${esc(f.warranty)}.` : ""}`],
+          ["See it before you buy", `${q("showroom")}, ${esc(hours)}.`],
+          ["Returns", `${qt("Policy to be confirmed", "Owner to supply the standard returns policy for all customers (today only the Annual member perk is written down)")}.`],
+          [esc(facts.pricePromise.short), `Found it cheaper elsewhere? We’ll look at matching it. ${L("How it works", to(facts.pricePromise.short))}`],
+        ].filter(Boolean).map(([t, b]) => `<details class="v-why__i"><summary>${t}</summary><p>${b}</p></details>`).join("")}
       </section>
+      ${d.bundle && !out ? html`<div class="v-set v-set--buy" id="complete"><img src="${cut(d.bundle.image, 400)}" alt="" width="400" height="400" loading="lazy"><div><strong>Complete the set</strong><span>${esc(d.bundle.name)}</span><span>Bought separately ${gbp(d.bundle.items.reduce((n, [, p]) => n + p, 0))} · bundle price ${qt("TBC", "bundle price to be set")}</span>${L("Add the bundle")}</div></div>` : ""}
 
     </section>
   </div>
+
+  ${glance.length ? html`<section class="v-sec v-glance" aria-labelledby="v-gl"><h2 id="v-gl">At a glance</h2>
+    <ul>${glance.map(([k, v]) => `<li><strong>${esc(k)}</strong><span>${esc(v)}</span></li>`).join("")}</ul>
+  </section>` : ""}
 
   ${tf ? html`<section class="v-sec v-fit" aria-labelledby="v-ft"><h2 id="v-ft">Is the ${esc(f.name)} right for you?</h2>
     <div class="v-fit__grid">
@@ -231,25 +255,31 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
     </div>
   </section>` : ""}
 
+
+  ${story.length ? html`<section class="v-story" aria-label="Features">
+    ${story.map(([h, p, img], n) => `<div class="v-story__row"><div class="v-story__media"><img src="${cut(img)}" alt="" width="800" height="800" loading="lazy"></div><div class="v-story__txt"><p class="v-story__n">0${n + 1}</p><h2>${esc(h)}</h2><p>${esc(p)}</p></div></div>`).join("")}
+  </section>` : ""}
+
+  <section class="v-sec v-boot" aria-labelledby="v-bt">
+    <div class="v-boot__media">${folded ? `<img src="${cut(folded)}" alt="${esc(full)} folded" width="800" height="800" loading="lazy">` : `<span class="v-boot__todo">Photo to come: the ${esc(f.name)} folded, ideally in a car boot</span>`}</div>
+    <div class="v-boot__txt">
+      <h2 id="v-bt">Fits in the boot</h2>
+      <dl class="v-boot__big">
+        <div><dt>Folded size</dt><dd>${foldRow ? esc(foldRow[1]) : qt("to be confirmed", "Folded dimensions not in the product description")}</dd></div>
+        <div><dt>Weight</dt><dd>${weight ? esc(weight) : qt("to be confirmed", "Weight not in the product description")}</dd></div>
+      </dl>
+      <dl class="v-specs v-specs--key">${keySpecs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
+      ${restSpecs.length ? html`<details class="v-allspec"><summary>All specifications</summary><dl class="v-specs">${restSpecs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl></details>` : ""}
+    </div>
+  </section>
+
   ${desc ? html`<section class="v-sec v-about" aria-labelledby="v-ab"><h2 id="v-ab">About the ${esc(full)}</h2>
     <p class="v-about__src">Product description from ${esc(f.brand)}</p>
     <div class="v-prose">${desc.intro}</div>
     ${desc.more ? html`<details class="v-about__more"><summary><span class="v-about__open">Read the full description</span><span class="v-about__close">Show less</span></summary><div class="v-prose">${desc.more}</div></details>` : ""}
   </section>` : ""}
 
-  ${d.highlights.length ? html`<section class="v-sec" aria-labelledby="v-hl"><h2 id="v-hl">Highlights</h2>
-    <ul class="v-hl">${d.highlights.map(([h, p, img]) => `<li><img src="${cut(img, 400)}" alt="" width="400" height="400" loading="lazy"><h3>${esc(h)}</h3><p>${esc(p)}</p></li>`).join("")}</ul>
-  </section>` : ""}
-
-  ${d.bundle ? html`<section class="v-sec v-set" id="complete" aria-labelledby="v-st"><h2 id="v-st">Complete the set</h2>
-    <div class="v-bundle__row"><img src="${cut(d.bundle.image, 400)}" alt="" width="400" height="400" loading="lazy"><div><strong>${esc(d.bundle.name)}</strong><span>Bought separately ${gbp(d.bundle.items.reduce((n, [, p]) => n + p, 0))} · bundle price ${qt("TBC", "bundle price to be set")}</span>${L("Add the bundle")}</div></div>
-  </section>` : ""}
-
-  <section class="v-sec v-specs-wrap" aria-labelledby="v-sp"><h2 id="v-sp">Specifications</h2>
-    <dl class="v-specs">${specsOf(f).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
-  </section>
-
-  ${cmp.length > 1 ? html`<section class="v-sec" aria-labelledby="v-cm"><h2 id="v-cm">Compare with similar trolleys</h2>
+  ${cmp.length > 1 ? html`<section class="v-sec v-band" aria-labelledby="v-cm"><h2 id="v-cm">Compare with similar trolleys</h2>
     <div class="v-cmp-wrap" tabindex="0" role="region" aria-label="Comparison table, scrolls sideways"><table class="v-cmp">
       <thead><tr><th scope="col"><span class="sr">Spec</span></th>${cmp.map((c) => `<th scope="col" class="${isThis(c)}"><img src="${cut(c.image, 400)}" alt="" width="400" height="400" loading="lazy">${c.id === f.id ? `<span>${esc(c.name)}</span>` : `<a href="${c.href}"><span>${esc(c.name)}</span></a>`}<small>${c.id === f.id ? "This trolley" : "&nbsp;"}</small></th>`).join("")}</tr></thead>
       <tbody>
@@ -268,7 +298,11 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
     <div class="v-rev__sum"><h2 id="v-rv">Reviews of this trolley</h2><p class="v-rev__n">${r.avg.toFixed(1)}</p><p>from ${r.count} verified review${r.count > 1 ? "s" : ""} of the ${esc(f.name)} on Judge.me.</p>${L(`Read the review${r.count > 1 ? "s" : ""}`)}</div>
   </section>` : ""}
 
-  <section class="v-sec v-help" aria-labelledby="v-qu"><h2 id="v-qu">Talk to a trolley specialist</h2>
+  <section class="v-sec v-band v-faq" aria-labelledby="v-fq"><h2 id="v-fq">Questions</h2>
+    ${faq.map(([qq, a]) => `<details class="v-faq__i"><summary>${esc(qq)}</summary><div>${a}</div></details>`).join("")}
+  </section>
+
+  <section class="v-sec v-help v-close" aria-labelledby="v-qu"><h2 id="v-qu">Talk to a trolley specialist</h2>
     <p>${q("specialist")} on ${phone()} or email ${email()}, ${esc(hours)}. Or come and see the range in Ringwood before you buy.</p>
   </section>
 </main>
