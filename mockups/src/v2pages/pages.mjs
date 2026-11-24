@@ -267,10 +267,10 @@ export const product = ({ id = "m5-gps-dhc", firstScreen = false } = {}) => {
     </div>
   </section>
 
-  ${desc ? html`<section class="v-sec v-about" aria-labelledby="v-ab"><h2 id="v-ab">About the ${esc(full)}</h2>
-    <p class="v-about__src">Product description from ${esc(f.brand)}</p>
-    <div class="v-prose">${desc.intro}</div>
-    ${desc.more ? html`<details class="v-about__more"><summary><span class="v-about__open">Read the full description</span><span class="v-about__close">Show less</span></summary><div class="v-prose">${desc.more}</div></details>` : ""}
+  ${desc ? html`<section class="v-sec v-about" aria-labelledby="v-ab"><div class="v-about__head"><h2 id="v-ab">About the ${esc(full)}</h2>
+    <p class="v-about__src">Product description from ${esc(f.brand)}</p></div>
+    <div class="v-about__body"><div class="v-prose">${desc.intro}</div>
+    ${desc.more ? html`<details class="v-about__more"><summary><span class="v-about__open">Read the full description</span><span class="v-about__close">Show less</span></summary><div class="v-prose">${desc.more}</div></details>` : ""}</div>
   </section>` : ""}
 
   ${cmp.length > 1 ? html`<section class="v-sec v-band" aria-labelledby="v-cm"><h2 id="v-cm">Compare with similar trolleys</h2>
