@@ -31,14 +31,14 @@ export const nav = () => html`<header class="p-nav"><nav aria-label="Main"><ul>
 </ul><ul class="p-menu" id="p-menu" hidden>${NAV.map((n) => `<li><a href="${to(n)}">${esc(n)}</a></li>`).join("")}</ul></nav></header>
 <p class="p-ribbon" role="region" aria-label="Delivery offer">Free next-day UK delivery over ${gbp(val("delivery.nextDayFreeThreshold"))} · order by ${esc(val("delivery.nextDayCutoff"))}</p>`;
 
-const memberCard = () => `<span class="p-mcard" aria-hidden="true"><span class="p-mcard__eg">EG</span><span class="p-mcard__t">Annual member</span><span class="p-mcard__p">£36 a year</span></span>`;
+export const memberCard = () => `<span class="p-mcard" aria-hidden="true"><span class="p-mcard__eg">EG</span><span class="p-mcard__t">Annual member</span><span class="p-mcard__p">£36 a year</span></span>`;
 const hero = () => {
   const from = Math.min(...allTrolleys().map((f) => spec(f).price));
   const models = builder.types.reduce((n, t) => n + t.models, 0);
   const doors = [
     { t: "Motocaddy trolleys", s: `2026 range from ${gbp(from)}`, href: site.routes["Electric trolleys"] ?? "#compare", img: `<img src="${cut("m5-gps-dhc-highangle")}" alt="" width="800" height="800" fetchpriority="high">` },
     { t: "Custom clubs", s: `${models} models, built online`, href: site.routes["Custom clubs"] ?? "#build", img: `<img src="${cut("wilson-staff-model-blade")}" alt="" width="800" height="800">` },
-    { t: "Members’ club", s: "Free, or Annual at £36 a year", href: "#members", img: memberCard() },
+    { t: "Members’ club", s: "Free, or Annual at £36 a year", href: site.routes.Membership ?? "#members", img: memberCard() },
   ];
   return html`<section class="p-tile p-tile--hero" aria-labelledby="p-h1">
   <div class="p-copy">
@@ -117,8 +117,8 @@ const members = () => {
         </tbody>
       </table>
       <div class="mv-cta">
-        <a class="p-btn" href="#">Join ${esc(annual.name)} for ${gbp(s.fee)}</a>
-        <a class="p-btn mv-ghost" href="#">Join free</a>
+        <a class="p-btn" href="${site.routes.Membership ? site.routes.Membership + "#join" : "#"}">Join ${esc(annual.name)} for ${gbp(s.fee)}</a>
+        <a class="p-btn mv-ghost" href="${site.routes.Membership ? site.routes.Membership + "#join" : "#"}">Join free</a>
       </div>
       <p class="mv-c__more">${L("See every perk and the terms")}</p>
     </div>
