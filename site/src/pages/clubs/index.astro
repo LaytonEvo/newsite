@@ -1,0 +1,7 @@
+---
+import "../../lib/setup.mjs";
+import { clubsHub } from "../../../../mockups/src/v2pages/irons.mjs";
+import { docOnly } from "../../lib/emit.mjs";
+const out = docOnly(clubsHub());
+---
+<Fragment set:html={out} />

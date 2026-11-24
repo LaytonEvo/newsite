@@ -92,7 +92,7 @@
       const v = current(); if (!v) return;
       if (v.stock === "out") {
         msg.hidden = false;
-        msg.innerHTML = "On the real site you’d leave your email here and we’d tell you when this battery option is back. <strong>Test site: nothing is sent.</strong>";
+        msg.innerHTML = "On the real site you’d leave your email here and we’d tell you when this option is back. <strong>Test site: nothing is sent.</strong>";
         return;
       }
       const gift = $(".v-gift__opt input:checked")?.value || null;
@@ -107,10 +107,10 @@
         msg.innerHTML = `You already have all ${max} we have in stock in your basket. <a href="/basket/">View basket</a>`;
       } else {
         if (hit) hit.qty += 1;
-        else items.push({ key, id: pdp.dataset.product, name: pdp.dataset.name, battery: v.battery, holes: v.holes, price: v.price, stock: v.stock, max, gift, collect, image: pdp.dataset.image, href: location.pathname, qty: 1 });
+        else items.push({ key, id: pdp.dataset.product, name: pdp.dataset.name, battery: v.battery, holes: v.holes, line: v.line, price: v.price, stock: v.stock, max, gift, collect, image: pdp.dataset.image, href: location.pathname, qty: 1 });
         saveBasket(items);
         const n = already + 1;
-        msg.innerHTML = `Added: ${esc(pdp.dataset.name)}, ${esc(v.battery)} battery${collect ? ", click and collect" : ""}${n > 1 ? ` (${n} in your basket)` : ""}. <a href="/basket/">View basket and check out</a>`;
+        msg.innerHTML = `Added: ${esc(pdp.dataset.name)}, ${esc(v.line || v.battery + " battery")}${collect ? ", click and collect" : ""}${n > 1 ? ` (${n} in your basket)` : ""}. <a href="/basket/">View basket and check out</a>`;
       }
       if (b.closest("[data-sticky]")) {
         b.outerHTML = `<a class="p-btn" href="/basket/">Added ✓ View basket</a>`;
@@ -283,7 +283,7 @@
       const toFreeNext = rates.nextDayFree - sub;
       list.innerHTML = `<ul class="v-bl">${items.map((i, n) => `<li class="v-bl__row">
           <a href="${esc(i.href)}" tabindex="-1" aria-hidden="true"><img src="${esc(i.image)}" alt="" width="96" height="96"></a>
-          <div><a href="${esc(i.href)}"><strong>${esc(i.name)}</strong></a><span>${esc(i.battery)} battery, ${esc(i.holes)}</span>${i.gift ? `<label class="v-bl__gift">Free accessory:<select data-gift="${n}">${["Gift option 1", "Gift option 2", "Gift option 3"].map((g) => `<option${g === i.gift ? " selected" : ""}>${g}</option>`).join("")}</select></label>` : ""}${i.collect ? "<span>Click and collect, Ringwood</span>" : ""}</div>
+          <div><a href="${esc(i.href)}"><strong>${esc(i.name)}</strong></a><span>${esc(i.line || `${i.battery} battery, ${i.holes}`)}</span>${i.gift ? `<label class="v-bl__gift">Free accessory:<select data-gift="${n}">${["Gift option 1", "Gift option 2", "Gift option 3"].map((g) => `<option${g === i.gift ? " selected" : ""}>${g}</option>`).join("")}</select></label>` : ""}${i.collect ? "<span>Click and collect, Ringwood</span>" : ""}</div>
           <label class="v-qty"><span class="sr">Quantity of ${esc(i.name)}</span><select data-qty="${n}">${[1, 2, 3].slice(0, Math.max(1, Math.min(3, i.max || 3))).map((q) => `<option${q === i.qty ? " selected" : ""}>${q}</option>`).join("")}</select></label>
           <strong class="v-bl__p">${gbp(i.price * i.qty)}</strong>
           <button type="button" class="v-clear" data-remove="${n}">Remove<span class="sr"> ${esc(i.name)}</span></button>
@@ -495,4 +495,29 @@
     box.querySelector("[data-calc-note]").textContent = `That’s on this order alone. Annual members get ${pct}% off one order every month.`;
   };
   range.addEventListener("input", update);
+})();
+
+/* iron sets: shaft type, finish, set, shaft and flex choices resolve to one variant */
+(() => {
+  const box = document.querySelector("[data-iron-opts]"); if (!box) return;
+  const all = JSON.parse(box.dataset.ironOpts), keys = ["type", "finish", "set", "shaft", "flex"];
+  const hidden = document.querySelector("[data-variant]");
+  const pick = () => Object.fromEntries(keys.map((k) => [k, box.querySelector(`input[name="io-${k}"]:checked`)?.value]));
+  const apply = (changed) => {
+    const sel = pick();
+    const fits = (v, ks) => ks.every((k) => sel[k] == null || v[k] === sel[k]);
+    // keep the option just changed, then match as many of the others as possible, preferring ones you can buy
+    let best = all.filter((v) => v[changed] === sel[changed]);
+    const score = (v) => keys.reduce((n, k) => n + (v[k] === sel[k] ? 1 : 0), 0) + (v.stock !== "out" ? 0.5 : 0);
+    best = (best.length ? best : all).sort((a, b) => score(b) - score(a))[0];
+    keys.forEach((k) => { const r = box.querySelector(`input[name="io-${k}"][value="${CSS.escape(best[k] ?? "")}"]`); if (r) r.checked = true; });
+    keys.forEach((k) => box.querySelectorAll(`input[name="io-${k}"]`).forEach((r) => {
+      const before = keys.slice(0, keys.indexOf(k)); const ok = all.some((v) => v[k] === r.value && before.every((o) => v[o] === best[o]));
+      r.closest("label").classList.toggle("is-off", !ok);
+    }));
+    hidden.dataset.variant = JSON.stringify(best.v);
+    hidden.dispatchEvent(new Event("change", { bubbles: true }));
+  };
+  box.addEventListener("change", (e) => { const k = e.target.name?.replace("io-", ""); if (keys.includes(k)) apply(k); });
+  apply("set");
 })();

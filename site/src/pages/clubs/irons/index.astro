@@ -1,0 +1,7 @@
+---
+import "../../../lib/setup.mjs";
+import { ironsList } from "../../../../../mockups/src/v2pages/irons.mjs";
+import { docOnly } from "../../../lib/emit.mjs";
+const out = docOnly(ironsList({ drawer: "hidden" }));
+---
+<Fragment set:html={out} />

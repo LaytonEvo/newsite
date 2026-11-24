@@ -1,0 +1,8 @@
+---
+import "../../../lib/setup.mjs";
+import { irons, ironPage } from "../../../../../mockups/src/v2pages/irons.mjs";
+import { docOnly } from "../../../lib/emit.mjs";
+export function getStaticPaths() { return irons.map((f) => ({ params: { slug: f.id } })); }
+const out = docOnly(ironPage(Astro.params.slug));
+---
+<Fragment set:html={out} />

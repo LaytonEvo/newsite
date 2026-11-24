@@ -7,6 +7,7 @@ import { dirname, join } from "node:path";
 import { collection, product } from "./pages.mjs";
 import { customClubs } from "./clubs.mjs";
 import { membership } from "./members.mjs";
+import { clubsHub, ironsList, ironPage } from "./irons.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const out = join(root, "dist/concepts");
@@ -22,6 +23,9 @@ export const PAGES = [
   { slug: "v2-m5-gps-dhc-first", title: "Trolley product page, first screen with sticky bar (phone)", html: product({ firstScreen: true }), only: [390], viewport: true },
   { slug: "v2-custom-clubs", title: "Custom club builder landing", html: customClubs() },
   { slug: "v2-membership", title: "Membership", html: membership() },
+  { slug: "v2-clubs", title: "Clubs hub", html: clubsHub() },
+  { slug: "v2-irons", title: "Irons collection", html: ironsList() },
+  { slug: "v2-iron-0317-cb", title: "PXG 0317 CB irons", html: ironPage("pxg-0317-cb") },
 ];
 for (const p of PAGES) writeFileSync(join(out, `${p.slug}.html`), p.html);
 console.log("built", PAGES.map((p) => p.slug).join(", "));
