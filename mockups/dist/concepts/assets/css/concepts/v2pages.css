@@ -1194,3 +1194,30 @@ html { scroll-padding-top: 72px; scroll-padding-bottom: 120px; }
 @media (min-width: 900px) { .v-rev { grid-template-columns: minmax(0, 1fr); } }
 .v-rev__sum { grid-template-columns: auto; justify-items: start; }
 .v-close { margin-bottom: 72px; }
+
+/* ---------- product page round 7 (UX review of the showcase) ---------- */
+/* one rhythm: 64px between sections on phones, 96px on desktop */
+.v .v-sec, .v .v-story { padding-top: 64px; }
+.v .v-band, .v .v-close { margin-top: 64px; }
+.v .v-band { padding-top: 48px; }
+.v .v-band + .v-close { margin-top: 48px; }
+@media (min-width: 900px) {
+  .v .v-sec, .v .v-story { padding-top: 96px; }
+  .v .v-boot { padding-top: 96px; }
+  .v .v-band, .v .v-close { margin-top: 96px; }
+  .v .v-band + .v-close { margin-top: 56px; }
+  .v .v-band { padding-top: 64px; }
+}
+/* feature rows: equal media, readable copy */
+.v .v-story__txt p:not(.v-story__n) { font-size: 19px; line-height: 1.55; }
+@media (min-width: 900px) { .v-story__row:nth-child(even) { grid-template-columns: minmax(0, 9fr) minmax(0, 11fr); } .v-story__row:nth-child(even) .v-story__txt { order: 1; } }
+@media (max-width: 899px) { .v-story__media { aspect-ratio: 4 / 3; } .v-story { gap: 48px; } }
+/* fits in the boot without a photo: text only */
+.v-boot--text { grid-template-columns: minmax(0, 1fr) !important; }
+.v-boot--text .v-boot__txt { max-width: 820px; }
+.v-allspec[open] summary { margin-bottom: 8px; }
+/* at a glance: 2 x 3 on phones */
+@media (max-width: 899px) { .v-glance ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; } .v-glance li { padding: 12px 0; font-size: 15px; } .v-glance strong { font-size: 15px; } }
+/* tap targets */
+.v-price__mem .p-l, .v-why .p-l, .v-cmp th a, .v-faq__i a { display: inline-flex; align-items: center; min-height: 44px; }
+.v-buy__rate { font-size: 15px; color: var(--slate); }
